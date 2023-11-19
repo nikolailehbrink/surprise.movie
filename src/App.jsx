@@ -6,15 +6,16 @@ import { Button } from "./components/ui/button";
 function App() {
 	const [movie, setMovie] = useState({});
 	const [nextMovie, setNextMovie] = useState(false);
+	const [movieQuery, setMovieQuery] = useState({
+		"vote_average.gte": 7.2,
+		"vote_count.gte": 200,
+	});
 
 	useEffect(() => {
 		async function getMovie() {
 			try {
 				const response = await fetchMovieDb(`discover/movie`, {
-					query: {
-						"vote_average.gte": 7.2,
-						"vote_count.gte": 200,
-					},
+					query: movieQuery,
 				});
 				const { total_pages: totalPages, total_results: totalResults } =
 					response;
@@ -36,8 +37,7 @@ function App() {
 
 				const data = await fetchMovieDb(`discover/movie`, {
 					query: {
-						"vote_average.gte": 7.5,
-						"vote_count.gte": 100,
+						...movieQuery,
 						page: randomPage,
 					},
 				});
