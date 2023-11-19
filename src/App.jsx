@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchMovieDb } from "../helpers/movieDb";
 import Movie from "./components/Movie";
+import { Button } from "./components/ui/button";
 
 function App() {
 	const [movie, setMovie] = useState({});
+	const [nextMovie, setNextMovie] = useState(false);
 
 	useEffect(() => {
 		async function getMovie() {
@@ -17,6 +19,8 @@ function App() {
 				const { total_pages: totalPages, total_results: totalResults } =
 					response;
 
+				console.log({ totalPages, totalResults, response });
+
 				const randomPage = Math.floor(Math.random() * (totalPages - 1) + 1);
 
 				const randomResult = () => {
@@ -26,6 +30,7 @@ function App() {
 					} else {
 						maxResult = Math.floor(Math.random() * (totalResults % 20));
 					}
+					console.log(maxResult);
 					return maxResult;
 				};
 
@@ -36,6 +41,7 @@ function App() {
 						page: randomPage,
 					},
 				});
+				console.log({ randomPage, data });
 
 				setMovie(data.results[randomResult()]);
 			} catch (error) {
@@ -43,9 +49,22 @@ function App() {
 			}
 		}
 		getMovie();
-	}, []);
+		setNextMovie(false);
+	}, [nextMovie]);
 
-	return <>{movie ? <Movie movie={movie} /> : <strong>Laden</strong>}</>;
+	return (
+		<div className="flex flex-col">
+			{Object.keys(movie).length !== 0 ? (
+				<>
+					<Button onClick={() => setNextMovie(true)}>Hallo</Button>
+
+					<Movie movie={movie} />
+				</>
+			) : (
+				<strong>Laden..</strong>
+			)}
+		</div>
+	);
 }
 
 export default App;
