@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchMovieDb } from "../helpers/movieDb";
 import Movie from "./components/Movie";
 import { Button } from "./components/ui/button";
+import toast from "react-hot-toast";
 
 function App() {
 	const [movie, setMovie] = useState({});
@@ -47,7 +48,8 @@ function App() {
 
 			setMovie(data.results[randomResult()]);
 		} catch (error) {
-			console.log(error);
+			console.log(error.data);
+			toast.error(error.data.status_message);
 		}
 	}
 
