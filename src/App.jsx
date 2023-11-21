@@ -3,6 +3,7 @@ import { fetchMovieDb } from "../helpers/movieDb";
 import Movie from "./components/Movie";
 import { Button } from "./components/ui/button";
 import toast from "react-hot-toast";
+import Filter from "./components/Filter";
 
 function App() {
 	const [movie, setMovie] = useState({});
@@ -55,6 +56,7 @@ function App() {
 
 	return (
 		<div className="flex flex-col">
+			<Filter />
 			<Button onClick={getMovie}>Hallo</Button>
 			{Object.keys(movie).length !== 0 ? (
 				<>
