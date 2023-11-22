@@ -8,7 +8,7 @@ import Filter from "./components/Filter";
 function App() {
 	const [movie, setMovie] = useState({});
 	const [movieQuery, setMovieQuery] = useState({
-		"vote_average.gte": 7.2,
+		"vote_average.gte": 7,
 		"vote_count.gte": 200,
 	});
 
@@ -33,6 +33,7 @@ function App() {
 				if (randomPage !== totalPages) {
 					maxResult = Math.floor(Math.random() * 20);
 				} else {
+					// TODO: Fix when there is only one site with exactly 20 results
 					maxResult = Math.floor(Math.random() * (totalResults % 20));
 				}
 				console.log(maxResult);
@@ -56,7 +57,7 @@ function App() {
 
 	return (
 		<div className="flex flex-col">
-			<Filter />
+			<Filter movieQuery={movieQuery} setMovieQuery={setMovieQuery} />
 			<Button onClick={getMovie}>Hallo</Button>
 			{Object.keys(movie).length !== 0 ? (
 				<>
