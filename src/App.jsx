@@ -8,7 +8,7 @@ import Filter from "./components/Filter";
 function App() {
 	const [movie, setMovie] = useState({});
 	const [movieQuery, setMovieQuery] = useState({
-		"vote_average.gte": 7,
+		"vote_average.gte": 8,
 		"vote_count.gte": 200,
 	});
 
@@ -30,11 +30,10 @@ function App() {
 
 			const randomResult = () => {
 				let maxResult = 0;
-				if (randomPage !== totalPages) {
-					maxResult = Math.floor(Math.random() * 20);
-				} else {
-					// TODO: Fix when there is only one site with exactly 20 results
+				if (randomPage === totalPages && totalResults % 20 !== 0) {
 					maxResult = Math.floor(Math.random() * (totalResults % 20));
+				} else {
+					maxResult = Math.floor(Math.random() * 20);
 				}
 				console.log(maxResult);
 				return maxResult;
