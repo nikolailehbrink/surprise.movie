@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { fetchMovieDb } from "../helpers/movieDb";
 import Movie from "./components/Movie";
-import { Button } from "./components/ui/button";
 import toast from "react-hot-toast";
 import Filter from "./components/Filter";
+import { fetchMovieDb } from "./helpers/movieDb";
 
 function App() {
 	const [movie, setMovie] = useState({});
 	const [movieQuery, setMovieQuery] = useState({
-		"vote_average.gte": 8,
+		"vote_average.gte": 7,
 		"vote_count.gte": 200,
 	});
 
@@ -18,7 +17,6 @@ function App() {
 
 	async function getMovie() {
 		try {
-			setMovie({});
 			const response = await fetchMovieDb(`discover/movie`, {
 				query: movieQuery,
 			});
@@ -55,9 +53,12 @@ function App() {
 	}
 
 	return (
-		<div className="flex flex-col">
-			<Filter movieQuery={movieQuery} setMovieQuery={setMovieQuery} />
-			<Button onClick={getMovie}>Hallo</Button>
+		<div className="flex flex-col gap-12">
+			<Filter
+				movieQuery={movieQuery}
+				getMovie={getMovie}
+				setMovieQuery={setMovieQuery}
+			/>
 			{Object.keys(movie).length !== 0 ? (
 				<>
 					<Movie movie={movie} />
