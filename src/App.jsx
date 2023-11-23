@@ -33,12 +33,17 @@ function App() {
 			});
 			const { total_pages: totalPages, total_results: totalResults } = response;
 
+			if (totalResults === 0) {
+				toast.error("No movies found. Try a different filter 🎥");
+				return;
+			}
+
 			console.log({ totalPages, totalResults, response });
 
 			const randomPage = Math.floor(Math.random() * (totalPages - 1) + 1);
 
 			const randomResult = () => {
-				let maxResult = 0;
+				let maxResult;
 				if (randomPage === totalPages && totalResults % 20 !== 0) {
 					maxResult = Math.floor(Math.random() * (totalResults % 20));
 				} else {
