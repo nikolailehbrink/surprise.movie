@@ -1,13 +1,32 @@
+import { useQueryContext } from "@/App";
 import { fetchMovieDb, imageBase } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function StreamingProviderFilter({ movieQuery, setMovieQuery }) {
+export default function StreamingProviderFilter() {
 	const [providers, setProviders] = useState([]);
 	const [selectedProvider, setSelectedProvider] = useState([]);
+	const { movieQuery, setMovieQuery } = useQueryContext();
 
 	useEffect(() => {
+		async function getMovieProviders() {
+			try {
+				const { results } = await fetchMovieDb(`watch/providers/movie`, {
+					query: {
+						watch_region: navigator.language.substring(
+							navigator.language.length - 2
+						),
+					},
+				});
+				const movieProviders = results
+					.sort((a, b) => a.display_priority - b.display_priority)
+					.slice(0, 10);
+				setProviders(movieProviders);
+			} catch (error) {
+				console.log(error);
+			}
+		}
 		getMovieProviders();
 	}, []);
 
@@ -22,13 +41,11 @@ export default function StreamingProviderFilter({ movieQuery, setMovieQuery }) {
 				with_watch_providers: correctQuery,
 			});
 		}
-		console.log(selectedProvider);
 	}, [selectedProvider]);
 
 	function handleProviderCheckbox(e) {
 		const providerId = parseInt(e.target.value);
 		if (!e.target.checked) {
-			// console.log(providerId);
 			const updatedProvider = selectedProvider.filter(
 				(provider) => provider !== providerId
 			);
@@ -38,32 +55,6 @@ export default function StreamingProviderFilter({ movieQuery, setMovieQuery }) {
 		}
 	}
 
-	function handleProviderContextMenu(e) {
-		e.preventDefault();
-		console.log(e);
-		const providerId = parseInt(e.target.value);
-
-		setSelectedProvider([providerId]);
-	}
-
-	// console.log({ movieQuery });
-	async function getMovieProviders() {
-		try {
-			const { results } = await fetchMovieDb(`watch/providers/movie`, {
-				query: {
-					watch_region: navigator.language.substring(
-						navigator.language.length - 2
-					),
-				},
-			});
-			const movieProviders = results
-				.sort((a, b) => a.display_priority - b.display_priority)
-				.slice(0, 10);
-			setProviders(movieProviders);
-		} catch (error) {
-			console.log(error);
-		}
-	}
 	return (
 		<fieldset className="flex shrink-0 flex-wrap border-2 border-white/25 p-3 rounded-3xl">
 			<legend className="px-2 font-bold">
@@ -81,7 +72,6 @@ export default function StreamingProviderFilter({ movieQuery, setMovieQuery }) {
 							type="checkbox"
 							value={provider_id}
 							onChange={handleProviderCheckbox}
-							onContextMenu={handleProviderContextMenu}
 						/>
 						<div
 							className={cn(

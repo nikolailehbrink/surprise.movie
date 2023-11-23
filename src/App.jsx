@@ -1,8 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Movie from "./components/Movie";
 import toast from "react-hot-toast";
 import Filter from "./components/Filter";
 import { fetchMovieDb } from "./helpers/movieDb";
+import { createContext } from "react";
+
+const QueryContext = createContext();
+
+export const useQueryContext = () => {
+	const queryContext = useContext(QueryContext);
+	if (queryContext === undefined) {
+		throw new Error("useQueryContext must be inside a QueryProvider");
+	}
+	return queryContext;
+};
 
 function App() {
 	const [movie, setMovie] = useState({});
@@ -54,11 +65,9 @@ function App() {
 
 	return (
 		<div className="flex flex-col gap-12">
-			<Filter
-				movieQuery={movieQuery}
-				getMovie={getMovie}
-				setMovieQuery={setMovieQuery}
-			/>
+			<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
+				<Filter getMovie={getMovie} />
+			</QueryContext.Provider>
 			{Object.keys(movie).length !== 0 ? (
 				<>
 					<Movie movie={movie} />

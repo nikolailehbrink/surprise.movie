@@ -1,10 +1,12 @@
+import { useQueryContext } from "@/App";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-export default function GenreFilter({ movieQuery, setMovieQuery }) {
+export default function GenreFilter() {
 	const [genres, setGenres] = useState([]);
 	const [selectedGenres, setSelectedGenres] = useState([]);
+	const { movieQuery, setMovieQuery } = useQueryContext();
 
 	useEffect(() => {
 		async function getMovieGenres() {
@@ -42,6 +44,7 @@ export default function GenreFilter({ movieQuery, setMovieQuery }) {
 			setSelectedGenres([...selectedGenres, genreId]);
 		}
 	}
+
 	return (
 		<fieldset className="flex items-start flex-wrap border-2 border-white/25 p-3 rounded-3xl max-w-lg">
 			<legend className="px-2 font-bold">Choose your genres:</legend>
@@ -51,6 +54,7 @@ export default function GenreFilter({ movieQuery, setMovieQuery }) {
 						<input
 							className="peer"
 							type="checkbox"
+							checked={selectedGenres.includes(id)}
 							value={id}
 							onChange={handleGenreCheckbox}
 						/>
