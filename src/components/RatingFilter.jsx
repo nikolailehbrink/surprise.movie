@@ -19,10 +19,11 @@ export default function RatingFilter() {
 				name="rating"
 				id="rating"
 				className="bg-black"
+				defaultValue={7}
 			>
 				{ratings.map((rating, index) => {
 					return (
-						<option value={rating} key={index} selected={rating === 7}>
+						<option value={rating} key={index}>
 							⭐ {rating} and higher
 						</option>
 					);
