@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import Filter from "./components/Filter";
 import { fetchMovieDb } from "./helpers/movieDb";
 import { createContext } from "react";
+// Supports weights 100-900
+import "@fontsource-variable/inter";
 
 const QueryContext = createContext();
 
