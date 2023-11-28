@@ -97,7 +97,6 @@ export default function Navbar() {
 						<ShareFat size={32} weight="duotone" />
 						<span className="max-sm:sr-only">Share</span>
 					</Link>
-					<Info size={32} weight="duotone" />
 				</menu>
 			</nav>
 		</>
