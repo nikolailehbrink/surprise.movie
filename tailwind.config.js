@@ -16,7 +16,23 @@ module.exports = {
 				"2xl": "1400px",
 			},
 		},
+
 		extend: {
+			colors: {
+				blue: {
+					DEFAULT: "#0B8DD8",
+					50: "#F8FCFF",
+					100: "#DBF1FD",
+					200: "#A0D9FA",
+					300: "#66C2F7",
+					400: "#2CABF4",
+					500: "#0B8DD8",
+					600: "#0974B1",
+					700: "#075A8A",
+					800: "#054164",
+					900: "#03283D",
+				},
+			},
 			keyframes: {
 				"accordion-down": {
 					from: { height: 0 },
