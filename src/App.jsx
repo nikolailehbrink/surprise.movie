@@ -17,6 +17,7 @@ import {
 import { Button } from "./components/ui/button";
 import Navbar from "./components/Navbar";
 import { Link, Route } from "wouter";
+import MovieCard from "./components/MovieCard";
 
 const QueryContext = createContext();
 
@@ -92,15 +93,20 @@ function App() {
 	return (
 		<>
 			<Navbar />
-			<Route path="/watchlist">
-				<div className="grid grid-cols-5 gap-2 container flex-grow">
-					{watchlist.map((movie, index) => {
-						return <h1 key={index}>{movie.title}</h1>;
-					})}
-				</div>
-			</Route>
-			<Route path="/">
-				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
+			<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
+				<Route path="/watchlist">
+					<div className="grid grid-cols-5 gap-4 container content-center flex-grow">
+						{watchlist.map((movie, index) => (
+							<MovieCard
+								key={index}
+								movie={movie}
+								watchlist={watchlist}
+								setWatchlist={setWatchlist}
+							/>
+						))}
+					</div>
+				</Route>
+				<Route path="/">
 					<h1 className="text-transparent text-4xl text-center font-extralight bg-gradient-to-l from-white to-white/70 bg-clip-text">
 						Discover your next favorite movie
 					</h1>
@@ -115,53 +121,11 @@ function App() {
 								?
 							</span>
 						</div>
-						<div className="aspect-[2/3] relative rounded-3xl group overflow-hidden bg-neutral-900 flex items-center justify-center border-2 border-white shadow-2xl shadow-white/30">
-							{Object.keys(movie).length !== 0 ? (
-								<>
-									<div className="absolute sm:translate-y-full transition-transform duration-500 sm:group-hover:translate-y-0 inset-0 top-1/2 bg-gradient-to-t from-black via-black via-50% to-transparent"></div>
-									<div className="absolute sm:translate-y-[calc(100%_+_2rem)] transition-transform duration-500 sm:group-hover:translate-y-0 bottom-4 left-4 right-4 flex gap-3 flex-col">
-										<h2 className="font-bold leading-tight ">{movie.title}</h2>
-										<div className="flex gap-2 justify-between items-center flex-wrap">
-											<p className="text-sm">
-												<span className="text-xl font-bold">
-													{" "}
-													{movie.vote_average}
-												</span>
-												/10
-											</p>
-											<div className="flex gap-2">
-												<Link href="/movie/:id">
-													<Button variant="outline" className="text-sm h-full">
-														Details
-													</Button>
-												</Link>
-												<Button
-													onClick={() => {
-														setWatchlist([...watchlist, movie]);
-														console.log(watchlist);
-													}}
-													size="icon"
-													variant="outline"
-												>
-													<Heart size={24} weight="duotone" />
-												</Button>
-											</div>
-										</div>
-									</div>
-									<img
-										className="aspect-[inherit] object-cover self-stretch"
-										src={`${imageBase}/w780/${movie.poster_path}`}
-										alt=""
-									/>
-								</>
-							) : (
-								<>
-									<span className="text-[100px] animate-pulse xl:text-[150px] font-extrabold opacity-10">
-										?
-									</span>
-								</>
-							)}
-						</div>
+						<MovieCard
+							movie={movie}
+							watchlist={watchlist}
+							setWatchlist={setWatchlist}
+						/>
 						<div className="aspect-[2/3] lg:justify-self-center hidden lg:h-[95%] rounded-3xl bg-neutral-900 sm:flex items-center justify-center">
 							<span className="text-[100px] xl:text-[150px] font-extrabold opacity-10">
 								?
@@ -207,8 +171,8 @@ function App() {
 					) : (
 						<strong>Laden..</strong>
 					)} */}
-				</div>
-			</Route>
+				</Route>
+			</div>
 
 			<footer className="py-4 container flex gap-6 fill-white items-center justify-center">
 				<svg
