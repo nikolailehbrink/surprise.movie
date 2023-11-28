@@ -16,6 +16,7 @@ import {
 } from "@phosphor-icons/react";
 import { Button } from "./components/ui/button";
 import Navbar from "./components/Navbar";
+import { Link, Route } from "wouter";
 
 const QueryContext = createContext();
 
@@ -33,10 +34,14 @@ function App() {
 		"vote_average.gte": 7,
 		"vote_count.gte": 200,
 	});
+	const [watchlist, setWatchlist] = useState([]);
 
 	useEffect(() => {
 		getMovie();
+		console.log(movie);
 	}, []);
+
+	console.log(watchlist);
 
 	async function getMovie() {
 		try {
@@ -87,6 +92,14 @@ function App() {
 	return (
 		<>
 			<Navbar />
+			<Route path="/watchlist">
+				<div className="grid grid-cols-5 gap-2 container flex-grow">
+					{watchlist.map((movie, index) => {
+						return <h1 key={index}>{movie.title}</h1>;
+					})}
+				</div>
+			</Route>
+			<Route path="/">
 				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
 					<h1 className="text-transparent text-4xl text-center font-extralight bg-gradient-to-l from-white to-white/70 bg-clip-text">
 						Discover your next favorite movie
@@ -123,6 +136,10 @@ function App() {
 													</Button>
 												</Link>
 												<Button
+													onClick={() => {
+														setWatchlist([...watchlist, movie]);
+														console.log(watchlist);
+													}}
 													size="icon"
 													variant="outline"
 												>
@@ -191,6 +208,7 @@ function App() {
 						<strong>Laden..</strong>
 					)} */}
 				</div>
+			</Route>
 
 			<footer className="py-4 container flex gap-6 fill-white items-center justify-center">
 				<svg
