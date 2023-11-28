@@ -156,7 +156,7 @@ function App() {
 								Genres
 							</Button>
 						</div>
-						<Button size="lg">
+						<Button size="lg" onClick={getMovie}>
 							<Popcorn size={32} weight="duotone" />
 							Surprise me!
 						</Button>
