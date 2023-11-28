@@ -1,11 +1,15 @@
-import { HeartHalf, Info, ShareFat } from "@phosphor-icons/react";
-import { Link } from "wouter";
+import { HeartHalf, ShareFat } from "@phosphor-icons/react";
+import { Link, useRoute } from "wouter";
+import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
+	const [match, params] = useRoute("/watchlist");
+
 	return (
 		<>
 			<div className="w-full bg-white/10 blur-3xl -top-8 absolute z-30 h-32"></div>
-			<div className=" bg-gradient-to-b from-black to-transparent inset-0 top-0 fixed h-40 z-10"></div>
+			<div className=" bg-gradient-to-b from-black via-black/50 to-transparent inset-0 top-0 fixed via-60% h-32 z-10"></div>
 			<nav className="container z-50 flex justify-between items-center py-4 sticky top-0">
 				<Link href="/">
 					<a>
@@ -88,10 +92,18 @@ export default function Navbar() {
 						</svg>
 					</a>
 				</Link>
-				<menu className="font-bold flex gap-2 sm:gap-4">
-					<Link href="/watchlist" className="flex items-center gap-2">
-						<HeartHalf size={32} weight="duotone" />
-						<span className="max-sm:sr-only">Watchlist</span>
+				<menu className="font-bold flex gap-2 sm:gap-4 items-center">
+					<Link href="/watchlist">
+						<Button
+							variant="outline"
+							className={cn(
+								"max-sm:border-0 max-sm:bg-transparent",
+								match && "bg-blue"
+							)}
+						>
+							<HeartHalf size={32} weight="duotone" />
+							<span className="max-sm:sr-only">Watchlist</span>
+						</Button>
 					</Link>
 					<Link href="/watchlist" className="flex items-center gap-2">
 						<ShareFat size={32} weight="duotone" />
