@@ -1,7 +1,7 @@
 import { imageBase } from "@/helpers/movieDb";
 import * as Flags from "country-flag-icons/react/3x2";
 
-export default function Movie({
+export default function MovieDetail({
 	movie: {
 		title,
 		poster_path,

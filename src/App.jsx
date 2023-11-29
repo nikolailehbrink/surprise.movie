@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Movie from "./components/Movie";
+import MovieDetail from "./components/MovieDetail";
 import toast from "react-hot-toast";
 import FilterList from "./components/FilterList";
 import { fetchMovieDb } from "./helpers/movieDb";
@@ -139,16 +139,10 @@ function App() {
 							Surprise me!
 						</Button>
 					</div>
-					{/* <QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
-				<Filter getMovie={getMovie} />
-				</QueryContext.Provider>
-				{Object.keys(movie).length !== 0 ? (
-					<>
-					<Movie movie={movie} />
-					</>
-					) : (
-						<strong>Laden..</strong>
-					)} */}
+				</Route>
+
+				<Route path="/movie/:id">
+					<MovieDetail movie={movie} />
 				</Route>
 			</div>
 
