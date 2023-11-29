@@ -1,22 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import Movie from "./components/Movie";
 import toast from "react-hot-toast";
-import { fetchMovieDb, imageBase } from "./helpers/movieDb";
 import FilterList from "./components/FilterList";
+import { fetchMovieDb } from "./helpers/movieDb";
 import { createContext } from "react";
 // Supports weights 100-900
 import "@fontsource-variable/inter";
-import {
-	Calendar,
-	FilmStrip,
-	Heart,
-	Monitor,
-	Popcorn,
-	StarHalf,
-} from "@phosphor-icons/react";
+import { Popcorn } from "@phosphor-icons/react";
 import { Button } from "./components/ui/button";
 import Navbar from "./components/Navbar";
-import { Link, Route } from "wouter";
+import { Route } from "wouter";
 import MovieCard from "./components/MovieCard";
 
 const QueryContext = createContext();
