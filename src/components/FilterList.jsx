@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar, FilmStrip, Monitor, StarHalf } from "@phosphor-icons/react";
 import { useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
+import { cn } from "@/lib/utils";
 
 export default function FilterList() {
 	const minimumYear = 1895;
@@ -28,7 +29,13 @@ export default function FilterList() {
 		<div className="flex gap-4 flex-wrap justify-center">
 			<Popover>
 				<PopoverTrigger asChild>
-					<Button variant="outline" size="lg">
+					<Button
+						className={cn(
+							selectedProvider.length > 0 ? "bg-neutral-800" : "opacity-80"
+						)}
+						variant="outline"
+						size="lg"
+					>
 						<Monitor size={32} weight="duotone" />
 						Streaming
 					</Button>
@@ -45,7 +52,15 @@ export default function FilterList() {
 
 			<Popover>
 				<PopoverTrigger asChild>
-					<Button variant="outline" size="lg">
+					<Button
+						className={cn(
+							beginningYear !== minimumYear || endYear !== currentYear
+								? "bg-neutral-800"
+								: "opacity-80"
+						)}
+						variant="outline"
+						size="lg"
+					>
 						<Calendar size={32} weight="duotone" />
 						Year
 					</Button>
@@ -64,7 +79,13 @@ export default function FilterList() {
 
 			<Popover>
 				<PopoverTrigger asChild>
-					<Button variant="outline" size="lg">
+					<Button
+						className={cn(
+							selectedRating !== 7 ? "bg-neutral-800" : "opacity-80"
+						)}
+						variant="outline"
+						size="lg"
+					>
 						<StarHalf size={32} weight="duotone" />
 						Rating
 					</Button>
@@ -80,7 +101,13 @@ export default function FilterList() {
 
 			<Popover>
 				<PopoverTrigger asChild>
-					<Button variant="outline" size="lg">
+					<Button
+						className={cn(
+							selectedGenres.length > 0 ? "bg-neutral-800" : "opacity-80"
+						)}
+						variant="outline"
+						size="lg"
+					>
 						<FilmStrip size={32} weight="duotone" />
 						Genres
 					</Button>
