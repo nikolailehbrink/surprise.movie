@@ -1,12 +1,12 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import GenreFilter from "./GenreFilter";
 import StreamingProviderFilter from "./StreamingProviderFilter";
 import RatingFilter from "./RatingFilter";
 import YearFilter from "./YearFilter";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar, FilmStrip, Monitor, StarHalf } from "@phosphor-icons/react";
 import { useState } from "react";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 export default function FilterList() {

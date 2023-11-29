@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import MovieDetail from "./components/MovieDetail";
 import toast from "react-hot-toast";
-import FilterList from "./components/FilterList";
+import FilterList from "./components/filter/FilterList";
 import { fetchMovieDb } from "./helpers/movieDb";
 import { createContext } from "react";
 // Supports weights 100-900

@@ -1,5 +1,5 @@
 import { useQueryContext } from "@/App";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { ArrowsLeftRight } from "@phosphor-icons/react";
 
 export default function YearFilter({
