@@ -1,12 +1,14 @@
 import { useQueryContext } from "@/App";
 import { fetchMovieDb, imageBase } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { useEffect } from "react";
 
-export default function StreamingProviderFilter() {
-	const [providers, setProviders] = useState([]);
-	const [selectedProvider, setSelectedProvider] = useState([]);
+export default function StreamingProviderFilter({
+	providers,
+	setProviders,
+	selectedProvider,
+	setSelectedProvider,
+}) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
 
 	useEffect(() => {
@@ -21,7 +23,7 @@ export default function StreamingProviderFilter() {
 				});
 				const movieProviders = results
 					.sort((a, b) => a.display_priority - b.display_priority)
-					.slice(0, 10);
+					.slice(0, 9);
 				setProviders(movieProviders);
 			} catch (error) {
 				console.log(error);
@@ -35,9 +37,7 @@ export default function StreamingProviderFilter() {
 			const correctQuery = selectedProvider.join("|");
 			setMovieQuery({
 				...movieQuery,
-				watch_region: navigator.language.substring(
-					navigator.language.length - 2
-				),
+				watch_region: navigator.language.slice(-2).toUpperCase(),
 				with_watch_providers: correctQuery,
 			});
 		}
@@ -56,38 +56,33 @@ export default function StreamingProviderFilter() {
 	}
 
 	return (
-		<fieldset className="flex shrink-0 flex-wrap border-2 border-white/25 p-3 rounded-3xl">
-			<legend className="px-2 font-bold">
-				Choose your streaming services:
-			</legend>
-			<div className="grid grid-cols-5 self-start gap-3">
-				{providers.map(({ provider_name, provider_id, logo_path }) => (
-					<label
-						key={provider_id}
-						className=" flex justify-self-start rounded cursor-pointer"
+		<div className="grid grid-cols-3 self-start gap-2">
+			{providers.map(({ provider_name, provider_id, logo_path }) => (
+				<label
+					key={provider_id}
+					className=" flex justify-self-start rounded cursor-pointer"
+				>
+					<input
+						className="peer appearance-none"
+						checked={selectedProvider.includes(provider_id)}
+						type="checkbox"
+						value={provider_id}
+						onChange={handleProviderCheckbox}
+					/>
+					<div
+						className={cn(
+							"border-2 p-2 rounded-2xl peer-checked:grayscale-0 peer-checked:border-white",
+							selectedProvider.length > 0 && "grayscale border-white/10 "
+						)}
 					>
-						<input
-							className="peer appearance-none"
-							checked={selectedProvider.includes(provider_id)}
-							type="checkbox"
-							value={provider_id}
-							onChange={handleProviderCheckbox}
+						<img
+							className="rounded-lg h-12 flex"
+							src={`${imageBase}original/${logo_path}`}
+							alt={`Logo ${provider_name}`}
 						/>
-						<div
-							className={cn(
-								"border-2 p-2 rounded-2xl border-white/10 peer-checked:grayscale-0 peer-checked:border-white",
-								selectedProvider.length > 0 && "grayscale"
-							)}
-						>
-							<img
-								className="rounded-lg h-12 flex"
-								src={`${imageBase}original/${logo_path}`}
-								alt={`Logo ${provider_name}`}
-							/>
-						</div>
-					</label>
-				))}
-			</div>
-		</fieldset>
+					</div>
+				</label>
+			))}
+		</div>
 	);
 }

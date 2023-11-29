@@ -1,12 +1,19 @@
 import { useQueryContext } from "@/App";
+import genreIcons from "@/helpers/genreIcons";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { Question } from "@phosphor-icons/react";
+import { useEffect } from "react";
 
-export default function GenreFilter() {
-	const [genres, setGenres] = useState([]);
-	const [selectedGenres, setSelectedGenres] = useState([]);
+export default function GenreFilter({
+	genres,
+	setGenres,
+	selectedGenres,
+	setSelectedGenres,
+}) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
+
+	console.log(genres);
 
 	useEffect(() => {
 		async function getMovieGenres() {
@@ -46,29 +53,28 @@ export default function GenreFilter() {
 	}
 
 	return (
-		<fieldset className="flex items-start flex-wrap border-2 border-white/25 p-3 rounded-3xl max-w-lg">
-			<legend className="px-2 font-bold">Choose your genres:</legend>
-			<div className="flex flex-wrap gap-3">
-				{genres.map(({ id, name }) => (
-					<label key={id} className="gap-1 flex items-center ">
-						<input
-							className="peer"
-							type="checkbox"
-							checked={selectedGenres.includes(id)}
-							value={id}
-							onChange={handleGenreCheckbox}
-						/>
-						<p
-							className={cn(
-								"peer-checked:opacity-100",
-								selectedGenres.length > 0 && "opacity-50"
-							)}
-						>
-							{name}
-						</p>
-					</label>
-				))}
-			</div>
-		</fieldset>
+		<div className="flex flex-wrap gap-2 text-white">
+			{genres.map(({ id, name }) => (
+				<label key={id} className="flex">
+					<input
+						className="peer appearance-none"
+						type="checkbox"
+						checked={selectedGenres.includes(id)}
+						value={id}
+						onChange={handleGenreCheckbox}
+					/>
+					<div
+						className={cn(
+							"peer-checked:opacity-100",
+							selectedGenres.length > 0 && "opacity-50 ",
+							"gap-1 flex items-center border-2 p-2 pr-3 rounded-lg cursor-pointer"
+						)}
+					>
+						{genreIcons[id] || <Question weight="duotone" size={24} />}
+						<p>{name}</p>
+					</div>
+				</label>
+			))}
+		</div>
 	);
 }

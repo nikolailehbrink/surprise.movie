@@ -1,34 +1,54 @@
 import { useQueryContext } from "@/App";
+import { cn } from "@/lib/utils";
+import { Star } from "@phosphor-icons/react";
 
-export default function RatingFilter() {
-	const ratings = [6.5, 7, 7.5, 8];
+export default function RatingFilter({
+	ratings,
+	selectedRating,
+	setSelectedRating,
+}) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
 
 	console.log(movieQuery);
 
 	function handleRatingChange(e) {
-		const selectedRating = parseFloat(e.target.value);
-		const query = { ...movieQuery, "vote_average.gte": selectedRating };
+		const rating = parseFloat(e.target.value);
+		setSelectedRating(rating);
+		const query = { ...movieQuery, "vote_average.gte": rating };
 		setMovieQuery(query);
 	}
 	return (
-		<fieldset className="flex items-start flex-wrap border-2 border-white/25 p-3 rounded-3xl max-w-lg">
-			<legend className="px-2 font-bold">Rating:</legend>
-			<select
-				onChange={handleRatingChange}
-				name="rating"
-				id="rating"
-				className="bg-black"
-				defaultValue={7}
-			>
-				{ratings.map((rating, index) => {
-					return (
-						<option value={rating} key={index}>
-							⭐ {rating} and higher
-						</option>
-					);
-				})}
-			</select>
-		</fieldset>
+		<div className="flex flex-wrap flex-col gap-2 text-white">
+			{ratings.map((rating, index) => {
+				const selected = selectedRating === rating;
+				return (
+					<label key={index} className="flex">
+						<input
+							className="peer appearance-none"
+							type="radio"
+							checked={selected}
+							value={rating}
+							onChange={handleRatingChange}
+						/>
+						<div
+							className={cn(
+								"peer-checked:opacity-100",
+								selectedRating && "opacity-50 ",
+								"gap-1 flex items-center border-2 p-2 pr-3 rounded-lg cursor-pointer"
+							)}
+						>
+							{
+								<Star
+									className={cn(selected && "text-yellow-500")}
+									size={24}
+									weight={"duotone"}
+								/>
+							}{" "}
+							{rating.toFixed(1)} and higher
+						</div>
+					</label>
+				);
+			})}
+		</div>
 	);
 }

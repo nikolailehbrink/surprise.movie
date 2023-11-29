@@ -1,12 +1,15 @@
 import { useQueryContext } from "@/App";
-import { useState } from "react";
+import { Input } from "./ui/input";
+import { ArrowsLeftRight } from "@phosphor-icons/react";
 
-export default function YearFilter() {
-	const minimumYear = 1895;
-	const currentYear = new Date().getFullYear();
-
-	const [beginningYear, setBeginningYear] = useState(minimumYear);
-	const [endYear, setEndYear] = useState(currentYear);
+export default function YearFilter({
+	beginningYear,
+	setBeginningYear,
+	endYear,
+	setEndYear,
+	minimumYear,
+	currentYear,
+}) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
 
 	function handleYearChange(e) {
@@ -22,7 +25,7 @@ export default function YearFilter() {
 			setEndYear(year);
 			query = {
 				...movieQuery,
-				"primary_release_date.gte": `${year}-31-12`,
+				"primary_release_date.lte": `${year}-12-31`,
 			};
 		}
 
@@ -30,24 +33,25 @@ export default function YearFilter() {
 	}
 
 	return (
-		<div className="flex gap-2">
-			<input
-				className="text-black"
+		<div className="flex gap-2 text-white items-center">
+			<Input
+				className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:ring-transparent focus-visible:border-white"
+				type="number"
 				placeholder={minimumYear}
 				value={beginningYear}
-				type="number"
 				name="minYear"
 				id="minYear"
 				min={1895}
 				max={endYear}
 				onChange={handleYearChange}
 			/>
-			<span>-</span>
-			<input
-				className="text-black"
+
+			<ArrowsLeftRight size={24} weight="duotone" className="shrink-0" />
+			<Input
+				className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:ring-transparent focus-visible:border-white"
+				type="number"
 				placeholder="2023"
 				value={endYear}
-				type="number"
 				name="maxYear"
 				id="maxYear"
 				min={beginningYear}

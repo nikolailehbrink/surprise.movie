@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import Movie from "./components/Movie";
 import toast from "react-hot-toast";
-import Filter from "./components/Filter";
 import { fetchMovieDb, imageBase } from "./helpers/movieDb";
+import FilterList from "./components/FilterList";
 import { createContext } from "react";
 // Supports weights 100-900
 import "@fontsource-variable/inter";
@@ -138,24 +138,9 @@ function App() {
 						</div>
 					</div>
 					<div className="flex gap-4 items-center flex-col">
-						<div className="flex gap-4 flex-wrap justify-center">
-							<Button variant="outline" size="lg">
-								<Monitor size={32} weight="duotone" />
-								Streaming
-							</Button>
-							<Button variant="outline" size="lg">
-								<Calendar size={32} weight="duotone" />
-								Year
-							</Button>
-							<Button variant="outline" size="lg">
-								<StarHalf size={32} weight="duotone" />
-								Rating
-							</Button>
-							<Button variant="outline" size="lg">
-								<FilmStrip size={32} weight="duotone" />
-								Genres
-							</Button>
-						</div>
+						<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
+							<FilterList />
+						</QueryContext.Provider>
 						<Button size="lg" onClick={getMovie}>
 							<Popcorn size={32} weight="duotone" />
 							Surprise me!
