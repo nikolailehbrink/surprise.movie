@@ -48,7 +48,7 @@ function App() {
 			const { total_pages: totalPages, total_results: totalResults } = response;
 
 			if (totalResults === 0) {
-				toast.error("No movies found. Try a different filter 🎥");
+				toast.error("No movies found. Try a different filter.");
 				return;
 			}
 
