@@ -1,8 +1,9 @@
 import { useQueryContext } from "@/App";
 import { getCountryCode } from "@/helpers/languageHelper";
-import { fetchMovieDb, imageBase } from "@/helpers/movieDb";
+import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
+import StreamingProviderLabel from "../StreamingProviderLabel";
 
 export default function StreamingProviderFilter({
 	providers,
@@ -68,18 +69,14 @@ export default function StreamingProviderFilter({
 						value={provider_id}
 						onChange={handleProviderCheckbox}
 					/>
-					<div
+					<StreamingProviderLabel
 						className={cn(
-							"border-2 p-2 rounded-2xl peer-checked:grayscale-0 peer-checked:border-white",
-							selectedProvider.length > 0 && "grayscale border-white/10 "
+							"peer-checked:grayscale-0 peer-checked:border-white",
+							selectedProvider.length > 0 && "grayscale border-white/10"
 						)}
-					>
-						<img
-							className="rounded-lg h-12 flex"
-							src={`${imageBase}original/${logo_path}`}
-							alt={`Logo ${provider_name}`}
-						/>
-					</div>
+						logo={logo_path}
+						name={provider_name}
+					/>
 				</label>
 			))}
 		</div>

@@ -14,6 +14,7 @@ import {
 	handleAddToWatchlist,
 	movieInWatchlist,
 } from "@/helpers/watchlistHelper";
+import StreamingProviderLabel from "../StreamingProviderLabel";
 
 export default function MovieDetail({ id, watchlist, setWatchlist }) {
 	const [movie, setMovie] = useState({});
