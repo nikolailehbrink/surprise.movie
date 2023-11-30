@@ -14,6 +14,7 @@ import MovieCard from "./components/MovieCard";
 import Footer from "./components/Footer";
 import Watchlist from "./components/Watchlist";
 import GradientHeading from "./components/GradientHeading";
+import QuestionCard from "./components/QuestionCard";
 
 const QueryContext = createContext();
 
@@ -33,10 +34,10 @@ function App() {
 	});
 	const [watchlist, setWatchlist] = useState([]);
 
-	useEffect(() => {
-		getMovie();
-		console.log(movie);
-	}, []);
+	// useEffect(() => {
+	// 	getMovie();
+	// 	console.log(movie);
+	// }, []);
 
 	console.log(watchlist);
 
@@ -96,31 +97,15 @@ function App() {
 				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
 					<GradientHeading>Discover your next favorite movie</GradientHeading>
 					<div className="grid gap-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 self-stretch justify-center items-center">
-						<div className=" aspect-[2/3] lg:justify-self-end hidden lg:flex lg:h-[90%] rounded-3xl bg-neutral-900 items-center justify-center">
-							<span className="text-[100px]  xl:text-[150px] font-extrabold opacity-10">
-								?
-							</span>
-						</div>
-						<div className=" aspect-[2/3] lg:h-[95%] lg:justify-self-center rounded-3xl bg-neutral-800 hidden sm:flex items-center justify-center">
-							<span className="text-[100px] xl:text-[150px] font-extrabold opacity-10">
-								?
-							</span>
-						</div>
+						<QuestionCard className="hidden lg:flex lg:h-[90%] lg:justify-self-end" />
+						<QuestionCard className="h-[95%] hidden sm:flex justify-self-center" />
 						<MovieCard
 							movie={movie}
 							watchlist={watchlist}
 							setWatchlist={setWatchlist}
 						/>
-						<div className="aspect-[2/3] lg:justify-self-center hidden lg:h-[95%] rounded-3xl bg-neutral-900 sm:flex items-center justify-center">
-							<span className="text-[100px] xl:text-[150px] font-extrabold opacity-10">
-								?
-							</span>
-						</div>
-						<div className="aspect-[2/3] hidden lg:flex lg:h-[90%] rounded-3xl bg-neutral-800 items-center justify-center">
-							<span className="text-[100px] xl:text-[150px] font-extrabold opacity-10">
-								?
-							</span>
-						</div>
+						<QuestionCard className="hidden sm:flex h-[95%] justify-self-center" />
+						<QuestionCard className="hidden lg:flex lg:h-[90%]" />
 					</div>
 					<div className="flex gap-4 items-center flex-col">
 						<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
