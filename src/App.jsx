@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import { Route } from "wouter";
 import MovieCard from "./components/MovieCard";
 import Footer from "./components/Footer";
+import GradientHeading from "./components/GradientHeading";
 
 const QueryContext = createContext();
 
@@ -103,9 +104,7 @@ function App() {
 			</Route>
 			<Route path="/">
 				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
-					<h1 className="text-transparent text-4xl text-center font-extralight bg-gradient-to-l from-white to-white/70 bg-clip-text">
-						Discover your next favorite movie
-					</h1>
+					<GradientHeading>Discover your next favorite movie</GradientHeading>
 					<div className="grid gap-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 self-stretch justify-center items-center">
 						<div className=" aspect-[2/3] lg:justify-self-end hidden lg:flex lg:h-[90%] rounded-3xl bg-neutral-900 items-center justify-center">
 							<span className="text-[100px]  xl:text-[150px] font-extrabold opacity-10">
