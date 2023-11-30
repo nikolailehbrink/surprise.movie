@@ -1,9 +1,9 @@
 import { useQueryContext } from "@/App";
-import genreIcons from "@/helpers/genreIcons";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
-import { Question } from "@phosphor-icons/react";
 import { useEffect } from "react";
+import GenreLabel from "../GenreLabel";
+import genreIconMap from "@/helpers/genreIcons";
 
 export default function GenreFilter({
 	genres,
@@ -12,8 +12,6 @@ export default function GenreFilter({
 	setSelectedGenres,
 }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
-
-	console.log(genres);
 
 	useEffect(() => {
 		async function getMovieGenres() {
@@ -63,16 +61,14 @@ export default function GenreFilter({
 						value={id}
 						onChange={handleGenreCheckbox}
 					/>
-					<div
+					<GenreLabel
 						className={cn(
-							"peer-checked:opacity-100",
-							selectedGenres.length > 0 && "opacity-50 ",
-							"gap-1 flex items-center border-2 p-2 pr-3 rounded-lg cursor-pointer"
+							"peer-checked:opacity-100 cursor-pointer hover:bg-neutral-900",
+							selectedGenres.length > 0 && "opacity-50 "
 						)}
-					>
-						{genreIcons[id] || <Question weight="duotone" size={24} />}
-						<p>{name}</p>
-					</div>
+						id={id}
+						name={name}
+					/>
 				</label>
 			))}
 		</div>
