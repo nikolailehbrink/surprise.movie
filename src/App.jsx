@@ -26,13 +26,32 @@ export const useQueryContext = () => {
 	return queryContext;
 };
 
+function getInitialWatchlist() {
+	try {
+		const data = JSON.parse(localStorage.getItem("watchlist"));
+		return Array.isArray(data) ? data : [];
+	} catch (error) {
+		console.error(error);
+		localStorage.removeItem("watchlist");
+	}
+	return [];
+}
+
 function App() {
 	const [movie, setMovie] = useState({});
 	const [movieQuery, setMovieQuery] = useState({
 		"vote_average.gte": 7,
 		"vote_count.gte": 200,
 	});
-	const [watchlist, setWatchlist] = useState([]);
+	const [watchlist, setWatchlist] = useState(getInitialWatchlist);
+
+	useEffect(() => {
+		try {
+			localStorage.setItem("watchlist", JSON.stringify(watchlist));
+		} catch (error) {
+			console.log(error);
+		}
+	}, [watchlist]);
 
 	// useEffect(() => {
 	// 	getMovie();
@@ -90,9 +109,11 @@ function App() {
 	return (
 		<>
 			<Navbar />
+
 			<Route path="/watchlist">
 				<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
 			</Route>
+
 			<Route path="/">
 				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
 					<GradientHeading>Discover your next favorite movie</GradientHeading>
@@ -124,6 +145,7 @@ function App() {
 					</div>
 				</div>
 			</Route>
+
 			<Route path="/movie/:id">
 				{(params) => (
 					<MovieDetail
