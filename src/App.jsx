@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import { Route } from "wouter";
 import MovieCard from "./components/MovieCard";
 import Footer from "./components/Footer";
+import Watchlist from "./components/Watchlist";
 import GradientHeading from "./components/GradientHeading";
 
 const QueryContext = createContext();
@@ -89,18 +90,7 @@ function App() {
 		<>
 			<Navbar />
 			<Route path="/watchlist">
-				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
-					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-						{watchlist.toReversed().map((movie) => (
-							<MovieCard
-								key={movie.id}
-								movie={movie}
-								watchlist={watchlist}
-								setWatchlist={setWatchlist}
-							/>
-						))}
-					</div>
-				</div>
+				<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
 			</Route>
 			<Route path="/">
 				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
