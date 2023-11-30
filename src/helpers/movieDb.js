@@ -9,6 +9,8 @@ export const fetchMovieDb = ofetch.create({
 	},
 	query: {
 		language: navigator.language,
+		// Otherwise, only images regarding the language from the language parameter would be output.
+		include_image_language: "en",
 	},
 });
 
