@@ -1,4 +1,5 @@
 import { useQueryContext } from "@/App";
+import { getCountryCode } from "@/helpers/languageHelper";
 import { fetchMovieDb, imageBase } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
@@ -16,9 +17,7 @@ export default function StreamingProviderFilter({
 			try {
 				const { results } = await fetchMovieDb(`watch/providers/movie`, {
 					query: {
-						watch_region: navigator.language.substring(
-							navigator.language.length - 2
-						),
+						watch_region: getCountryCode(),
 					},
 				});
 				const movieProviders = results
@@ -37,7 +36,7 @@ export default function StreamingProviderFilter({
 			const correctQuery = selectedProvider.join("|");
 			setMovieQuery({
 				...movieQuery,
-				watch_region: navigator.language.slice(-2).toUpperCase(),
+				watch_region: getCountryCode(),
 				with_watch_providers: correctQuery,
 			});
 		}
