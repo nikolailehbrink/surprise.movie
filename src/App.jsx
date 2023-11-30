@@ -144,6 +144,15 @@ function App() {
 					</div>
 				</div>
 			</Route>
+			<Route path="/movie/:id">
+				{(params) => (
+					<MovieDetail
+						id={params.id}
+						watchlist={watchlist}
+						setWatchlist={setWatchlist}
+					/>
+				)}
+			</Route>
 
 			<Footer />
 		</>
