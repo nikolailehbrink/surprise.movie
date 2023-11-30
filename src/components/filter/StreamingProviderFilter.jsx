@@ -1,36 +1,15 @@
 import { useQueryContext } from "@/App";
 import { getCountryCode } from "@/helpers/languageHelper";
-import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import StreamingProviderLabel from "../StreamingProviderLabel";
 
 export default function StreamingProviderFilter({
 	providers,
-	setProviders,
 	selectedProvider,
 	setSelectedProvider,
 }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
-
-	useEffect(() => {
-		async function getMovieProviders() {
-			try {
-				const { results } = await fetchMovieDb(`watch/providers/movie`, {
-					query: {
-						watch_region: getCountryCode(),
-					},
-				});
-				const movieProviders = results
-					.sort((a, b) => a.display_priority - b.display_priority)
-					.slice(0, 9);
-				setProviders(movieProviders);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		getMovieProviders();
-	}, []);
 
 	useEffect(() => {
 		if (selectedProvider.length > 0) {

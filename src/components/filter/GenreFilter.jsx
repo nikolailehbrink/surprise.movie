@@ -1,34 +1,14 @@
 import { useQueryContext } from "@/App";
-import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import GenreLabel from "../GenreLabel";
-import genreIconMap from "@/helpers/genreIcons";
 
 export default function GenreFilter({
 	genres,
-	setGenres,
 	selectedGenres,
 	setSelectedGenres,
 }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
-
-	useEffect(() => {
-		async function getMovieGenres() {
-			try {
-				let { genres: availableGenres } = await fetchMovieDb(
-					`genre/movie/list`
-				);
-				availableGenres = availableGenres.sort((a, b) =>
-					a.name.localeCompare(b.name)
-				);
-				setGenres(availableGenres);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		getMovieGenres();
-	}, []);
 
 	useEffect(() => {
 		if (selectedGenres.length > 0) {
@@ -64,7 +44,8 @@ export default function GenreFilter({
 					<GenreLabel
 						className={cn(
 							"peer-checked:opacity-100 cursor-pointer hover:bg-neutral-900",
-							selectedGenres.length > 0 && "opacity-50 "
+							selectedGenres.length > 0 &&
+								"opacity-50 hover:opacity-100 hover:border-white/50 peer-checked:hover:border-white"
 						)}
 						id={id}
 						name={name}

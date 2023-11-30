@@ -5,9 +5,11 @@ import RatingFilter from "./RatingFilter";
 import YearFilter from "./YearFilter";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar, FilmStrip, Monitor, StarHalf } from "@phosphor-icons/react";
-import { useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { fetchMovieDb } from "@/helpers/movieDb";
+import { getCountryCode } from "@/helpers/languageHelper";
 
 export default function FilterList() {
 	const minimumYear = 1895;
@@ -24,6 +26,42 @@ export default function FilterList() {
 
 	const ratings = [6.5, 7, 7.5, 8];
 	const [selectedRating, setSelectedRating] = useState(7);
+
+	useEffect(() => {
+		async function getMovieGenres() {
+			try {
+				let { genres: availableGenres } = await fetchMovieDb(
+					`genre/movie/list`
+				);
+				availableGenres = availableGenres.sort((a, b) =>
+					a.name.localeCompare(b.name)
+				);
+				setGenres(availableGenres);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		getMovieGenres();
+	}, []);
+
+	useEffect(() => {
+		async function getMovieProviders() {
+			try {
+				const { results } = await fetchMovieDb(`watch/providers/movie`, {
+					query: {
+						watch_region: getCountryCode(),
+					},
+				});
+				const movieProviders = results
+					.sort((a, b) => a.display_priority - b.display_priority)
+					.slice(0, 9);
+				setProviders(movieProviders);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		getMovieProviders();
+	}, []);
 
 	return (
 		<div className="flex gap-4 flex-wrap justify-center">
@@ -44,7 +82,6 @@ export default function FilterList() {
 					<StreamingProviderFilter
 						providers={providers}
 						selectedProvider={selectedProvider}
-						setProviders={setProviders}
 						setSelectedProvider={setSelectedProvider}
 					/>
 				</PopoverContent>
@@ -116,7 +153,6 @@ export default function FilterList() {
 					<ScrollArea className="h-[20rem]">
 						<GenreFilter
 							genres={genres}
-							setGenres={setGenres}
 							selectedGenres={selectedGenres}
 							setSelectedGenres={setSelectedGenres}
 						/>
