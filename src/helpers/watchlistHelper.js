@@ -7,11 +7,11 @@ export function handleAddToWatchlist(watchlist, setWatchlist, movie) {
 		setWatchlist([...watchlist, movie]);
 		toast.success("Movie added to watchlist.");
 	} else {
-		const updatedWatchlist = watchlist.filter((item) => item !== movie);
+		const updatedWatchlist = watchlist.filter((item) => item.id !== movie.id);
 		setWatchlist(updatedWatchlist);
 		toast.error("Movie removed from watchlist!");
 	}
 }
 
-export const movieInWatchlist = (watchlist, currentMovie) =>
-	watchlist.some((movie) => movie.id === currentMovie.id);
+export const movieInWatchlist = (watchlist, movie) =>
+	watchlist.some((item) => item.id === movie.id);
