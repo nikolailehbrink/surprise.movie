@@ -9,12 +9,13 @@ import "@fontsource-variable/inter";
 import { Popcorn } from "@phosphor-icons/react";
 import { Button } from "./components/ui/button";
 import Navbar from "./components/Navbar";
-import { Route } from "wouter";
+import { Route, Switch } from "wouter";
 import MovieCard from "./components/MovieCard";
 import Footer from "./components/Footer";
 import Watchlist from "./components/Watchlist";
 import GradientHeading from "./components/GradientHeading";
 import QuestionCard from "./components/QuestionCard";
+import NotFound from "./components/NotFound";
 
 const QueryContext = createContext();
 
@@ -110,51 +111,58 @@ function App() {
 		<>
 			<Navbar />
 
-			<Route path="/watchlist">
-				<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
-			</Route>
+			<Switch>
+				<Route path="/watchlist">
+					<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
+				</Route>
 
-			<Route path="/">
-				<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
-					<GradientHeading>Discover your next favorite movie</GradientHeading>
-					<div className="grid gap-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 self-stretch justify-center items-center">
-						<QuestionCard className="hidden lg:flex lg:h-[90%] lg:justify-self-end" />
-						<QuestionCard
-							delay={500}
-							className="h-[95%] hidden sm:flex justify-self-center"
-						/>
-						<MovieCard
-							movie={movie}
+				<Route path="/">
+					<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
+						<GradientHeading>Discover your next favorite movie</GradientHeading>
+						<div className="grid gap-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 self-stretch justify-center items-center">
+							<QuestionCard className="hidden lg:flex lg:h-[90%] lg:justify-self-end" />
+							<QuestionCard
+								delay={500}
+								className="h-[95%] hidden sm:flex justify-self-center"
+							/>
+							<MovieCard
+								movie={movie}
+								watchlist={watchlist}
+								setWatchlist={setWatchlist}
+							/>
+							<QuestionCard
+								delay={1500}
+								className="hidden sm:flex h-[95%] justify-self-center"
+							/>
+							<QuestionCard
+								delay={2000}
+								className="hidden lg:flex lg:h-[90%]"
+							/>
+						</div>
+						<div className="flex gap-4 items-center flex-col">
+							<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
+								<FilterList />
+							</QueryContext.Provider>
+							<Button size="lg" onClick={getMovie}>
+								<Popcorn size={32} weight="duotone" />
+								Surprise me!
+							</Button>
+						</div>
+					</div>
+				</Route>
+
+				<Route path="/movie/:id">
+					{(params) => (
+						<MovieDetail
+							id={params.id}
 							watchlist={watchlist}
 							setWatchlist={setWatchlist}
 						/>
-						<QuestionCard
-							delay={1500}
-							className="hidden sm:flex h-[95%] justify-self-center"
-						/>
-						<QuestionCard delay={2000} className="hidden lg:flex lg:h-[90%]" />
-					</div>
-					<div className="flex gap-4 items-center flex-col">
-						<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
-							<FilterList />
-						</QueryContext.Provider>
-						<Button size="lg" onClick={getMovie}>
-							<Popcorn size={32} weight="duotone" />
-							Surprise me!
-						</Button>
-					</div>
-				</div>
-			</Route>
+					)}
+				</Route>
 
-			<Route path="/movie/:id">
-				{(params) => (
-					<MovieDetail
-						id={params.id}
-						watchlist={watchlist}
-						setWatchlist={setWatchlist}
-					/>
-				)}
-			</Route>
+				<Route path="/:rest*" component={NotFound}></Route>
+			</Switch>
 
 			<Footer />
 		</>
