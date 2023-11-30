@@ -98,14 +98,20 @@ function App() {
 					<GradientHeading>Discover your next favorite movie</GradientHeading>
 					<div className="grid gap-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 self-stretch justify-center items-center">
 						<QuestionCard className="hidden lg:flex lg:h-[90%] lg:justify-self-end" />
-						<QuestionCard className="h-[95%] hidden sm:flex justify-self-center" />
+						<QuestionCard
+							delay={500}
+							className="h-[95%] hidden sm:flex justify-self-center"
+						/>
 						<MovieCard
 							movie={movie}
 							watchlist={watchlist}
 							setWatchlist={setWatchlist}
 						/>
-						<QuestionCard className="hidden sm:flex h-[95%] justify-self-center" />
-						<QuestionCard className="hidden lg:flex lg:h-[90%]" />
+						<QuestionCard
+							delay={1500}
+							className="hidden sm:flex h-[95%] justify-self-center"
+						/>
+						<QuestionCard delay={2000} className="hidden lg:flex lg:h-[90%]" />
 					</div>
 					<div className="flex gap-4 items-center flex-col">
 						<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>

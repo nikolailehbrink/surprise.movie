@@ -63,6 +63,6 @@ export default function MovieCard({
 			/>
 		</div>
 	) : (
-		<QuestionCard className="bg-neutral-800 text-neutral-700" />
+		<QuestionCard delay={1000} className="bg-neutral-800 text-neutral-700" />
 	);
 }

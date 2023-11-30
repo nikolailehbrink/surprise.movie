@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
 
-export default function QuestionCard({ className }) {
+export default function QuestionCard({ delay, className }) {
 	return (
 		<div
+			style={{ animationDelay: delay + "ms" }}
 			className={cn(
 				"h-full flex aspect-[2/3] animate-pulse rounded-3xl bg-neutral-900 text-neutral-800 items-center justify-center",
 				className
