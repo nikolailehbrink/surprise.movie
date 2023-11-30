@@ -8,6 +8,7 @@ import {
 	handleAddToWatchlist,
 	movieInWatchlist,
 } from "@/helpers/watchlistHelper";
+import MovieRating from "./movie-detail/MovieRating";
 
 export default function MovieCard({
 	className,
@@ -33,13 +34,10 @@ export default function MovieCard({
 							<div className="absolute sm:translate-y-full transition-transform duration-500 sm:group-hover:translate-y-0 w-full bottom-0 p-4 flex gap-3 flex-col">
 								<h2 className="font-bold leading-tight ">{movie.title}</h2>
 								<div className="flex gap-2 justify-between items-center flex-wrap">
-									<p className="text-sm">
-										<span className="text-xl font-bold leading-7">
-											{" "}
-											{movie.vote_average.toFixed(1)}
-										</span>
-										/10
-									</p>
+									<MovieRating
+										className="text-sm mb-1"
+										rating={movie.vote_average}
+									/>
 									<div className="flex gap-2">
 										<Link href={`/movie/${movie.id}`}>
 											<Button variant="outline" className="text-sm h-full">
