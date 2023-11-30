@@ -3,8 +3,45 @@ import GradientHeading from "./GradientHeading";
 import MovieCard from "./MovieCard";
 import { Button } from "./ui/button";
 import { Link } from "wouter";
+import QuestionCard from "./QuestionCard";
+import { useEffect, useState } from "react";
+
+const breakpoints = {
+	sm: 640,
+	md: 768,
+	lg: 1024,
+	xl: 1280,
+};
+
+const getNumberOfColumns = (width) => {
+	if (width < breakpoints.sm) return 1;
+	if (width < breakpoints.md) return 2;
+	if (width < breakpoints.lg) return 3;
+	if (width < breakpoints.xl) return 4;
+	return 5;
+};
+
+console.log(getNumberOfColumns);
+
+const calculateNeededCards = (watchlistLength, columns) => {
+	const additionalCards = watchlistLength % columns;
+	return additionalCards === 0 ? 0 : columns - additionalCards;
+};
 
 export default function Watchlist({ watchlist, setWatchlist }) {
+	const [columns, setColumns] = useState(getNumberOfColumns(window.innerWidth));
+
+	useEffect(() => {
+		const handleResize = () => {
+			setColumns(getNumberOfColumns(window.innerWidth));
+		};
+
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
+
+	const neededCards = calculateNeededCards(watchlist.length, columns);
+	console.log(watchlist.length % 5);
 	return (
 		<div className="flex flex-col relative gap-12 sm:gap-12 justify-center container flex-grow sm:items-center py-24">
 			{watchlist.length > 0 ? (
@@ -19,6 +56,9 @@ export default function Watchlist({ watchlist, setWatchlist }) {
 								setWatchlist={setWatchlist}
 							/>
 						))}
+						{Array.from({ length: neededCards }, (_, i) => {
+							return <QuestionCard delay={i * 500} key={i} />;
+						})}
 					</div>
 				</>
 			) : (
