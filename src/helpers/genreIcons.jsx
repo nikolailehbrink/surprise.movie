@@ -42,7 +42,7 @@ const genreIconMap = {
 	// Comedy
 	35: <SmileyWink size={24} weight="duotone" />,
 	// War
-	10752: <Jeep size={32} weight="duotone" />,
+	10752: <Jeep size={24} weight="duotone" />,
 	// Krimi
 	80: <Knife size={24} weight="duotone" />,
 	// Romance
