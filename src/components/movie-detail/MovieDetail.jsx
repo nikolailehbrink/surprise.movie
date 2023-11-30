@@ -1,15 +1,15 @@
 import { fetchMovieDb, imageBase } from "@/helpers/movieDb";
 import { useState } from "react";
-import MovieCard from "./MovieCard";
+import MovieCard from "../MovieCard";
 import { useEffect } from "react";
 import genreIconMap from "@/helpers/genreIcons";
 import { getCountryCode } from "@/helpers/languageHelper";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Heart } from "@phosphor-icons/react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { cn, initials } from "@/lib/utils";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 import {
 	handleAddToWatchlist,
 	movieInWatchlist,

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import MovieDetail from "./components/MovieDetail";
+import MovieDetail from "./components/movie-detail/MovieDetail";
 import toast from "react-hot-toast";
 import FilterList from "./components/filter/FilterList";
 import { fetchMovieDb } from "./helpers/movieDb";
