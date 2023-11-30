@@ -13,11 +13,63 @@ export default function MovieDetailSkeleton() {
 				<Skeleton className="max-w-md w-full h-8" />
 				<Skeleton className="max-w-sm w-full h-11" />
 				<div className="flex flex-col gap-3">
-					<Skeleton className="w-full h-4" />
-					<Skeleton className="w-full h-4" />
-					<Skeleton className="w-full h-4" />
-					<Skeleton className="w-full h-4" />
-					<Skeleton className="w-full h-4" />
+					<Skeleton className="w-full h-3" />
+					<Skeleton className="w-full h-3" />
+					<Skeleton className="w-full h-3" />
+					<Skeleton className="w-full h-3" />
+					<Skeleton className="w-full h-3" />
+					<Skeleton className="w-full h-3" />
+					<Skeleton className="w-full h-3" />
+				</div>
+				<Skeleton className="w-48 h-11" />
+
+				<Skeleton className="w-32 h-3" />
+				<div className="flex gap-2 items-center ">
+					<Skeleton className="w-12 h-12 rounded-full" />
+					<Skeleton className="w-32 h-3" />
+				</div>
+				<Skeleton className="w-32 h-3" />
+				<div className="flex gap-4 items-center flex-wrap">
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-40 h-3" />
+					</div>
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-28 h-3" />
+					</div>
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-32 h-3" />
+					</div>
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-48 h-3" />
+					</div>
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-20 h-3" />
+					</div>
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-20 h-3" />
+					</div>
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-28 h-3" />
+					</div>
+					<div className="flex gap-2 items-center">
+						<Skeleton className="w-12 h-12 rounded-full" />
+
+						<Skeleton className="w-32 h-3" />
+					</div>
 				</div>
 			</div>
 		</div>
