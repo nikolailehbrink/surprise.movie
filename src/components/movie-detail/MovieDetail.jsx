@@ -13,9 +13,13 @@ import {
 import MovieDetailSkeleton from "./MovieDetailSkeleton";
 import MovieDetailContent from "./MovieDetailContent";
 import StreamingProviderLabel from "../StreamingProviderLabel";
+import toast from "react-hot-toast";
+import { useLocation } from "wouter";
 
 export default function MovieDetail({ id, watchlist, setWatchlist }) {
 	const [movie, setMovie] = useState({});
+	const [, setLocation] = useLocation();
+
 	useEffect(() => {
 		async function getMovieDetails() {
 			try {
@@ -26,8 +30,9 @@ export default function MovieDetail({ id, watchlist, setWatchlist }) {
 					},
 				});
 				setMovie(movieDetail);
-			} catch (error) {
-				console.log(error);
+			} catch ({ data }) {
+				toast.error(data.status_message);
+				setLocation("/");
 			}
 		}
 		getMovieDetails();
