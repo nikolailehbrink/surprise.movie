@@ -19,6 +19,14 @@ export default function StreamingProviderFilter({
 				watch_region: getCountryCode(),
 				with_watch_providers: correctQuery,
 			});
+		} else {
+			// Erstellen einer Kopie von movieQuery
+			let updatedQuery = { ...movieQuery };
+			// Entfernen der Eigenschaften
+			delete updatedQuery.watch_region;
+			delete updatedQuery.with_watch_providers;
+			// Aktualisieren des movieQuery-Objekts
+			setMovieQuery(updatedQuery);
 		}
 	}, [selectedProvider]);
 

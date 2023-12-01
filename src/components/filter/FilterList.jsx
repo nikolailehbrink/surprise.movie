@@ -10,22 +10,38 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import { getCountryCode } from "@/helpers/languageHelper";
+import { useQueryContext } from "@/App";
 
 export default function FilterList() {
+	const { movieQuery } = useQueryContext();
+
 	const minimumYear = 1895;
 	const currentYear = new Date().getFullYear();
 
-	const [beginningYear, setBeginningYear] = useState(minimumYear);
-	const [endYear, setEndYear] = useState(currentYear);
+	const [beginningYear, setBeginningYear] = useState(
+		movieQuery["primary_release_date.gte"]?.split("-")?.at(0) ?? minimumYear
+	);
+	const [endYear, setEndYear] = useState(
+		movieQuery["primary_release_date.lte"]?.split("-")?.at(0) ?? currentYear
+	);
 
 	const [providers, setProviders] = useState([]);
-	const [selectedProvider, setSelectedProvider] = useState([]);
+	const [selectedProvider, setSelectedProvider] = useState(
+		movieQuery.with_watch_providers
+			?.split("|")
+			?.map((provider) => parseInt(provider)) ?? []
+	);
 
 	const [genres, setGenres] = useState([]);
-	const [selectedGenres, setSelectedGenres] = useState([]);
+	const [selectedGenres, setSelectedGenres] = useState(
+		movieQuery.with_genres?.split("|")?.map((genre) => parseInt(genre)) ?? []
+	);
 
 	const ratings = [6.5, 7, 7.5, 8];
-	const [selectedRating, setSelectedRating] = useState(7);
+	const [selectedRating, setSelectedRating] = useState(
+		// Is always set but still to prevent errors
+		parseFloat(movieQuery["vote_average.gte"] ?? 7)
+	);
 
 	useEffect(() => {
 		async function getMovieGenres() {
@@ -102,7 +118,7 @@ export default function FilterList() {
 						Year
 					</Button>
 				</PopoverTrigger>
-				<PopoverContent>
+				<PopoverContent className="max-w-[280px] sm:max-w-xs">
 					<YearFilter
 						beginningYear={beginningYear}
 						setBeginningYear={setBeginningYear}

@@ -17,6 +17,11 @@ export default function GenreFilter({
 				...movieQuery,
 				with_genres: correctQuery,
 			});
+		} else {
+			let updatedQuery = { ...movieQuery };
+			delete updatedQuery.with_genres;
+
+			setMovieQuery(updatedQuery);
 		}
 	}, [selectedGenres]);
 
