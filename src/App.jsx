@@ -16,6 +16,7 @@ import Watchlist from "./components/Watchlist";
 import GradientHeading from "./components/GradientHeading";
 import QuestionCard from "./components/QuestionCard";
 import NotFound from "./components/NotFound";
+import { Helmet } from "react-helmet-async";
 
 const QueryContext = createContext();
 
@@ -117,6 +118,9 @@ function App() {
 				</Route>
 
 				<Route path="/">
+					<Helmet>
+						<title>surprise.movie - Discover your next favorite movie</title>
+					</Helmet>
 					<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
 						<GradientHeading>Discover your next favorite movie</GradientHeading>
 						<div className="grid gap-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 self-stretch justify-center items-center">
