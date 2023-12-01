@@ -1,6 +1,10 @@
 import { useQueryContext } from "@/App";
 import { Input } from "../ui/input";
-import { ArrowsLeftRight } from "@phosphor-icons/react";
+import { ArrowsLeftRight, CheckCircle } from "@phosphor-icons/react";
+import { Button } from "../ui/button";
+import { useRef } from "react";
+import { PopoverClose } from "@radix-ui/react-popover";
+import toast from "react-hot-toast";
 
 export default function YearFilter({
 	beginningYear,
@@ -12,52 +16,66 @@ export default function YearFilter({
 }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
 
-	function handleYearChange(e) {
-		const year = parseInt(e.target.value);
-		let query = {};
-		if (e.target.id === "minYear") {
-			setBeginningYear(year);
-			query = {
-				...movieQuery,
-				"primary_release_date.gte": `${year}-01-01`,
-			};
-		} else if (e.target.id === "maxYear") {
-			setEndYear(year);
-			query = {
-				...movieQuery,
-				"primary_release_date.lte": `${year}-12-31`,
-			};
-		}
+	const beginningRef = useRef();
+	const endRef = useRef();
 
-		setMovieQuery(query);
+	function handleYearChange() {
+		const beginningValue = parseInt(beginningRef.current.value);
+		const endValue = parseInt(endRef.current.value);
+
+		if (
+			(!isNaN(beginningValue) || !isNaN(endValue)) &&
+			beginningValue <= endValue &&
+			beginningValue >= minimumYear &&
+			endValue <= currentYear
+		) {
+			let query = {};
+			setBeginningYear(beginningValue);
+			setEndYear(endValue);
+			query = {
+				...movieQuery,
+				"primary_release_date.gte": `${beginningValue}-12-31`,
+				"primary_release_date.lte": `${endValue}-01-01`,
+			};
+
+			setMovieQuery(query);
+		} else {
+			toast.error("Please provide correct years.");
+		}
 	}
 
 	return (
 		<div className="flex gap-2 text-white items-center">
 			<Input
+				ref={beginningRef}
 				className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:ring-transparent focus-visible:border-white"
 				type="number"
 				placeholder={minimumYear}
-				value={beginningYear}
+				defaultValue={beginningYear}
 				name="minYear"
 				id="minYear"
 				min={1895}
 				max={endYear}
-				onChange={handleYearChange}
 			/>
 
 			<ArrowsLeftRight size={24} weight="duotone" className="shrink-0" />
 			<Input
+				ref={endRef}
 				className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:ring-transparent focus-visible:border-white"
 				type="number"
 				placeholder="2023"
-				value={endYear}
+				defaultValue={endYear}
 				name="maxYear"
 				id="maxYear"
 				min={beginningYear}
 				max={currentYear}
-				onChange={handleYearChange}
 			/>
+
+			<PopoverClose asChild>
+				<Button onClick={handleYearChange} variant="outline" size="icon">
+					<CheckCircle size={24} weight="duotone" />
+				</Button>
+			</PopoverClose>
 		</div>
 	);
 }
