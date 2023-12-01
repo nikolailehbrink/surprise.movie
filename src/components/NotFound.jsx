@@ -1,8 +1,8 @@
+import { Binoculars } from "@phosphor-icons/react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import GradientHeading from "./GradientHeading";
 import { Button } from "./ui/button";
-import { Binoculars } from "@phosphor-icons/react";
-import { Helmet } from "react-helmet-async";
 
 export default function NotFound() {
 	return (

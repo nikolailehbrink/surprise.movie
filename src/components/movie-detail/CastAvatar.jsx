@@ -1,6 +1,6 @@
 import { imageBase } from "@/helpers/movieDb";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { initials } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function CastAvatar({ person: { profile_path, name } }) {
 	return (

@@ -1,22 +1,21 @@
-import { useContext, useEffect, useState } from "react";
-import MovieDetail from "./components/movie-detail/MovieDetail";
+import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import FilterList from "./components/filter/FilterList";
+import MovieDetail from "./components/movie-detail/MovieDetail";
 import { fetchMovieDb } from "./helpers/movieDb";
-import { createContext } from "react";
 // Supports weights 100-900
 import "@fontsource-variable/inter";
 import { Popcorn } from "@phosphor-icons/react";
-import { Button } from "./components/ui/button";
-import Navbar from "./components/Navbar";
-import { Route, Switch } from "wouter";
-import MovieCard from "./components/MovieCard";
-import Footer from "./components/Footer";
-import Watchlist from "./components/Watchlist";
-import GradientHeading from "./components/GradientHeading";
-import QuestionCard from "./components/QuestionCard";
-import NotFound from "./components/NotFound";
 import { Helmet } from "react-helmet-async";
+import { Route, Switch } from "wouter";
+import Footer from "./components/Footer";
+import GradientHeading from "./components/GradientHeading";
+import MovieCard from "./components/MovieCard";
+import Navbar from "./components/Navbar";
+import NotFound from "./components/NotFound";
+import QuestionCard from "./components/QuestionCard";
+import Watchlist from "./components/Watchlist";
+import { Button } from "./components/ui/button";
 
 const QueryContext = createContext();
 
@@ -55,13 +54,6 @@ function App() {
 		}
 	}, [watchlist]);
 
-	// useEffect(() => {
-	// 	getMovie();
-	// 	console.log(movie);
-	// }, []);
-
-	console.log(watchlist);
-
 	async function getMovie() {
 		try {
 			const response = await fetchMovieDb(`discover/movie`, {
@@ -74,8 +66,6 @@ function App() {
 				return;
 			}
 
-			console.log({ totalPages, totalResults, response });
-
 			const randomPage = Math.floor(Math.random() * (totalPages - 1) + 1);
 
 			const randomResult = () => {
@@ -85,7 +75,6 @@ function App() {
 				} else {
 					maxResult = Math.floor(Math.random() * 20);
 				}
-				console.log(maxResult);
 				return maxResult;
 			};
 
@@ -95,11 +84,8 @@ function App() {
 					page: randomPage,
 				},
 			});
-			console.log({ randomPage, data });
 
 			const searchedMovie = data.results[randomResult()];
-
-			console.log(searchedMovie);
 
 			setMovie(searchedMovie);
 		} catch (error) {
@@ -113,10 +99,6 @@ function App() {
 			<Navbar />
 
 			<Switch>
-				<Route path="/watchlist">
-					<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
-				</Route>
-
 				<Route path="/">
 					<Helmet>
 						<title>surprise.movie - Discover your next favorite movie</title>
@@ -153,6 +135,10 @@ function App() {
 							</Button>
 						</div>
 					</div>
+				</Route>
+
+				<Route path="/watchlist">
+					<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
 				</Route>
 
 				<Route path="/movie/:id">

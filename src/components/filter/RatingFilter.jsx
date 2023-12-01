@@ -9,8 +9,6 @@ export default function RatingFilter({
 }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
 
-	console.log(movieQuery);
-
 	function handleRatingChange(e) {
 		const rating = parseFloat(e.target.value);
 		setSelectedRating(rating);

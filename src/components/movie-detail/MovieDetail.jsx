@@ -1,21 +1,20 @@
-import { fetchMovieDb } from "@/helpers/movieDb";
-import { useState } from "react";
-import MovieCard from "../MovieCard";
-import { useEffect } from "react";
 import { getCountryCode } from "@/helpers/languageHelper";
-import { Button } from "../ui/button";
-import { Heart } from "@phosphor-icons/react";
-import { cn } from "@/lib/utils";
+import { fetchMovieDb } from "@/helpers/movieDb";
 import {
 	handleAddToWatchlist,
 	movieInWatchlist,
 } from "@/helpers/watchlistHelper";
-import MovieDetailSkeleton from "./MovieDetailSkeleton";
-import MovieDetailContent from "./MovieDetailContent";
-import StreamingProviderLabel from "../StreamingProviderLabel";
+import { cn } from "@/lib/utils";
+import { Heart } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { useLocation } from "wouter";
-import { Helmet } from "react-helmet-async";
+import MovieCard from "../MovieCard";
+import StreamingProviderLabel from "../StreamingProviderLabel";
+import { Button } from "../ui/button";
+import MovieDetailContent from "./MovieDetailContent";
+import MovieDetailSkeleton from "./MovieDetailSkeleton";
 
 export default function MovieDetail({ id, watchlist, setWatchlist }) {
 	const [movie, setMovie] = useState({});
@@ -44,7 +43,6 @@ export default function MovieDetail({ id, watchlist, setWatchlist }) {
 
 	const inWatchlist = movieInWatchlist(watchlist, movie);
 
-	console.log(streamingProvider);
 	return (
 		<div className="flex-grow container flex">
 			{Object.keys(movie).length > 0 ? (

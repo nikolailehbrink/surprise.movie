@@ -1,16 +1,16 @@
-import { Button } from "../ui/button";
-import GenreFilter from "./GenreFilter";
-import StreamingProviderFilter from "./StreamingProviderFilter";
-import RatingFilter from "./RatingFilter";
-import YearFilter from "./YearFilter";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Calendar, FilmStrip, Monitor, StarHalf } from "@phosphor-icons/react";
-import { ScrollArea } from "../ui/scroll-area";
-import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { fetchMovieDb } from "@/helpers/movieDb";
-import { getCountryCode } from "@/helpers/languageHelper";
 import { useQueryContext } from "@/App";
+import { getCountryCode } from "@/helpers/languageHelper";
+import { fetchMovieDb } from "@/helpers/movieDb";
+import { cn } from "@/lib/utils";
+import { Calendar, FilmStrip, Monitor, StarHalf } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { ScrollArea } from "../ui/scroll-area";
+import GenreFilter from "./GenreFilter";
+import RatingFilter from "./RatingFilter";
+import StreamingProviderFilter from "./StreamingProviderFilter";
+import YearFilter from "./YearFilter";
 
 export default function FilterList() {
 	const { movieQuery } = useQueryContext();

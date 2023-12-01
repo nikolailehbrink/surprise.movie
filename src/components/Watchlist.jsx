@@ -1,11 +1,11 @@
 import { Binoculars } from "@phosphor-icons/react";
-import GradientHeading from "./GradientHeading";
-import MovieCard from "./MovieCard";
-import { Button } from "./ui/button";
-import { Link } from "wouter";
-import QuestionCard from "./QuestionCard";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Link } from "wouter";
+import GradientHeading from "./GradientHeading";
+import MovieCard from "./MovieCard";
+import QuestionCard from "./QuestionCard";
+import { Button } from "./ui/button";
 
 const breakpoints = {
 	sm: 640,

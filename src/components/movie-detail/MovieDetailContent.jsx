@@ -1,11 +1,11 @@
-import { imageBase } from "@/helpers/movieDb";
-import MovieRating from "./MovieRating";
-import { Skeleton } from "../ui/skeleton";
 import { getCountryCode } from "@/helpers/languageHelper";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import CreditsSection from "./CreditsSection";
+import { imageBase } from "@/helpers/movieDb";
 import GenreLabel from "../GenreLabel";
 import StreamingProviderLabel from "../StreamingProviderLabel";
+import { Skeleton } from "../ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import CreditsSection from "./CreditsSection";
+import MovieRating from "./MovieRating";
 
 export default function MovieDetailContent({ movie }) {
 	const streamingProvider =

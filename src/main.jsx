@@ -1,10 +1,10 @@
+import { CheckCircle, XCircle } from "@phosphor-icons/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { HelmetProvider } from "react-helmet-async";
+import { Toaster } from "react-hot-toast";
 import App from "./App.jsx";
 import "./index.css";
-import { Toaster } from "react-hot-toast";
-import { CheckCircle, XCircle } from "@phosphor-icons/react";
-import { HelmetProvider } from "react-helmet-async";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
@@ -12,7 +12,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			<Toaster
 				gutter={16}
 				toastOptions={{
-					// duration: 40000,
 					success: {
 						icon: <CheckCircle size={24} weight="duotone" />,
 					},

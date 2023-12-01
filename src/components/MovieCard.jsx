@@ -1,14 +1,14 @@
-import { Link } from "wouter";
-import { Button } from "./ui/button";
 import { imageBase } from "@/helpers/movieDb";
-import { Heart } from "@phosphor-icons/react";
-import { cn } from "@/lib/utils";
 import {
 	handleAddToWatchlist,
 	movieInWatchlist,
 } from "@/helpers/watchlistHelper";
-import MovieRating from "./movie-detail/MovieRating";
+import { cn } from "@/lib/utils";
+import { Heart } from "@phosphor-icons/react";
+import { Link } from "wouter";
 import QuestionCard from "./QuestionCard";
+import MovieRating from "./movie-detail/MovieRating";
+import { Button } from "./ui/button";
 
 export default function MovieCard({
 	className,

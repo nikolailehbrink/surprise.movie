@@ -1,10 +1,10 @@
 import { useQueryContext } from "@/App";
-import { Input } from "../ui/input";
 import { ArrowsLeftRight, CheckCircle } from "@phosphor-icons/react";
-import { Button } from "../ui/button";
-import { useRef } from "react";
 import { PopoverClose } from "@radix-ui/react-popover";
+import { useRef } from "react";
 import toast from "react-hot-toast";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 export default function YearFilter({
 	beginningYear,
