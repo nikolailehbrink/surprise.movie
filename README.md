@@ -29,7 +29,7 @@ Your feedback and bug reports are valuable. If you encounter any issues while us
 
 ## 🧑‍💻 Running Locally
 
-Before running the Random Movie Generator locally, you will need to obtain an API key from TMDB (The Movie Database). This key is essential for fetching movie data from the TMDB API.
+Before running the site locally, you will need to obtain an API key from TMDB (The Movie Database). This key is essential for fetching movie data from the TMDB API.
 
 ### Obtaining TMDB API Key
 
@@ -43,10 +43,10 @@ Once you have your TMDB API key, you need to set it up in your local environment
 
 1. Create a file named `.env.local` in the root directory of your project.
 2. Add the following line to the file:
-   `bash
- VITE_TMDB_API_KEY=your_tmdb_api_key
- `
-   Replace `your_tmdb_api_key` with the actual API key you obtained from TMDB.
+   ```bash
+   VITE_TMDB_API_KEY=your_tmdb_api_key
+   ```
+3. Replace `your_tmdb_api_key` with the actual API key you obtained from TMDB.
 
 ### Starting the Application
 
