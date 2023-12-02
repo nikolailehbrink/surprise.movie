@@ -34,7 +34,7 @@ export default function MovieDetailContent({ movie }) {
 	return (
 		<div className="flex flex-col gap-4">
 			{movie.backdrop_path && (
-				<div className="relative aspect-video rounded-3xl overflow-hidden">
+				<div className="relative aspect-video rounded-xl overflow-hidden">
 					<div className="inset-0 top-1/3 absolute bg-gradient-to-t from-neutral-950 via-neutral-950/60 via-50% to-transparent"></div>
 					<img
 						width={1280}
@@ -58,7 +58,7 @@ export default function MovieDetailContent({ movie }) {
 				{movie.runtime && <p>{movie.runtime} min.</p>}
 
 				{certification && (
-					<div className="py-1 px-2 text-sm border-2 rounded-lg">
+					<div className="py-1 px-2 text-sm border-2 rounded-xl">
 						{certification}
 					</div>
 				)}
@@ -86,7 +86,7 @@ export default function MovieDetailContent({ movie }) {
 				</TabsList>
 				{trailer && (
 					<TabsContent value="trailer">
-						<div className=" border-2 rounded-3xl overflow-hidden">
+						<div className=" border-2 rounded-xl overflow-hidden">
 							<iframe
 								className="aspect-video w-full"
 								src={`https://www.youtube-nocookie.com/embed/${trailer.key}`}

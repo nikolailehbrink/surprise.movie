@@ -5,7 +5,7 @@ export default function QuestionCard({ delay, className }) {
 		<div
 			style={{ animationDelay: delay + "ms" }}
 			className={cn(
-				"h-full flex aspect-[2/3] animate-pulse rounded-3xl bg-neutral-900 text-neutral-800 items-center justify-center",
+				"h-full flex aspect-[2/3] animate-pulse rounded-2xl bg-neutral-900 text-neutral-800 items-center justify-center",
 				className
 			)}
 		>

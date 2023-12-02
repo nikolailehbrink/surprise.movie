@@ -22,7 +22,7 @@ export default function MovieCard({
 	return Object.keys(movie).length !== 0 ? (
 		<div
 			className={cn(
-				"aspect-[2/3] relative rounded-3xl group overflow-hidden bg-neutral-900 flex items-center justify-center border-2 border-white shadow-2xl shadow-white/30",
+				"aspect-[2/3] relative rounded-2xl group overflow-hidden bg-neutral-900 flex items-center justify-center border-2 border-white shadow-2xl shadow-white/30",
 				className
 			)}
 		>

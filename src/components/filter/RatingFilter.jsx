@@ -32,7 +32,7 @@ export default function RatingFilter({
 							className={cn(
 								"peer-checked:opacity-100",
 								selectedRating && "opacity-50 ",
-								"gap-1 flex items-center border-2 p-2 pr-3 rounded-lg cursor-pointer"
+								"gap-2 flex items-center border-2 p-2 px-3 rounded-xl cursor-pointer"
 							)}
 						>
 							{

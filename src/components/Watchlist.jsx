@@ -46,7 +46,7 @@ export default function Watchlist({ watchlist, setWatchlist }) {
 			<Helmet>
 				<title>surprise.movie - Your watchlist</title>
 			</Helmet>
-			<div className="flex flex-col relative gap-12 sm:gap-12 justify-center container flex-grow sm:items-center py-24">
+			<div className="flex flex-col relative gap-12 sm:gap-12 justify-center container flex-grow sm:items-center py-16">
 				{watchlist.length > 0 ? (
 					<>
 						<GradientHeading>Your watchlist</GradientHeading>

@@ -55,15 +55,15 @@ export default function MovieDetail({ id, watchlist, setWatchlist }) {
 							)
 						</title>
 					</Helmet>
-					<div className="flex max-md:flex-col w-full gap-4 xl:gap-12">
+					<div className="flex max-lg:flex-col w-full gap-4 xl:gap-8">
 						<div
 							className={cn(
-								"md:w-1/4 max-md:z-30 shrink-0 flex flex-col gap-3 md:self-start",
+								"lg:w-1/4 max-lg:z-30 shrink-0 flex flex-col gap-3 lg:self-start",
 								!inWatchlist && "sticky top-[84px]"
 							)}
 						>
 							<MovieCard
-								className="hidden md:flex"
+								className="hidden lg:flex rounded-xl"
 								overlay={false}
 								watchlist={watchlist}
 								setWatchlist={setWatchlist}
@@ -71,16 +71,19 @@ export default function MovieDetail({ id, watchlist, setWatchlist }) {
 							/>
 							<Button
 								variant={inWatchlist ? "default" : "outline"}
-								className={cn("z-40", !inWatchlist && "bg-neutral-900")}
+								className={cn(
+									"z-40 max-lg:self-start max-md:self-stretch",
+									!inWatchlist && "bg-neutral-900"
+								)}
 								onClick={() =>
 									handleAddToWatchlist(watchlist, setWatchlist, movie)
 								}
 							>
 								<Heart size={24} weight="duotone" />
-								{inWatchlist ? "In watchlist" : "Add to watchlist"}
+								{inWatchlist ? "In Watchlist" : "Add to Watchlist"}
 							</Button>
 							{streamingProvider.length > 0 && (
-								<div className="space-y-2 max-md:hidden">
+								<div className="space-y-2 max-lg:hidden">
 									<h2 className="font-bold text-xl">Streaming</h2>
 									<div className="flex flex-wrap gap-2">
 										{streamingProvider.map(

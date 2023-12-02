@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 					},
 					style: {
 						border: "2px solid white",
-						borderRadius: "1rem",
+						borderRadius: "0.75rem",
 						backgroundColor: "#262626",
 						color: "white",
 						padding: ".5rem 1rem",

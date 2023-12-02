@@ -7,7 +7,7 @@ export default function GenreLabel({ className, id, name }) {
 		<div
 			key={id}
 			className={cn(
-				"rounded-lg border-2 border-white flex gap-[6px] items-center p-2 pr-3",
+				"rounded-xl border-2 border-white flex gap-2 items-center p-2 px-3",
 				className
 			)}
 		>
