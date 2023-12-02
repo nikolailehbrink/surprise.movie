@@ -14,6 +14,7 @@ import MovieCard from "./components/MovieCard";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import QuestionCard from "./components/QuestionCard";
+import ScrollToTop from "./components/ScrollToTop";
 import Watchlist from "./components/Watchlist";
 import { Button } from "./components/ui/button";
 
@@ -98,6 +99,7 @@ function App() {
 		<>
 			<Navbar />
 
+			<ScrollToTop />
 			<Switch>
 				<Route path="/watchlist">
 					<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
