@@ -116,13 +116,15 @@ export default function MovieDetailContent({ movie }) {
 				{streamingProvider.length > 0 && (
 					<TabsContent className="md:hidden" value="streaming">
 						<div className="flex flex-wrap gap-2">
-							{streamingProvider.map(({ provider_id, name, logo_path }) => (
-								<StreamingProviderLabel
-									key={provider_id}
-									name={name}
-									logo={logo_path}
-								/>
-							))}
+							{streamingProvider.map(
+								({ provider_id, provider_name, logo_path }) => (
+									<StreamingProviderLabel
+										key={provider_id}
+										name={provider_name}
+										logo={logo_path}
+									/>
+								)
+							)}
 						</div>
 					</TabsContent>
 				)}
