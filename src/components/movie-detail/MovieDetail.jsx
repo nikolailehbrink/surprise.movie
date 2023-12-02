@@ -66,7 +66,7 @@ export default function MovieDetail({ id, watchlist, setWatchlist }) {
 							/>
 							<Button
 								variant={inWatchlist ? "default" : "outline"}
-								className={cn("z-20", !inWatchlist && "bg-neutral-900")}
+								className={cn("z-40", !inWatchlist && "bg-neutral-900")}
 								onClick={() =>
 									handleAddToWatchlist(watchlist, setWatchlist, movie)
 								}
