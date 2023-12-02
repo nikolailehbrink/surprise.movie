@@ -93,7 +93,11 @@ export default function Navbar() {
 				</Link>
 				<menu className="font-bold flex gap-2 sm:gap-4 items-center">
 					<Link href="/watchlist">
-						<Button variant={match ? "default" : "outline"}>
+						<Button
+							className="sm:px-3"
+							size="icon"
+							variant={match ? "default" : "outline"}
+						>
 							<HeartHalf size={32} weight="duotone" />
 							<span className="max-sm:sr-only">Watchlist</span>
 						</Button>
