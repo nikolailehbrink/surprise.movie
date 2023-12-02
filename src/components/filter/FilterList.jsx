@@ -12,7 +12,7 @@ import RatingFilter from "./RatingFilter";
 import StreamingProviderFilter from "./StreamingProviderFilter";
 import YearFilter from "./YearFilter";
 
-export default function FilterList() {
+export default function FilterList({ className }) {
 	const { movieQuery } = useQueryContext();
 
 	const minimumYear = 1895;
@@ -80,7 +80,7 @@ export default function FilterList() {
 	}, []);
 
 	return (
-		<div className="flex gap-4 flex-wrap justify-center">
+		<div className={cn("flex gap-4 flex-wrap justify-center", className)}>
 			<Popover>
 				<PopoverTrigger asChild>
 					<Button

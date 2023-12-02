@@ -119,9 +119,11 @@ function App() {
 					<Helmet>
 						<title>surprise.movie - Discover your next favorite movie</title>
 					</Helmet>
-					<div className="flex flex-col relative gap-12 sm:gap-24 justify-center container flex-grow sm:items-center py-24">
-						<GradientHeading>Discover your next favorite movie</GradientHeading>
-						<div className="grid gap-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 self-stretch justify-center items-center">
+					<div className="flex flex-col relative gap-4  justify-center container flex-grow sm:py-16 py-12">
+						<GradientHeading className="mb-12">
+							Discover your next favorite movie
+						</GradientHeading>
+						<div className="grid w-full gap-4 max-sm:max-w-[20rem] mx-auto lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 sm:self-stretch justify-center items-center">
 							<QuestionCard className="hidden lg:flex lg:h-[90%] lg:justify-self-end" />
 							<QuestionCard
 								delay={500}
@@ -141,11 +143,16 @@ function App() {
 								className="hidden lg:flex lg:h-[90%]"
 							/>
 						</div>
-						<div className="flex gap-4 items-center flex-col">
-							<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
-								<FilterList />
-							</QueryContext.Provider>
-							<Button size="lg" onClick={getMovie}>
+						<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
+							<FilterList className="sm:mt-12" />
+						</QueryContext.Provider>
+						<div className="sticky bottom-0 flex justify-center z-50">
+							<div className="absolute md:hidden bg-gradient-to-t h-40 via-[#060606] from-transparent to-transparent inset-0 -inset-x-4"></div>
+							<Button
+								size="lg"
+								className="self-center mb-4 relative"
+								onClick={getMovie}
+							>
 								<Popcorn size={32} weight="duotone" />
 								Surprise me!
 							</Button>
