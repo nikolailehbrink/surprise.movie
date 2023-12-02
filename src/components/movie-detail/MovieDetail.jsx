@@ -44,7 +44,7 @@ export default function MovieDetail({ id, watchlist, setWatchlist }) {
 	const inWatchlist = movieInWatchlist(watchlist, movie);
 
 	return (
-		<div className="flex-grow container flex">
+		<div className="flex-grow container flex pb-8">
 			{Object.keys(movie).length > 0 ? (
 				<>
 					<Helmet>
