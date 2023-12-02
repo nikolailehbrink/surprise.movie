@@ -99,6 +99,20 @@ function App() {
 			<Navbar />
 
 			<Switch>
+				<Route path="/watchlist">
+					<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
+				</Route>
+
+				<Route path="/movie/:id">
+					{(params) => (
+						<MovieDetail
+							id={params.id}
+							watchlist={watchlist}
+							setWatchlist={setWatchlist}
+						/>
+					)}
+				</Route>
+
 				<Route path="/">
 					<Helmet>
 						<title>surprise.movie - Discover your next favorite movie</title>
@@ -137,21 +151,7 @@ function App() {
 					</div>
 				</Route>
 
-				<Route path="/watchlist">
-					<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />
-				</Route>
-
-				<Route path="/movie/:id">
-					{(params) => (
-						<MovieDetail
-							id={params.id}
-							watchlist={watchlist}
-							setWatchlist={setWatchlist}
-						/>
-					)}
-				</Route>
-
-				<Route path="/:rest*" component={NotFound}></Route>
+				<Route component={NotFound}></Route>
 			</Switch>
 
 			<Footer />
