@@ -2,7 +2,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 export default function Footer() {
 	return (
-		<footer className="py-4 container flex gap-6 fill-white items-center justify-center">
+		<footer className="py-4 flex gap-6 z-50 fill-white  items-center justify-center">
 			<Popover>
 				<PopoverTrigger>
 					<svg
