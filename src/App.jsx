@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import FilterList from "./components/filter/FilterList";
 import MovieDetail from "./components/movie-detail/MovieDetail";
@@ -46,6 +46,7 @@ function App() {
 		"vote_count.gte": 200,
 	});
 	const [watchlist, setWatchlist] = useState(getInitialWatchlist);
+	const movieCard = useRef();
 
 	useEffect(() => {
 		try {
@@ -54,6 +55,13 @@ function App() {
 			console.log(error);
 		}
 	}, [watchlist]);
+
+	function handleSurpriseButtonClick() {
+		if (movieCard.current) {
+			movieCard.current.scrollIntoView({ behavior: "smooth", block: "center" });
+		}
+		getMovie();
+	}
 
 	async function getMovie() {
 		try {
@@ -123,7 +131,10 @@ function App() {
 						<GradientHeading className="mb-12">
 							Discover your next favorite movie
 						</GradientHeading>
-						<div className="grid w-full gap-4 max-sm:max-w-[20rem] mx-auto lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 sm:self-stretch justify-center items-center">
+						<div
+							ref={movieCard}
+							className="grid w-full gap-4 max-sm:max-w-[20rem] mx-auto lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 sm:self-stretch justify-center items-center"
+						>
 							<QuestionCard className="hidden lg:flex lg:h-[90%] lg:justify-self-end" />
 							<QuestionCard
 								delay={500}
@@ -151,7 +162,7 @@ function App() {
 							<Button
 								size="lg"
 								className="self-center mb-4 relative"
-								onClick={getMovie}
+								onClick={handleSurpriseButtonClick}
 							>
 								<Popcorn size={32} weight="duotone" />
 								Surprise me!
