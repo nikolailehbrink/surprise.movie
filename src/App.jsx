@@ -46,7 +46,9 @@ function App() {
 		"vote_count.gte": 200,
 	});
 	const [watchlist, setWatchlist] = useState(getInitialWatchlist);
-	const movieCard = useRef();
+
+	const movieCard = useRef(null);
+	const [imageLoading, setImageLoading] = useState(false);
 
 	useEffect(() => {
 		try {
@@ -64,6 +66,7 @@ function App() {
 	}
 
 	async function getMovie() {
+		setImageLoading(true);
 		try {
 			const response = await fetchMovieDb(`discover/movie`, {
 				query: movieQuery,
@@ -101,6 +104,7 @@ function App() {
 			console.log(error.data);
 			toast.error(error.data.status_message);
 		}
+		setImageLoading(false);
 	}
 
 	return (
@@ -131,20 +135,26 @@ function App() {
 						<GradientHeading className="mb-12">
 							Discover your next favorite movie
 						</GradientHeading>
-						<div
-							ref={movieCard}
-							className="grid w-full gap-4 max-sm:max-w-[20rem] mx-auto lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 sm:self-stretch justify-center items-center"
-						>
+						<div className="grid w-full gap-4 max-sm:max-w-[20rem] mx-auto lg:grid-cols-5 grid-cols-1 sm:grid-cols-3 sm:self-stretch justify-center items-center">
 							<QuestionCard className="hidden lg:flex lg:h-[90%] lg:justify-self-end" />
 							<QuestionCard
 								delay={500}
 								className="h-[95%] hidden sm:flex justify-self-center"
 							/>
-							<MovieCard
-								movie={movie}
-								watchlist={watchlist}
-								setWatchlist={setWatchlist}
-							/>
+
+							{!imageLoading && Object.keys(movie).length !== 0 ? (
+								<MovieCard
+									ref={movieCard}
+									movie={movie}
+									watchlist={watchlist}
+									setWatchlist={setWatchlist}
+								/>
+							) : (
+								<QuestionCard
+									delay={1000}
+									className="bg-neutral-800 text-neutral-700"
+								/>
+							)}
 							<QuestionCard
 								delay={1500}
 								className="hidden sm:flex h-[95%] justify-self-center"
@@ -164,7 +174,32 @@ function App() {
 								className="self-center mb-4 relative"
 								onClick={handleSurpriseButtonClick}
 							>
-								<Popcorn size={32} weight="duotone" />
+								{imageLoading ? (
+									<div className="h-8 w-8 flex items-center justify-center">
+										<svg
+											className="animate-spin h-[26px] w-[26px] text-white"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+										>
+											<circle
+												className="opacity-25"
+												cx="12"
+												cy="12"
+												r="10"
+												stroke="currentColor"
+												strokeWidth="4"
+											></circle>
+											<path
+												className="opacity-75"
+												fill="currentColor"
+												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+											></path>
+										</svg>
+									</div>
+								) : (
+									<Popcorn size={32} weight="duotone" />
+								)}
 								Surprise me!
 							</Button>
 						</div>

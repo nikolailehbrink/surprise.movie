@@ -5,21 +5,18 @@ import {
 } from "@/helpers/watchlistHelper";
 import { cn } from "@/lib/utils";
 import { Heart } from "@phosphor-icons/react";
+import { forwardRef } from "react";
 import { Link } from "wouter";
-import QuestionCard from "./QuestionCard";
 import MovieRating from "./movie-detail/MovieRating";
 import { Button } from "./ui/button";
 
-export default function MovieCard({
-	className,
-	movie,
-	watchlist,
-	setWatchlist,
-	overlay = true,
-}) {
+const MovieCard = forwardRef(function MovieCard(
+	{ className, movie, watchlist, setWatchlist, overlay = true },
+	ref
+) {
 	const inWatchlist = movieInWatchlist(watchlist, movie);
 
-	return Object.keys(movie).length !== 0 ? (
+	return (
 		<div
 			className={cn(
 				"aspect-[2/3] relative rounded-2xl group overflow-hidden bg-neutral-900 flex items-center justify-center border-2 border-white shadow-2xl shadow-white/30",
@@ -57,12 +54,13 @@ export default function MovieCard({
 				</>
 			)}
 			<img
+				ref={ref}
 				className="aspect-[inherit] object-cover self-stretch"
 				src={`${imageBase}/w780/${movie.poster_path}`}
 				alt=""
 			/>
 		</div>
-	) : (
-		<QuestionCard delay={1000} className="bg-neutral-800 text-neutral-700" />
 	);
-}
+});
+
+export default MovieCard;
