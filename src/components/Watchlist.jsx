@@ -1,3 +1,4 @@
+import { useWatchlistContext } from "@/App";
 import { Binoculars } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -27,8 +28,9 @@ const calculateNeededCards = (watchlistLength, columns) => {
 	return additionalCards === 0 ? 0 : columns - additionalCards;
 };
 
-export default function Watchlist({ watchlist, setWatchlist }) {
+export default function Watchlist() {
 	const [columns, setColumns] = useState(getNumberOfColumns(window.innerWidth));
+	const { watchlist, setWatchlist } = useWatchlistContext();
 
 	useEffect(() => {
 		const handleResize = () => {

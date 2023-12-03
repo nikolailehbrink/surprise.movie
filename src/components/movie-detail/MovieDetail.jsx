@@ -1,3 +1,4 @@
+import { useWatchlistContext } from "@/App";
 import { getCountryCode } from "@/helpers/languageHelper";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import {
@@ -16,9 +17,10 @@ import { Button } from "../ui/button";
 import MovieDetailContent from "./MovieDetailContent";
 import MovieDetailSkeleton from "./MovieDetailSkeleton";
 
-export default function MovieDetail({ id, watchlist, setWatchlist }) {
+export default function MovieDetail({ params: { id } }) {
 	const [movie, setMovie] = useState({});
 	const [, setLocation] = useLocation();
+	const { watchlist, setWatchlist } = useWatchlistContext();
 
 	useEffect(() => {
 		async function getMovieDetails() {
