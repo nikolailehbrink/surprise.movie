@@ -83,7 +83,9 @@ function App() {
 			const { total_pages: totalPages, total_results: totalResults } = response;
 
 			if (totalResults === 0) {
+				setImageLoading(false);
 				toast.error("No movies found. Try a different filter.");
+
 				return;
 			}
 
