@@ -1,6 +1,6 @@
 import { HeartHalf } from "@phosphor-icons/react";
 import { Link, useRoute } from "wouter";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export default function Navbar() {
 	const [match] = useRoute("/watchlist");
