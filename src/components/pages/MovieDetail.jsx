@@ -13,9 +13,9 @@ import toast from "react-hot-toast";
 import { useLocation } from "wouter";
 import MovieCard from "../MovieCard";
 import StreamingProviderLabel from "../StreamingProviderLabel";
+import MovieDetailContent from "../movie-detail/MovieDetailContent";
+import MovieDetailSkeleton from "../movie-detail/MovieDetailSkeleton";
 import { Button } from "../ui/button";
-import MovieDetailContent from "./MovieDetailContent";
-import MovieDetailSkeleton from "./MovieDetailSkeleton";
 
 export default function MovieDetail({ params: { id } }) {
 	const [movie, setMovie] = useState({});
