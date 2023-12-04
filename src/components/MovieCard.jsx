@@ -1,3 +1,4 @@
+import { useWatchlistContext } from "@/App";
 import { imageBase } from "@/helpers/movieDb";
 import {
 	handleAddToWatchlist,
@@ -11,9 +12,10 @@ import MovieRating from "./movie-detail/MovieRating";
 import { Button } from "./ui/button";
 
 const MovieCard = forwardRef(function MovieCard(
-	{ className, movie, watchlist, setWatchlist, overlay = true },
+	{ className, movie, overlay = true },
 	ref
 ) {
+	const { watchlist, setWatchlist } = useWatchlistContext();
 	const inWatchlist = movieInWatchlist(watchlist, movie);
 
 	return (
