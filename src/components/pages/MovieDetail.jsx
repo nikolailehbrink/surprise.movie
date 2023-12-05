@@ -58,12 +58,7 @@ export default function MovieDetail({ params: { id } }) {
 						</title>
 					</Helmet>
 					<div className="flex max-lg:flex-col w-full gap-4 xl:gap-8">
-						<div
-							className={cn(
-								"lg:w-1/4 max-lg:z-30 shrink-0 flex flex-col gap-3 lg:self-start",
-								!inWatchlist && "sticky top-[84px]"
-							)}
-						>
+						<div className="lg:w-1/4 max-lg:z-30 shrink-0 sticky top-[84px] flex flex-col gap-3 lg:self-start">
 							<MovieCard
 								className="hidden lg:flex rounded-xl"
 								overlay={false}
