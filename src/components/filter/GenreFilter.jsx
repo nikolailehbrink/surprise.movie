@@ -1,6 +1,4 @@
-import { useQueryContext } from "@/App";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
 import GenreLabel from "../GenreLabel";
 
 export default function GenreFilter({
@@ -8,23 +6,6 @@ export default function GenreFilter({
 	selectedGenres,
 	setSelectedGenres,
 }) {
-	const { movieQuery, setMovieQuery } = useQueryContext();
-
-	useEffect(() => {
-		if (selectedGenres.length > 0) {
-			const correctQuery = selectedGenres.join("|");
-			setMovieQuery({
-				...movieQuery,
-				with_genres: correctQuery,
-			});
-		} else {
-			let updatedQuery = { ...movieQuery };
-			delete updatedQuery.with_genres;
-
-			setMovieQuery(updatedQuery);
-		}
-	}, [selectedGenres]);
-
 	function handleGenreCheckbox(e) {
 		const genreId = parseInt(e.target.value);
 		if (!e.target.checked) {

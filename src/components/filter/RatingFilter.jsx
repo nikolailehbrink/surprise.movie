@@ -1,4 +1,3 @@
-import { useQueryContext } from "@/App";
 import { cn } from "@/lib/utils";
 import { Star } from "@phosphor-icons/react";
 
@@ -7,13 +6,9 @@ export default function RatingFilter({
 	selectedRating,
 	setSelectedRating,
 }) {
-	const { movieQuery, setMovieQuery } = useQueryContext();
-
 	function handleRatingChange(e) {
 		const rating = parseFloat(e.target.value);
 		setSelectedRating(rating);
-		const query = { ...movieQuery, "vote_average.gte": rating };
-		setMovieQuery(query);
 	}
 	return (
 		<div className="flex flex-wrap flex-col gap-2 text-white">

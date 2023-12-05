@@ -11,9 +11,10 @@ import GenreFilter from "./GenreFilter";
 import RatingFilter from "./RatingFilter";
 import StreamingProviderFilter from "./StreamingProviderFilter";
 import YearFilter from "./YearFilter";
+import { isCorrectYearInput } from "@/helpers/yearInput";
 
 export default function FilterList({ className }) {
-	const { movieQuery } = useQueryContext();
+	const { movieQuery, setMovieQuery } = useQueryContext();
 
 	const minimumYear = 1895;
 	const currentYear = new Date().getFullYear();
@@ -44,23 +45,6 @@ export default function FilterList({ className }) {
 	);
 
 	useEffect(() => {
-		async function getMovieGenres() {
-			try {
-				let { genres: availableGenres } = await fetchMovieDb(
-					`genre/movie/list`
-				);
-				availableGenres = availableGenres.sort((a, b) =>
-					a.name.localeCompare(b.name)
-				);
-				setGenres(availableGenres);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		getMovieGenres();
-	}, []);
-
-	useEffect(() => {
 		async function getMovieProviders() {
 			try {
 				const { results } = await fetchMovieDb(`watch/providers/movie`, {
@@ -77,6 +61,163 @@ export default function FilterList({ className }) {
 			}
 		}
 		getMovieProviders();
+	}, []);
+
+	useEffect(() => {
+		console.log(movieQuery);
+	}, [movieQuery]);
+
+	useEffect(() => {
+		let params = new URLSearchParams(location.search);
+
+		const provider = params.get("provider");
+		const start = params.get("start");
+		const end = params.get("end");
+		const rating = params.get("rating");
+		const genre = params.get("genre");
+
+		if (provider) {
+			const searchProvider = provider
+				.split("_")
+				.map((prov) => parseInt(prov))
+				.filter((id) => typeof id === "number" && !isNaN(id));
+
+			setSelectedProvider(searchProvider);
+		}
+		if (genre) {
+			const searchGenre = genre
+				.split("_")
+				.map((genre) => parseInt(genre))
+				.filter((id) => typeof id === "number" && !isNaN(id));
+			setSelectedGenres(searchGenre);
+		}
+		if (rating) {
+			if (!isNaN(parseFloat(rating))) {
+				setSelectedRating(parseFloat(rating));
+			}
+		}
+		if (end) {
+			const endValue = parseInt(end);
+			if (
+				isCorrectYearInput(beginningYear, endValue, minimumYear, currentYear)
+			) {
+				setEndYear(endValue);
+			}
+		}
+		if (start) {
+			const startValue = parseInt(start);
+			if (
+				isCorrectYearInput(startValue, endYear, minimumYear, currentYear) &&
+				startValue !== minimumYear
+			) {
+				setBeginningYear(startValue);
+			}
+		}
+	}, []);
+
+	useEffect(() => {
+		const url = new URL(location.href);
+		const params = url.searchParams;
+
+		params.delete("provider");
+		params.delete("start");
+		params.delete("end");
+		params.delete("genre");
+
+		if (selectedProvider.length > 0) {
+			params.set("provider", selectedProvider.join("_"));
+		}
+
+		if (selectedGenres.length > 0) {
+			params.set("genre", selectedGenres.join("_"));
+		}
+
+		if (selectedRating !== 7) {
+			params.set("rating", selectedRating);
+		} else {
+			params.delete("rating");
+		}
+
+		if (parseInt(beginningYear) !== minimumYear) {
+			params.set("start", beginningYear);
+		}
+
+		if (parseInt(endYear) !== currentYear) {
+			params.set("end", endYear);
+		}
+
+		window.history.replaceState(null, "", url);
+	}, [
+		selectedGenres,
+		selectedProvider,
+		selectedRating,
+		beginningYear,
+		endYear,
+	]);
+
+	useEffect(() => {
+		let updatedQuery = { ...movieQuery };
+
+		if (selectedProvider.length > 0) {
+			updatedQuery = {
+				...updatedQuery,
+				watch_region: getCountryCode(),
+				with_watch_providers: selectedProvider.join("|"),
+			};
+		} else {
+			delete updatedQuery.watch_region;
+			delete updatedQuery.with_watch_providers;
+		}
+
+		if (selectedGenres.length > 0) {
+			updatedQuery = {
+				...updatedQuery,
+				with_genres: selectedGenres.join("|"),
+			};
+		} else {
+			delete updatedQuery.with_genres;
+		}
+
+		updatedQuery = { ...updatedQuery, "vote_average.gte": selectedRating };
+
+		if (
+			isCorrectYearInput(beginningYear, endYear, minimumYear, currentYear) &&
+			!(beginningYear === minimumYear && endYear === currentYear)
+		) {
+			updatedQuery = {
+				...updatedQuery,
+				"primary_release_date.gte": `${beginningYear}-12-31`,
+				"primary_release_date.lte": `${endYear}-01-01`,
+			};
+		} else {
+			delete updatedQuery["primary_release_date.gte"];
+			delete updatedQuery["primary_release_date.lte"];
+		}
+		setMovieQuery(updatedQuery);
+	}, [
+		selectedProvider,
+		selectedGenres,
+		selectedRating,
+		beginningYear,
+		endYear,
+	]);
+
+	// Muss gemacht werden für asynchrone Daten, um den State setzen zu können.
+	useEffect(() => {
+		async function getMovieGenres() {
+			try {
+				let { genres: availableGenres } = await fetchMovieDb(
+					`genre/movie/list`
+				);
+				availableGenres = availableGenres.sort((a, b) =>
+					a.name.localeCompare(b.name)
+				);
+				setGenres(availableGenres);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		getMovieGenres();
 	}, []);
 
 	return (

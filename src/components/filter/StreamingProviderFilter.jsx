@@ -1,7 +1,4 @@
-import { useQueryContext } from "@/App";
-import { getCountryCode } from "@/helpers/languageHelper";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
 import StreamingProviderLabel from "../StreamingProviderLabel";
 
 export default function StreamingProviderFilter({
@@ -9,23 +6,7 @@ export default function StreamingProviderFilter({
 	selectedProvider,
 	setSelectedProvider,
 }) {
-	const { movieQuery, setMovieQuery } = useQueryContext();
-
-	useEffect(() => {
-		if (selectedProvider.length > 0) {
-			const correctQuery = selectedProvider.join("|");
-			setMovieQuery({
-				...movieQuery,
-				watch_region: getCountryCode(),
-				with_watch_providers: correctQuery,
-			});
-		} else {
-			let updatedQuery = { ...movieQuery };
-			delete updatedQuery.watch_region;
-			delete updatedQuery.with_watch_providers;
-			setMovieQuery(updatedQuery);
-		}
-	}, [selectedProvider]);
+	console.log(providers);
 
 	function handleProviderCheckbox(e) {
 		const providerId = parseInt(e.target.value);

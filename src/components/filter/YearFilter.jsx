@@ -5,6 +5,7 @@ import { useRef } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { isCorrectYearInput } from "@/helpers/yearInput";
 
 export default function YearFilter({
 	beginningYear,
@@ -14,7 +15,7 @@ export default function YearFilter({
 	minimumYear,
 	currentYear,
 }) {
-	const { movieQuery, setMovieQuery } = useQueryContext();
+	// const { movieQuery, setMovieQuery } = useQueryContext();
 
 	const beginningRef = useRef();
 	const endRef = useRef();
@@ -24,24 +25,13 @@ export default function YearFilter({
 		const endValue = parseInt(endRef.current.value);
 
 		if (
-			(!isNaN(beginningValue) || !isNaN(endValue)) &&
-			beginningValue <= endValue &&
-			beginningValue >= minimumYear &&
-			endValue <= currentYear
+			!isCorrectYearInput(beginningValue, endValue, minimumYear, currentYear)
 		) {
-			let query = {};
-			setBeginningYear(beginningValue);
-			setEndYear(endValue);
-			query = {
-				...movieQuery,
-				"primary_release_date.gte": `${beginningValue}-12-31`,
-				"primary_release_date.lte": `${endValue}-01-01`,
-			};
-
-			setMovieQuery(query);
-		} else {
-			toast.error("Please provide correct years.");
+			return;
 		}
+
+		setBeginningYear(beginningValue);
+		setEndYear(endValue);
 	}
 
 	return (
