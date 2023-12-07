@@ -10,9 +10,8 @@ import QuestionCard from "../QuestionCard";
 import FilterList from "../filter/FilterList";
 import { Button } from "../ui/button";
 
-export default function Home() {
+export default function Home({ movie, setMovie }) {
 	const [imageLoading, setImageLoading] = useState(false);
-	const [movie, setMovie] = useState({});
 	const movieCard = useRef(null);
 	const { movieQuery } = useQueryContext();
 

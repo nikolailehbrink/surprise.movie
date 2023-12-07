@@ -42,6 +42,7 @@ function getInitialWatchlist() {
 
 function App() {
 	const [watchlist, setWatchlist] = useState(getInitialWatchlist);
+	const [movie, setMovie] = useState({});
 	const [movieQuery, setMovieQuery] = useState({
 		"vote_average.gte": 7,
 		"vote_count.gte": 200,
@@ -64,7 +65,9 @@ function App() {
 					<Route path="/watchlist" component={Watchlist} />
 					<Route path="/movie/:id" component={MovieDetail} />
 					<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
-						<Route path="/" component={Home} />
+						<Route path="/">
+							<Home movie={movie} setMovie={setMovie} />
+						</Route>
 					</QueryContext.Provider>
 				</WatchlistContext.Provider>
 				<Route component={NotFound}></Route>
