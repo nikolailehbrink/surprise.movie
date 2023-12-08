@@ -1,5 +1,4 @@
 import { getCountryCode } from "@/helpers/languageHelper";
-import { fetchMovieDb } from "@/helpers/movieDb";
 import {
 	handleAddToWatchlist,
 	movieInWatchlist,
@@ -8,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { Heart } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import toast from "react-hot-toast";
 import { useLocation } from "wouter";
 import MovieCard from "../MovieCard";
 import StreamingProviderLabel from "../StreamingProviderLabel";
@@ -16,6 +14,7 @@ import MovieDetailContent from "../movie-detail/MovieDetailContent";
 import MovieDetailSkeleton from "../movie-detail/MovieDetailSkeleton";
 import { Button } from "../ui/button";
 import { useWatchlistContext } from "@/context/WatchlistContext";
+import { getMovieDetails } from "@/helpers/fetchMovieData";
 
 export default function MovieDetail({ params: { id } }) {
 	const [movie, setMovie] = useState({});
@@ -23,21 +22,7 @@ export default function MovieDetail({ params: { id } }) {
 	const { watchlist, setWatchlist } = useWatchlistContext();
 
 	useEffect(() => {
-		async function getMovieDetails() {
-			try {
-				const movieDetail = await fetchMovieDb(`/movie/${id}`, {
-					query: {
-						append_to_response:
-							"videos,images,credits,watch/providers,release_dates",
-					},
-				});
-				setMovie(movieDetail);
-			} catch ({ data }) {
-				toast.error(data.status_message);
-				setLocation("/");
-			}
-		}
-		getMovieDetails();
+		getMovieDetails(id, setMovie, setLocation);
 	}, []);
 
 	const streamingProvider =

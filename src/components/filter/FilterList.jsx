@@ -1,5 +1,4 @@
 import { getCountryCode } from "@/helpers/languageHelper";
-import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
 import { Calendar, FilmStrip, Monitor, Star } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
@@ -11,6 +10,10 @@ import YearFilter from "./YearFilter";
 import { isCorrectYearInput } from "@/helpers/yearInput";
 import { useQueryContext } from "@/context/QueryContext";
 import FilterPopover from "./FilterPopover";
+import {
+	getMovieGenres,
+	getStreamingProviders,
+} from "@/helpers/fetchMovieData";
 
 export default function FilterList({ className }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
@@ -43,23 +46,10 @@ export default function FilterList({ className }) {
 		parseFloat(movieQuery["vote_average.gte"] ?? 7)
 	);
 
+	// Muss gemacht werden für asynchrone Daten, um den State setzen zu können.
 	useEffect(() => {
-		async function getMovieProviders() {
-			try {
-				const { results } = await fetchMovieDb(`watch/providers/movie`, {
-					query: {
-						watch_region: getCountryCode(),
-					},
-				});
-				const movieProviders = results
-					.sort((a, b) => a.display_priority - b.display_priority)
-					.slice(0, 9);
-				setProviders(movieProviders);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		getMovieProviders();
+		getStreamingProviders(setProviders);
+		getMovieGenres(setGenres);
 	}, []);
 
 	useEffect(() => {
@@ -199,25 +189,9 @@ export default function FilterList({ className }) {
 		selectedRating,
 		beginningYear,
 		endYear,
-	]);
-
-	// Muss gemacht werden für asynchrone Daten, um den State setzen zu können.
-	useEffect(() => {
-		async function getMovieGenres() {
-			try {
-				let { genres: availableGenres } = await fetchMovieDb(
-					`genre/movie/list`
-				);
-				availableGenres = availableGenres.sort((a, b) =>
-					a.name.localeCompare(b.name)
-				);
-				setGenres(availableGenres);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		getMovieGenres();
-	}, []);
+		minimumYear,
+		currentYear
+	);
 
 	return (
 		<div className={cn("flex gap-4 flex-wrap justify-center", className)}>

@@ -1,17 +1,16 @@
-import { fetchMovieDb } from "@/helpers/movieDb";
 import { Popcorn, Spinner } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import toast from "react-hot-toast";
 import GradientHeading from "../GradientHeading";
 import MovieCard from "../MovieCard";
 import QuestionCard from "../QuestionCard";
 import FilterList from "../filter/FilterList";
 import { Button } from "../ui/button";
 import { useQueryContext } from "@/context/QueryContext";
+import { getMovie } from "@/helpers/fetchMovieData";
 
 export default function Home({ movie, setMovie }) {
-	const [imageLoading, setImageLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const movieCard = useRef(null);
 	const { movieQuery } = useQueryContext();
 
@@ -37,7 +36,7 @@ export default function Home({ movie, setMovie }) {
 						className="h-[95%] hidden sm:flex justify-self-center"
 					/>
 
-					{!imageLoading && Object.keys(movie).length !== 0 ? (
+					{!isLoading && Object.keys(movie).length !== 0 ? (
 						<MovieCard ref={movieCard} movie={movie} />
 					) : (
 						<QuestionCard
@@ -57,9 +56,9 @@ export default function Home({ movie, setMovie }) {
 					<Button
 						size="lg"
 						className="self-center mb-4 relative"
-						onClick={getMovie}
+						onClick={() => getRandomMovie(setIsLoading, setMovie, movieQuery)}
 					>
-						{imageLoading ? (
+						{isLoading ? (
 							<Spinner className="animate-spin" weight="duotone" size={32} />
 						) : (
 							<Popcorn size={32} weight="duotone" />
@@ -70,48 +69,4 @@ export default function Home({ movie, setMovie }) {
 			</div>
 		</>
 	);
-
-	async function getMovie() {
-		setImageLoading(true);
-		try {
-			const response = await fetchMovieDb(`discover/movie`, {
-				query: movieQuery,
-			});
-			const { total_pages: totalPages, total_results: totalResults } = response;
-
-			if (totalResults === 0) {
-				setImageLoading(false);
-				toast.error("No movies found. Try a different filter.");
-
-				return;
-			}
-
-			const randomPage = Math.floor(Math.random() * (totalPages - 1) + 1);
-
-			const randomResult = () => {
-				let maxResult;
-				if (randomPage === totalPages && totalResults % 20 !== 0) {
-					maxResult = Math.floor(Math.random() * (totalResults % 20));
-				} else {
-					maxResult = Math.floor(Math.random() * 20);
-				}
-				return maxResult;
-			};
-
-			const data = await fetchMovieDb(`discover/movie`, {
-				query: {
-					...movieQuery,
-					page: randomPage,
-				},
-			});
-
-			const searchedMovie = data.results[randomResult()];
-
-			setMovie(searchedMovie);
-		} catch (error) {
-			console.log(error.data);
-			toast.error(error.data.status_message);
-		}
-		setImageLoading(false);
-	}
 }
