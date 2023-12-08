@@ -1,4 +1,4 @@
-import { HeartHalf } from "@phosphor-icons/react";
+import { Heart } from "@phosphor-icons/react";
 import { Link, useRoute } from "wouter";
 import { Button } from "../ui/button";
 import Logo from "../../logo.svg?react";
@@ -23,7 +23,7 @@ export default function Navbar() {
 							size="icon"
 							variant={match ? "default" : "outline"}
 						>
-							<HeartHalf size={32} weight="duotone" />
+							<Heart size={32} weight="duotone" />{" "}
 							<span className="max-sm:sr-only">Watchlist</span>
 						</Button>
 					</Link>
