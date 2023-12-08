@@ -8,29 +8,9 @@ import QuestionCard from "../QuestionCard";
 import { Button } from "../ui/button";
 import { useWatchlistContext } from "@/context/WatchlistContext";
 
-const breakpoints = {
-	sm: 640,
-	md: 768,
-	lg: 1024,
-	xl: 1280,
-};
-
-const getNumberOfColumns = (width) => {
-	if (width < breakpoints.sm) return 1;
-	if (width < breakpoints.md) return 2;
-	if (width < breakpoints.lg) return 3;
-	if (width < breakpoints.xl) return 4;
-	return 5;
-};
-
-const calculateNeededCards = (watchlistLength, columns) => {
-	const additionalCards = watchlistLength % columns;
-	return additionalCards === 0 ? 0 : columns - additionalCards;
-};
-
 export default function Watchlist() {
 	const [columns, setColumns] = useState(getNumberOfColumns(window.innerWidth));
-	const { watchlist, setWatchlist } = useWatchlistContext();
+	const { watchlist } = useWatchlistContext();
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -54,13 +34,7 @@ export default function Watchlist() {
 						<GradientHeading>Your watchlist</GradientHeading>
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 							{watchlist.toReversed().map((movie) => (
-								<MovieCard
-									className="z-10"
-									key={movie.id}
-									movie={movie}
-									watchlist={watchlist}
-									setWatchlist={setWatchlist}
-								/>
+								<MovieCard className="z-10" key={movie.id} movie={movie} />
 							))}
 							{Array.from({ length: neededCards }, (_, i) => {
 								return <QuestionCard delay={i * 500} key={i} />;
@@ -82,3 +56,23 @@ export default function Watchlist() {
 		</>
 	);
 }
+
+const breakpoints = {
+	sm: 640,
+	md: 768,
+	lg: 1024,
+	xl: 1280,
+};
+
+const getNumberOfColumns = (width) => {
+	if (width < breakpoints.sm) return 1;
+	if (width < breakpoints.md) return 2;
+	if (width < breakpoints.lg) return 3;
+	if (width < breakpoints.xl) return 4;
+	return 5;
+};
+
+const calculateNeededCards = (watchlistLength, columns) => {
+	const additionalCards = watchlistLength % columns;
+	return additionalCards === 0 ? 0 : columns - additionalCards;
+};

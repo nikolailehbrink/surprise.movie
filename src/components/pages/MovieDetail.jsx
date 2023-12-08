@@ -62,8 +62,6 @@ export default function MovieDetail({ params: { id } }) {
 							<MovieCard
 								className="hidden lg:flex rounded-xl"
 								overlay={false}
-								watchlist={watchlist}
-								setWatchlist={setWatchlist}
 								movie={movie}
 							/>
 							<Button
