@@ -261,9 +261,5 @@ function useUpdateQuery(
 		selectedRating,
 		beginningYear,
 		endYear,
-		currentYear,
-		minimumYear,
-		movieQuery,
-		setMovieQuery,
 	]);
 }
