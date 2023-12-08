@@ -1,8 +1,6 @@
-import { useQueryContext } from "@/App";
 import { ArrowsLeftRight, CheckCircle } from "@phosphor-icons/react";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { useRef } from "react";
-import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { isCorrectYearInput } from "@/helpers/yearInput";
@@ -15,8 +13,6 @@ export default function YearFilter({
 	minimumYear,
 	currentYear,
 }) {
-	// const { movieQuery, setMovieQuery } = useQueryContext();
-
 	const beginningRef = useRef();
 	const endRef = useRef();
 

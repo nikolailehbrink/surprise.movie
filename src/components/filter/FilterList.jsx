@@ -1,4 +1,3 @@
-import { useQueryContext } from "@/App";
 import { getCountryCode } from "@/helpers/languageHelper";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import { cn } from "@/lib/utils";
@@ -12,6 +11,7 @@ import RatingFilter from "./RatingFilter";
 import StreamingProviderFilter from "./StreamingProviderFilter";
 import YearFilter from "./YearFilter";
 import { isCorrectYearInput } from "@/helpers/yearInput";
+import { useQueryContext } from "@/context/QueryContext";
 
 export default function FilterList({ className }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();

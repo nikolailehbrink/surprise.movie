@@ -1,4 +1,3 @@
-import { useWatchlistContext } from "@/App";
 import { getCountryCode } from "@/helpers/languageHelper";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import {
@@ -16,6 +15,7 @@ import StreamingProviderLabel from "../StreamingProviderLabel";
 import MovieDetailContent from "../movie-detail/MovieDetailContent";
 import MovieDetailSkeleton from "../movie-detail/MovieDetailSkeleton";
 import { Button } from "../ui/button";
+import { useWatchlistContext } from "@/context/WatchlistContext";
 
 export default function MovieDetail({ params: { id } }) {
 	const [movie, setMovie] = useState({});

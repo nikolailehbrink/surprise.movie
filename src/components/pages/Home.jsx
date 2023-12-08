@@ -1,4 +1,3 @@
-import { useQueryContext } from "@/App";
 import { fetchMovieDb } from "@/helpers/movieDb";
 import { Popcorn, Spinner } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +8,7 @@ import MovieCard from "../MovieCard";
 import QuestionCard from "../QuestionCard";
 import FilterList from "../filter/FilterList";
 import { Button } from "../ui/button";
+import { useQueryContext } from "@/context/QueryContext";
 
 export default function Home({ movie, setMovie }) {
 	const [imageLoading, setImageLoading] = useState(false);

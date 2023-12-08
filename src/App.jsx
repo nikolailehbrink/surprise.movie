@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MovieDetail from "./components/pages/MovieDetail";
 // Supports weights 100-900
 import "@fontsource-variable/inter";
@@ -9,25 +9,8 @@ import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
 import Watchlist from "./components/pages/Watchlist";
-
-const WatchlistContext = createContext();
-const QueryContext = createContext();
-
-export const useWatchlistContext = () => {
-	const watchlistContext = useContext(WatchlistContext);
-	if (watchlistContext === undefined) {
-		throw new Error("useWatchlistContext must be inside a WatchlistProvider");
-	}
-	return watchlistContext;
-};
-
-export const useQueryContext = () => {
-	const queryContext = useContext(QueryContext);
-	if (queryContext === undefined) {
-		throw new Error("useQueryContext must be inside a QueryProvider");
-	}
-	return queryContext;
-};
+import { WatchlistContext } from "./context/WatchlistContext";
+import { QueryContext } from "./context/QueryContext";
 
 function getInitialWatchlist() {
 	try {

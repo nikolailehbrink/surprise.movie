@@ -1,4 +1,3 @@
-import { useWatchlistContext } from "@/App";
 import { Binoculars } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -7,6 +6,7 @@ import GradientHeading from "../GradientHeading";
 import MovieCard from "../MovieCard";
 import QuestionCard from "../QuestionCard";
 import { Button } from "../ui/button";
+import { useWatchlistContext } from "@/context/WatchlistContext";
 
 const breakpoints = {
 	sm: 640,
