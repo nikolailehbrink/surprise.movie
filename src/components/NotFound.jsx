@@ -15,7 +15,7 @@ export default function NotFound() {
 				<Link href="/">
 					<Button variant="outline">
 						<Binoculars size={24} weight="duotone" />
-						Find a good movie
+						Look for a good movie
 					</Button>
 				</Link>
 			</div>
