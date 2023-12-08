@@ -144,46 +144,9 @@ export default function FilterList({ className }) {
 		endYear,
 	]);
 
-	useEffect(() => {
-		let updatedQuery = { ...movieQuery };
-
-		if (selectedProvider.length > 0) {
-			updatedQuery = {
-				...updatedQuery,
-				watch_region: getCountryCode(),
-				with_watch_providers: selectedProvider.join("|"),
-			};
-		} else {
-			delete updatedQuery.watch_region;
-			delete updatedQuery.with_watch_providers;
-		}
-
-		if (selectedGenres.length > 0) {
-			updatedQuery = {
-				...updatedQuery,
-				with_genres: selectedGenres.join("|"),
-			};
-		} else {
-			delete updatedQuery.with_genres;
-		}
-
-		updatedQuery = { ...updatedQuery, "vote_average.gte": selectedRating };
-
-		if (
-			isCorrectYearInput(beginningYear, endYear, minimumYear, currentYear) &&
-			!(beginningYear === minimumYear && endYear === currentYear)
-		) {
-			updatedQuery = {
-				...updatedQuery,
-				"primary_release_date.gte": `${beginningYear}-12-31`,
-				"primary_release_date.lte": `${endYear}-01-01`,
-			};
-		} else {
-			delete updatedQuery["primary_release_date.gte"];
-			delete updatedQuery["primary_release_date.lte"];
-		}
-		setMovieQuery(updatedQuery);
-	}, [
+	useUpdateQuery(
+		movieQuery,
+		setMovieQuery,
 		selectedProvider,
 		selectedGenres,
 		selectedRating,
@@ -249,4 +212,58 @@ export default function FilterList({ className }) {
 			</FilterPopover>
 		</div>
 	);
+}
+
+function useUpdateQuery(
+	movieQuery,
+	setMovieQuery,
+	selectedProvider,
+	selectedGenres,
+	selectedRating,
+	beginningYear,
+	endYear,
+	minimumYear,
+	currentYear
+) {
+	useEffect(() => {
+		const updatedQuery = { ...movieQuery };
+
+		if (selectedProvider.length > 0) {
+			updatedQuery.watch_region = getCountryCode();
+			updatedQuery.with_watch_providers = selectedProvider.join("|");
+		} else {
+			delete updatedQuery.watch_region;
+			delete updatedQuery.with_watch_providers;
+		}
+
+		if (selectedGenres.length > 0) {
+			updatedQuery.with_genres = selectedGenres.join("|");
+		} else {
+			delete updatedQuery.with_genres;
+		}
+
+		updatedQuery["vote_average.gte"] = selectedRating;
+
+		if (
+			isCorrectYearInput(beginningYear, endYear, minimumYear, currentYear) &&
+			!(beginningYear === minimumYear && endYear === currentYear)
+		) {
+			updatedQuery["primary_release_date.gte"] = `${beginningYear}-12-31`;
+			updatedQuery["primary_release_date.lte"] = `${endYear}-01-01`;
+		} else {
+			delete updatedQuery["primary_release_date.gte"];
+			delete updatedQuery["primary_release_date.lte"];
+		}
+		setMovieQuery(updatedQuery);
+	}, [
+		selectedProvider,
+		selectedGenres,
+		selectedRating,
+		beginningYear,
+		endYear,
+		currentYear,
+		minimumYear,
+		movieQuery,
+		setMovieQuery,
+	]);
 }
