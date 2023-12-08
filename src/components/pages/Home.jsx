@@ -7,7 +7,7 @@ import QuestionCard from "../QuestionCard";
 import FilterList from "../filter/FilterList";
 import { Button } from "../ui/button";
 import { useQueryContext } from "@/context/QueryContext";
-import { getMovie } from "@/helpers/fetchMovieData";
+import { getRandomMovie } from "@/helpers/fetchMovieData";
 
 export default function Home({ movie, setMovie }) {
 	const [isLoading, setIsLoading] = useState(false);
