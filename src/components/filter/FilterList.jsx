@@ -226,7 +226,7 @@ export default function FilterList({ className }) {
 				</ScrollArea>
 			</FilterPopover>
 			<Button
-				className="opacity-80 hover:opacity-100"
+				className="opacity-80 hover:opacity-100 py-3"
 				onClick={handleResetFilter}
 				variant="outline"
 			>
