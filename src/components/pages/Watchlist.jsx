@@ -28,7 +28,7 @@ export default function Watchlist() {
 			<SEO
 				title={"Your Watchlist"}
 				description={
-					"Curate your movie journey on surprise.movie: Easily add and manage your favorite films in your personalized watchlist."
+					"Easily add and manage your favorite films in your personalized watchlist."
 				}
 			/>
 			<div className="flex flex-col relative gap-12 sm:gap-12 justify-center container flex-grow sm:items-center py-16">

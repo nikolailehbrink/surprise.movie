@@ -15,7 +15,7 @@ export default function SEO({
 			<meta name="description" content={description} />
 
 			<meta property="og:type" content={type} />
-			<meta property="og:title" content={siteTitle} />
+			<meta property="og:title" content={title} />
 			<meta property="og:description" content={description} />
 			<meta
 				property="og:url"
@@ -43,7 +43,7 @@ export default function SEO({
 				</>
 			)}
 
-			<meta name="twitter:title" content={siteTitle} />
+			<meta name="twitter:title" content={title} />
 			<meta name="twitter:card" content={type} />
 			<meta name="twitter:description" content={description} />
 

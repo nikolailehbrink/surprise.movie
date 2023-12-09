@@ -25,7 +25,7 @@ export default function Home({ movie, setMovie }) {
 			<SEO
 				title={"Discover your next favorite movie"}
 				description={
-					"Explore top-rated films with surprise.movie: A Random Movie Generator with a watchlist and filters for streaming providers, genres etc."
+					"Explore and save top-rated movies from your streaming providers, preferred genres and more."
 				}
 			/>
 			<div className="flex flex-col relative gap-4  justify-center container flex-grow sm:py-16 py-12">
