@@ -1,4 +1,4 @@
-import { Popcorn, Spinner } from "@phosphor-icons/react";
+import { CircleNotch, Popcorn } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import GradientHeading from "../GradientHeading";
 import MovieCard from "../MovieCard";
@@ -60,9 +60,14 @@ export default function Home({ movie, setMovie }) {
 						size="lg"
 						className="self-center mb-4 relative"
 						onClick={() => getRandomMovie(setIsLoading, setMovie, movieQuery)}
+						disabled={isLoading}
 					>
 						{isLoading ? (
-							<Spinner className="animate-spin" weight="duotone" size={32} />
+							<CircleNotch
+								className="animate-spin"
+								weight="duotone"
+								size={32}
+							/>
 						) : (
 							<Popcorn size={32} weight="duotone" />
 						)}
