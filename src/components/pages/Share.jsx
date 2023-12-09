@@ -11,9 +11,9 @@ import {
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import toast from "react-hot-toast";
 import { useState } from "react";
 import { Checkbox } from "../ui/checkbox";
+import { copyToClipboard } from "@/lib/utils";
 
 export function Share() {
 	const [open, setOpen] = useState(false);
@@ -27,16 +27,6 @@ export function Share() {
 	function hasValidSearchParams() {
 		const validSearchParams = ["streaming", "start", "end", "rating", "genre"];
 		return validSearchParams.some((param) => url.search.includes(param));
-	}
-
-	async function handleCopyToClipboard(text, message = "Copied to clipboard.") {
-		try {
-			await navigator.clipboard.writeText(text);
-			toast.success(message);
-		} catch (error) {
-			console.log(error);
-			toast.error("Failed to copy to clipboard.");
-		}
 	}
 
 	return (
@@ -61,7 +51,7 @@ export function Share() {
 					</div>
 					<Button
 						onClick={() => {
-							handleCopyToClipboard(link, "Link copied!");
+							copyToClipboard(link, "Link copied!");
 							setOpen(false);
 						}}
 						type="submit"

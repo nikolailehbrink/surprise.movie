@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs) {
@@ -16,4 +17,14 @@ export function initials(name) {
 			.join("")
 			.toUpperCase()
 	);
+}
+
+export async function copyToClipboard(text, message = "Copied to clipboard.") {
+	try {
+		await navigator.clipboard.writeText(text);
+		toast.success(message);
+	} catch (error) {
+		console.log(error);
+		toast.error("Failed to copy to clipboard.");
+	}
 }
