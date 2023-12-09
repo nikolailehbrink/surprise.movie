@@ -2,6 +2,7 @@ import { Heart } from "@phosphor-icons/react";
 import { Link, useRoute } from "wouter";
 import { Button } from "../ui/button";
 import Logo from "../../logo.svg?react";
+import { Share } from "../pages/Share";
 
 export default function Navbar() {
 	const [match] = useRoute("/watchlist");
@@ -17,6 +18,7 @@ export default function Navbar() {
 					</a>
 				</Link>
 				<menu className="font-bold flex gap-2 sm:gap-4 items-center">
+					<Share />
 					<Link href="/watchlist">
 						<Button
 							className="sm:px-3"
