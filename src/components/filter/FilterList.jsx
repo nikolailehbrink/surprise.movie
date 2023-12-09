@@ -59,7 +59,7 @@ export default function FilterList({ className }) {
 	useEffect(() => {
 		let params = new URLSearchParams(location.search);
 
-		const provider = params.get("provider");
+		const provider = params.get("streaming");
 		const start = params.get("start");
 		const end = params.get("end");
 		const rating = params.get("rating");
@@ -108,13 +108,13 @@ export default function FilterList({ className }) {
 		const url = new URL(location.href);
 		const params = url.searchParams;
 
-		params.delete("provider");
+		params.delete("streaming");
 		params.delete("start");
 		params.delete("end");
 		params.delete("genre");
 
 		if (selectedProvider.length > 0) {
-			params.set("provider", selectedProvider.join("_"));
+			params.set("streaming", selectedProvider.join("_"));
 		}
 
 		if (selectedGenres.length > 0) {
