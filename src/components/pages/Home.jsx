@@ -41,7 +41,7 @@ export default function Home({ movie, setMovie }) {
 					) : (
 						<QuestionCard
 							delay={1000}
-							className="bg-neutral-800 text-neutral-700"
+							className="bg-neutral-700 text-neutral-500"
 						/>
 					)}
 					<QuestionCard
