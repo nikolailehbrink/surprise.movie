@@ -12,6 +12,8 @@ export default function YearFilter({
 	setEndYear,
 	minimumYear,
 	currentYear,
+	yearFilterOpen,
+	setYearFilterOpen,
 }) {
 	const beginningRef = useRef();
 	const endRef = useRef();
@@ -28,6 +30,7 @@ export default function YearFilter({
 
 		setBeginningYear(beginningValue);
 		setEndYear(endValue);
+		setYearFilterOpen(!yearFilterOpen);
 	}
 
 	return (
@@ -57,11 +60,9 @@ export default function YearFilter({
 				max={currentYear}
 			/>
 
-			<PopoverClose asChild>
-				<Button onClick={handleYearChange} variant="outline" size="icon">
-					<CheckCircle size={24} weight="duotone" />
-				</Button>
-			</PopoverClose>
+			<Button onClick={handleYearChange} variant="outline" size="icon">
+				<CheckCircle size={24} weight="duotone" />
+			</Button>
 		</div>
 	);
 }

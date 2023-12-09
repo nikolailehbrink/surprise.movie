@@ -24,6 +24,7 @@ import { Button } from "../ui/button";
 
 export default function FilterList({ className }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
+	const [yearFilterOpen, setYearFilterOpen] = useState(false);
 
 	const minimumYear = 1895;
 	const currentYear = new Date().getFullYear();
@@ -189,6 +190,8 @@ export default function FilterList({ className }) {
 				isSelected={beginningYear !== minimumYear || endYear !== currentYear}
 				icon={<Calendar size={32} weight="duotone" />}
 				text="Year"
+				open={yearFilterOpen}
+				onOpenChange={setYearFilterOpen}
 			>
 				<YearFilter
 					beginningYear={beginningYear}
@@ -197,6 +200,8 @@ export default function FilterList({ className }) {
 					setEndYear={setEndYear}
 					minimumYear={minimumYear}
 					currentYear={currentYear}
+					yearFilterOpen={yearFilterOpen}
+					setYearFilterOpen={setYearFilterOpen}
 				/>
 			</FilterPopover>
 
