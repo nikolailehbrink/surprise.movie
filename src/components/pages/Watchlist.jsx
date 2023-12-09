@@ -1,12 +1,12 @@
 import { Binoculars } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import GradientHeading from "../GradientHeading";
 import MovieCard from "../MovieCard";
 import QuestionCard from "../QuestionCard";
 import { Button } from "../ui/button";
 import { useWatchlistContext } from "@/context/WatchlistContext";
+import SEO from "../SEO";
 
 export default function Watchlist() {
 	const [columns, setColumns] = useState(getNumberOfColumns(window.innerWidth));
@@ -25,9 +25,12 @@ export default function Watchlist() {
 
 	return (
 		<>
-			<Helmet>
-				<title>surprise.movie - Your watchlist</title>
-			</Helmet>
+			<SEO
+				title={"Your Watchlist"}
+				description={
+					"Curate your movie journey on surprise.movie: Easily add and manage your favorite films in your personalized watchlist."
+				}
+			/>
 			<div className="flex flex-col relative gap-12 sm:gap-12 justify-center container flex-grow sm:items-center py-16">
 				{watchlist.length > 0 ? (
 					<>

@@ -6,7 +6,6 @@ import {
 import { cn } from "@/lib/utils";
 import { Heart } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useLocation } from "wouter";
 import MovieCard from "../MovieCard";
 import StreamingProviderLabel from "../StreamingProviderLabel";
@@ -15,6 +14,8 @@ import MovieDetailSkeleton from "../movie-detail/MovieDetailSkeleton";
 import { Button } from "../ui/button";
 import { useWatchlistContext } from "@/context/WatchlistContext";
 import { getMovieDetails } from "@/helpers/fetchMovieData";
+import { imageBase } from "@/helpers/movieDb";
+import SEO from "../SEO";
 
 export default function MovieDetail({ params: { id } }) {
 	const [movie, setMovie] = useState({});
@@ -30,18 +31,22 @@ export default function MovieDetail({ params: { id } }) {
 
 	const inWatchlist = movieInWatchlist(watchlist, movie);
 
+	const siteTitle =
+		movie.title +
+		(movie.release_date && ` (${new Date(movie.release_date).getFullYear()})`);
+
 	return (
 		<div className="flex-grow container flex pb-8">
 			{Object.keys(movie).length > 0 ? (
 				<>
-					<Helmet>
-						<title>
-							surprise.movie - {movie.title} (
-							{movie.release_date &&
-								`${new Date(movie.release_date).getFullYear()}`}
-							)
-						</title>
-					</Helmet>
+					<SEO
+						title={siteTitle}
+						description={movie.overview}
+						type="video.movie"
+						image={`${imageBase}/w780/${movie.backdrop_path}`}
+					>
+						<meta property="video:release_date" content={movie.release_date} />
+					</SEO>
 					<div className="flex max-lg:flex-col w-full gap-4 xl:gap-8">
 						<div className="lg:w-1/4 max-lg:z-30 shrink-0 sticky top-[84px] flex flex-col gap-3 lg:self-start">
 							<MovieCard

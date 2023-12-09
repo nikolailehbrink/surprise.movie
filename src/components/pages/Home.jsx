@@ -1,6 +1,5 @@
 import { Popcorn, Spinner } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import GradientHeading from "../GradientHeading";
 import MovieCard from "../MovieCard";
 import QuestionCard from "../QuestionCard";
@@ -8,6 +7,7 @@ import FilterList from "../filter/FilterList";
 import { Button } from "../ui/button";
 import { useQueryContext } from "@/context/QueryContext";
 import { getRandomMovie } from "@/helpers/fetchMovieData";
+import SEO from "../SEO";
 
 export default function Home({ movie, setMovie }) {
 	const [isLoading, setIsLoading] = useState(false);
@@ -22,9 +22,12 @@ export default function Home({ movie, setMovie }) {
 
 	return (
 		<>
-			<Helmet>
-				<title>surprise.movie - Discover your next favorite movie</title>
-			</Helmet>
+			<SEO
+				title={"Discover your next favorite movie"}
+				description={
+					"Explore top-rated films with surprise.movie: A Random Movie Generator with a watchlist and filters for streaming providers, genres etc."
+				}
+			/>
 			<div className="flex flex-col relative gap-4  justify-center container flex-grow sm:py-16 py-12">
 				<GradientHeading className="mb-12">
 					Discover your next favorite movie
