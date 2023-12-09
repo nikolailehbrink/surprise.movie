@@ -1,6 +1,12 @@
 import { getCountryCode } from "@/helpers/languageHelper";
 import { cn } from "@/lib/utils";
-import { Calendar, FilmStrip, Monitor, Star } from "@phosphor-icons/react";
+import {
+	Backspace,
+	Calendar,
+	FilmStrip,
+	Monitor,
+	Star,
+} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import GenreFilter from "./GenreFilter";
@@ -14,6 +20,7 @@ import {
 	getMovieGenres,
 	getStreamingProviders,
 } from "@/helpers/fetchMovieData";
+import { Button } from "../ui/button";
 
 export default function FilterList({ className }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
@@ -156,6 +163,14 @@ export default function FilterList({ className }) {
 		currentYear
 	);
 
+	function handleResetFilter() {
+		setSelectedGenres([]);
+		setBeginningYear(minimumYear);
+		setEndYear(currentYear);
+		setSelectedProvider([]);
+		setSelectedRating(7);
+	}
+
 	return (
 		<div className={cn("flex gap-4 flex-wrap justify-center", className)}>
 			<FilterPopover
@@ -210,6 +225,14 @@ export default function FilterList({ className }) {
 					/>
 				</ScrollArea>
 			</FilterPopover>
+			<Button
+				className="opacity-80 hover:opacity-100"
+				onClick={handleResetFilter}
+				variant="outline"
+			>
+				<Backspace size={32} weight="duotone" />
+				Reset
+			</Button>
 		</div>
 	);
 }
