@@ -46,21 +46,59 @@ export default function MovieDetailContent({ movie }) {
 				</div>
 			)}
 			<h1 className="font-extrabold text-4xl">{movie.title}</h1>
-			<div className="flex gap-6 items-center flex-wrap">
+			<div className="flex gap-2 items-center flex-wrap">
 				{movie.vote_average && <MovieRating rating={movie.vote_average} />}
 
 				{movie.release_date && (
-					<time dateTime={new Date(movie.release_date)}>
-						{new Date(movie.release_date).getFullYear()}
-					</time>
+					<>
+						<svg
+							width="3"
+							height="3"
+							fill="currentColor"
+							className="mx-2 text-slate-300"
+							aria-hidden="true"
+						>
+							<circle cx="2" cy="2" r="2" />
+						</svg>
+						<time dateTime={new Date(movie.release_date)}>
+							{new Date(movie.release_date).getFullYear()}
+						</time>
+					</>
 				)}
 
-				{movie.runtime && <p>{movie.runtime} min.</p>}
+				{movie.runtime && (
+					<>
+						<svg
+							width="3"
+							height="3"
+							fill="currentColor"
+							className="mx-2 text-slate-300"
+							aria-hidden="true"
+						>
+							<circle cx="2" cy="2" r="2" />
+						</svg>
+						<p>
+							{Math.floor(movie.runtime / 60)}h {Math.floor(movie.runtime % 60)}
+							m
+						</p>
+					</>
+				)}
 
 				{certification && (
-					<div className="py-1 px-2 text-sm border-2 rounded-xl">
-						{certification}
-					</div>
+					<>
+						<svg
+							width="3"
+							height="3"
+							fill="currentColor"
+							className="mx-2 text-slate-300"
+							aria-hidden="true"
+						>
+							<circle cx="2" cy="2" r="2" />
+						</svg>
+						<div className="py-1 px-2 text-sm border-2 rounded-xl">
+							{certification}
+						</div>
+					</>
 				)}
 			</div>
 			<div className="flex gap-2 flex-wrap">
