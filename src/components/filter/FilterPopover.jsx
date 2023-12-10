@@ -7,6 +7,7 @@ export default function FilterPopover({
 	icon,
 	text,
 	children,
+	className,
 	...props
 }) {
 	return (
@@ -21,7 +22,7 @@ export default function FilterPopover({
 					{text}
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="max-w-[280px] sm:max-w-xs">
+			<PopoverContent className={cn("max-w-[280px] sm:max-w-xs", className)}>
 				{children}
 			</PopoverContent>
 		</Popover>

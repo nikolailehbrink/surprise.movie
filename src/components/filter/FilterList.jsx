@@ -21,6 +21,7 @@ import {
 	getStreamingProviders,
 } from "@/helpers/fetchMovieData";
 import { Button } from "../ui/button";
+import { StreamingCombobox } from "./StreamingCombobox";
 
 export default function FilterList({ className }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
@@ -42,6 +43,7 @@ export default function FilterList({ className }) {
 			?.split("|")
 			?.map((provider) => parseInt(provider)) ?? []
 	);
+	const [customProviders, setCustomProviders] = useState([]);
 
 	const [genres, setGenres] = useState([]);
 	const [selectedGenres, setSelectedGenres] = useState(
@@ -178,11 +180,20 @@ export default function FilterList({ className }) {
 				isSelected={selectedProvider.length > 0}
 				icon={<Monitor size={32} weight="duotone" />}
 				text="Streaming"
+				className="space-y-2"
 			>
+				{/* <Input type="search" className="max-w-[220px]" /> */}
+				<StreamingCombobox
+					providers={providers}
+					customProviders={customProviders}
+					setCustomProviders={setCustomProviders}
+				/>
+
 				<StreamingProviderFilter
 					providers={providers}
 					selectedProvider={selectedProvider}
 					setSelectedProvider={setSelectedProvider}
+					customProviders={customProviders}
 				/>
 			</FilterPopover>
 

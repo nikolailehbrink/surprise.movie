@@ -67,9 +67,9 @@ export async function getStreamingProviders(setProviders) {
 				watch_region: getCountryCode(),
 			},
 		});
-		const movieProviders = results
-			.sort((a, b) => a.display_priority - b.display_priority)
-			.slice(0, 9);
+		const movieProviders = results;
+		// .sort((a, b) => a.display_priority - b.display_priority)
+		// .slice(0, 9);
 		setProviders(movieProviders);
 	} catch (error) {
 		console.log(error);

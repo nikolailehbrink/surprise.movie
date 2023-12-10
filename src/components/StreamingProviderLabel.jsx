@@ -14,7 +14,7 @@ export default function StreamingProviderLabel({ className, logo, name }) {
 				<TooltipTrigger asChild>
 					<div className={cn("border-2 p-2 rounded-xl", className)}>
 						<img
-							className="rounded-md h-12 flex"
+							className="rounded-md h-12 w-12 flex"
 							src={`${imageBase}/original/${logo}`}
 							alt={`Logo ${name}`}
 						/>
