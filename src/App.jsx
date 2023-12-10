@@ -43,18 +43,18 @@ function App() {
 		<>
 			<Navbar />
 			<ScrollToTop />
-			<Switch>
-				<WatchlistContext.Provider value={{ watchlist, setWatchlist }}>
+			<WatchlistContext.Provider value={{ watchlist, setWatchlist }}>
+				<Switch>
 					<Route path="/watchlist" component={Watchlist} />
 					<Route path="/movie/:id" component={MovieDetail} />
-					<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
-						<Route path="/">
+					<Route path="/">
+						<QueryContext.Provider value={{ movieQuery, setMovieQuery }}>
 							<Home movie={movie} setMovie={setMovie} />
-						</Route>
-					</QueryContext.Provider>
-				</WatchlistContext.Provider>
-				<Route component={NotFound}></Route>
-			</Switch>
+						</QueryContext.Provider>
+					</Route>
+					<Route component={NotFound}></Route>
+				</Switch>
+			</WatchlistContext.Provider>
 			<Footer />
 		</>
 	);
