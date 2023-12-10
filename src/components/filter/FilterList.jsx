@@ -21,7 +21,6 @@ import {
 	getStreamingProviders,
 } from "@/helpers/fetchMovieData";
 import { Button } from "../ui/button";
-import { StreamingCombobox } from "./StreamingCombobox";
 
 export default function FilterList({ className }) {
 	const { movieQuery, setMovieQuery } = useQueryContext();
@@ -44,6 +43,7 @@ export default function FilterList({ className }) {
 			?.map((provider) => parseInt(provider)) ?? []
 	);
 	const [customProviders, setCustomProviders] = useState([]);
+	const [shownProviders, setShownProviders] = useState([]);
 
 	const [genres, setGenres] = useState([]);
 	const [selectedGenres, setSelectedGenres] = useState(
@@ -61,6 +61,26 @@ export default function FilterList({ className }) {
 		getStreamingProviders(setProviders);
 		getMovieGenres(setGenres);
 	}, []);
+
+	useEffect(() => {
+		const slicedProviders = providers.slice(0, 8);
+		if (selectedProvider.length > 0 && providers) {
+			const showProviders = providers
+				.filter(({ provider_id }) =>
+					selectedProvider.find((id) => id === provider_id)
+				)
+				.filter(
+					({ provider_id }) =>
+						!slicedProviders.find(
+							(provider) => provider.provider_id === provider_id
+						)
+				);
+			console.log(showProviders);
+			setShownProviders([...slicedProviders, ...showProviders]);
+			return;
+		}
+		setShownProviders(slicedProviders);
+	}, [providers]);
 
 	useEffect(() => {
 		console.log(movieQuery);
@@ -82,6 +102,8 @@ export default function FilterList({ className }) {
 				.filter((id) => typeof id === "number" && !isNaN(id));
 
 			setSelectedProvider(searchProvider);
+			// TODO: richtige Umsetzung für das Laden von Streaming-Diensten aus Search Param finden
+			// setShownProviders([...shownProviders, searchProvider]);
 		}
 		if (genre) {
 			const searchGenre = genre
@@ -182,18 +204,14 @@ export default function FilterList({ className }) {
 				text="Streaming"
 				className="space-y-2"
 			>
-				{/* <Input type="search" className="max-w-[220px]" /> */}
-				<StreamingCombobox
-					providers={providers}
-					customProviders={customProviders}
-					setCustomProviders={setCustomProviders}
-				/>
-
 				<StreamingProviderFilter
 					providers={providers}
 					selectedProvider={selectedProvider}
 					setSelectedProvider={setSelectedProvider}
 					customProviders={customProviders}
+					setCustomProviders={setCustomProviders}
+					shownProviders={shownProviders}
+					setShownProviders={setShownProviders}
 				/>
 			</FilterPopover>
 
