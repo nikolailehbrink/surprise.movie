@@ -1,5 +1,4 @@
 import { ArrowsLeftRight, CheckCircle } from "@phosphor-icons/react";
-import { PopoverClose } from "@radix-ui/react-popover";
 import { useRef } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -19,8 +18,8 @@ export default function YearFilter({
 	const endRef = useRef();
 
 	function handleYearChange() {
-		const beginningValue = parseInt(beginningRef.current.value);
-		const endValue = parseInt(endRef.current.value);
+		const beginningValue = parseInt(beginningRef.current.value) || minimumYear;
+		const endValue = parseInt(endRef.current.value) || currentYear;
 
 		if (
 			!isCorrectYearInput(beginningValue, endValue, minimumYear, currentYear)
@@ -41,8 +40,6 @@ export default function YearFilter({
 				type="number"
 				placeholder={minimumYear}
 				defaultValue={beginningYear}
-				name="minYear"
-				id="minYear"
 				min={1895}
 				max={endYear}
 			/>
@@ -54,8 +51,6 @@ export default function YearFilter({
 				type="number"
 				placeholder="2023"
 				defaultValue={endYear}
-				name="maxYear"
-				id="maxYear"
 				min={beginningYear}
 				max={currentYear}
 			/>
