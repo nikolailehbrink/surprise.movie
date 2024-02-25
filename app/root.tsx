@@ -8,7 +8,7 @@ import {
 } from "@remix-run/react";
 import "@fontsource-variable/inter";
 
-import tailwind from "~/globals.css?url";
+import tailwind from "@/globals.css?url";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
