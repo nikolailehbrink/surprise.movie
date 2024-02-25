@@ -1,9 +1,10 @@
-// prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
-
 /** @type {import("prettier").Config} */
 const config = {
-    tailwindFunctions: ['cn', 'clsx'],
-    plugins: ['prettier-plugin-tailwindcss'],
-}
+  tailwindFunctions: ["cn", "clsx"],
+  plugins: ["prettier-plugin-tailwindcss"],
+  semi: true,
+  tabWidth: 2,
+  singleQuote: false,
+};
 
-export default config
+export default config;
