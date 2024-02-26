@@ -34,7 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className="scrollbar-thumb-neutral-700 hover:scrollbar-thumb-neutral-800 scrollbar-thin active:scrollbar-thumb-neutral-400 scrollbar-track-neutral-500 dark scroll-smooth bg-background font-inter text-foreground"
+      className="dark scroll-smooth bg-background font-inter text-foreground scrollbar-thin scrollbar-track-neutral-500 scrollbar-thumb-neutral-700 hover:scrollbar-thumb-neutral-800 active:scrollbar-thumb-neutral-400"
     >
       <head>
         <meta charSet="utf-8" />
@@ -42,9 +42,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="flex min-h-dvh flex-col">
         <Navigation />
-        {children}
+        <main className="flex flex-1 flex-col">{children}</main>
+        <Footer />
         <ScrollRestoration />
         <Scripts />
         <SpeedInsights />
