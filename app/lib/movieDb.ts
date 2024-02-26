@@ -19,7 +19,7 @@ export const fetchTMDB = (
 
   return fetch(url, {
     headers: {
-      Authorization: `Bearer ${process.env.VITE_TMDB_API_KEY}`,
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   });
 };
@@ -68,7 +68,7 @@ export const getRandomPage = async () => {
   return { randomPage, randomResult };
 };
 
-export const getRandomMovie = async (page: number, result: number) => {
+export const getMovie = async (page: number, result: number) => {
   const response = await fetchTMDB(`discover/movie`, {
     searchParams: { page: page.toString() },
   });
@@ -82,4 +82,10 @@ export const getRandomMovie = async (page: number, result: number) => {
   const movie = results[result];
 
   return movie;
+};
+
+export const getRandomMovie = async () => {
+  const { randomPage, randomResult } = await getRandomPage();
+  const randomMovie = await getMovie(randomPage, randomResult);
+  return randomMovie;
 };
