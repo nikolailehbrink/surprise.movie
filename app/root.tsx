@@ -12,6 +12,7 @@ import styles from "@/globals.css?url";
 import { SpeedInsights } from "@vercel/speed-insights/remix";
 import { Analytics } from "@vercel/analytics/react";
 import type { MetaFunction } from "@vercel/remix";
+import Navigation from "./components/Navigation";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -32,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className="scrollbar-thumb-neutral-700 hover:scrollbar-thumb-neutral-800 scrollbar-thin active:scrollbar-thumb-neutral-400 scrollbar-track-neutral-500 h-[200vh] scroll-smooth bg-foreground font-inter text-background"
+      className="scrollbar-thumb-neutral-700 hover:scrollbar-thumb-neutral-800 scrollbar-thin active:scrollbar-thumb-neutral-400 scrollbar-track-neutral-500 dark scroll-smooth bg-background font-inter text-foreground"
     >
       <head>
         <meta charSet="utf-8" />
@@ -41,6 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Navigation />
         {children}
         <ScrollRestoration />
         <Scripts />
