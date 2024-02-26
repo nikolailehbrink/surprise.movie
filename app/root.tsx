@@ -17,7 +17,10 @@ export const links: LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-foreground font-inter text-background">
+    <html
+      lang="en"
+      className="scrollbar-thumb-neutral-700 hover:scrollbar-thumb-neutral-800 scrollbar-thin active:scrollbar-thumb-neutral-400 scrollbar-track-neutral-500 h-[200vh] scroll-smooth bg-foreground font-inter text-background"
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
