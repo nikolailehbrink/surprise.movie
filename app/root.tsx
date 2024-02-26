@@ -58,3 +58,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return <Outlet />;
 }
+
+export function ErrorBoundary() {
+  // const error = useRouteError();
+  return (
+    <h1 className="self-center justify-self-center">
+      There is an unexpected error happening, I am on it!
+    </h1>
+  );
+}
