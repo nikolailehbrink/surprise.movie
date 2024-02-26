@@ -10,6 +10,7 @@ import "@fontsource-variable/inter";
 
 import styles from "@/globals.css?url";
 import { SpeedInsights } from "@vercel/speed-insights/remix";
+import { Analytics } from "@vercel/analytics/react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -33,6 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
