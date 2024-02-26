@@ -12,7 +12,7 @@ import styles from "@/globals.css?url";
 import { SpeedInsights } from "@vercel/speed-insights/remix";
 import { Analytics } from "@vercel/analytics/react";
 import type { MetaFunction } from "@vercel/remix";
-import Navigation from "./components/navigation";
+import Navigation from "./components/layout/navigation";
 import Footer from "./components/layout/footer";
 
 export const links: LinksFunction = () => [

@@ -2,7 +2,7 @@ import { Heart } from "@phosphor-icons/react";
 import Logo from "@/assets/logo.svg?react";
 import { Link, NavLink } from "@remix-run/react";
 import { buttonVariants } from "@/components/ui/button";
-import Share from "./share";
+import Share from "../share";
 
 export default function Navigation() {
   return (
