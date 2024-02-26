@@ -8,10 +8,10 @@ import {
 } from "@remix-run/react";
 import "@fontsource-variable/inter";
 
-import tailwind from "@/globals.css?url";
+import styles from "@/globals.css?url";
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: tailwind },
+  { rel: "stylesheet", href: styles },
   { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
 ];
 
