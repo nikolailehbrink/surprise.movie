@@ -2,6 +2,7 @@ import { Heart } from "@phosphor-icons/react";
 import Logo from "@/assets/logo.svg?react";
 import { Link, NavLink } from "@remix-run/react";
 import { buttonVariants } from "@/components/ui/button";
+import Share from "./share";
 
 export default function Navigation() {
   return (
@@ -12,8 +13,8 @@ export default function Navigation() {
         <Link to="/">
           <Logo />
         </Link>
-        <menu className="flex items-center gap-2 font-bold sm:gap-4">
-          {/* <Share /> */}
+        <menu className="flex items-center gap-2 font-bold">
+          <Share />
           <NavLink
             to="/watchlist"
             className={({ isActive }) =>

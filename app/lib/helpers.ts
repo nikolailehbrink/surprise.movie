@@ -34,3 +34,8 @@ export const mergeMeta = <
     }, leafMeta);
   };
 };
+
+export function hasValidSearchParams(searchParams: URLSearchParams) {
+  const params = ["streaming", "start", "end", "rating", "genre"];
+  return params.some((param) => searchParams.has(param));
+}
