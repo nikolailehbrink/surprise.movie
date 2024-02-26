@@ -2,7 +2,12 @@
   "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["@remix-run/node", "node", "vite/client"],
+    "types": [
+      "vite-plugin-svgr/client",
+      "@remix-run/node",
+      "node",
+      "vite/client"
+    ],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
