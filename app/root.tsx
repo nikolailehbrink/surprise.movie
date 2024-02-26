@@ -11,12 +11,23 @@ import "@fontsource-variable/inter";
 import styles from "@/globals.css?url";
 import { SpeedInsights } from "@vercel/speed-insights/remix";
 import { Analytics } from "@vercel/analytics/react";
+import type { MetaFunction } from "@vercel/remix";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
   { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
 ];
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "surprise.movie - Discover your next favorite movie" },
+    {
+      name: "description",
+      content:
+        "Explore and save top-rated movies from your streaming providers, preferred genres and more.",
+    },
+  ];
+};
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html

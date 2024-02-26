@@ -1,16 +1,9 @@
-import type { MetaFunction } from "@vercel/remix";
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
-
 export default function Index() {
   return (
     <div>
-      <h1 className="text-wrap text-4xl font-bold">Welcome to Remix</h1>
+      <h1 className="text-wrap text-4xl font-bold text-sky-500">
+        Welcome to Remix
+      </h1>
       <ul>
         <li>
           <a
