@@ -1,4 +1,4 @@
-import { DiscoverMovie } from "types/tmdb";
+import { DiscoverMovie } from "types/tmdb/discover-movie";
 
 export const fetchTMDB = (
   path: string,
