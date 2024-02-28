@@ -1,4 +1,5 @@
 import { DiscoverMovie } from "types/tmdb/discover-movie";
+import { MovieDetails } from "types/tmdb/movie-details";
 
 export const fetchTMDB = (
   path: string,
@@ -90,3 +91,28 @@ export const getRandomMovie = async () => {
   const randomMovie = await getMovie(randomPage, randomResult);
   return randomMovie;
 };
+
+export async function getMovieDetails(id: string) {
+  try {
+    const response = await fetchTMDB(`movie/${id}`, {
+      searchParams: {
+        append_to_response:
+          "videos,images,credits,watch/providers,release_dates",
+      },
+    });
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Response(null, {
+          status: 404,
+          statusText: "Not Found",
+        });
+      }
+
+      throw new Error("Failed to fetch data from TMDB");
+    }
+    const data = (await response.json()) as MovieDetails;
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch data from TMDB");
+  }
+}
