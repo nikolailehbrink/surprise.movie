@@ -1,7 +1,7 @@
 import { MovieDetails } from "types/tmdb/movie-details";
-import MovieRating from "./movie-rating";
+import MovieRating from "@/components/movie-rating";
 import MovieDetailDescriptionItem from "./movie-detail-description-item";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function MovieDetailDescriptionList({
   movie,

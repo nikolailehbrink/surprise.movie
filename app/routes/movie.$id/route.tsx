@@ -1,9 +1,9 @@
-import { getMovieDetails, imageBase, imageConfig } from "@/lib/movieDb";
+import { getMovieDetails, imageBase, imageConfig } from "@/lib/movie-database";
 import { LoaderFunctionArgs, MetaFunction, json } from "@vercel/remix";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import MovieDetailContent from "@/components/movie-detail-content";
-import MovieDetailSidebar from "@/components/movie-detail-sidebar";
+import MovieDetailContent from "@/routes/movie.$id/movie-detail-content";
+import MovieDetailSidebar from "@/routes/movie.$id/movie-detail-sidebar";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.id, "No movie ID provided");

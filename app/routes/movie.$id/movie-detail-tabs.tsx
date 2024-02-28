@@ -1,14 +1,12 @@
 import { MovieDetails } from "types/tmdb/movie-details";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import CreditsSection from "./credits-section";
-import CastAvatar from "./cast-avatar";
-import StreamingProviderLabel from "./streaming-provider-label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CreditsSection from "@/components/credits-section";
+import CastAvatar from "@/components/cast-avatar";
+import StreamingProviderLabel from "@/components/streaming-provider-label";
 
 export default function MovieDetailTabs({ movie }: { movie: MovieDetails }) {
   const streamingProvider =
     movie["watch/providers"]?.results["US"]?.flatrate ?? [];
-
-  console.log({ streamingProvider });
 
   const trailer = movie?.videos?.results?.find(
     (video) => video.type === "Trailer" && video.site === "YouTube",

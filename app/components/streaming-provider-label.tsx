@@ -1,4 +1,4 @@
-import { imageBase } from "@/lib/movieDb";
+import { imageBase } from "@/lib/movie-database";
 import {
   Tooltip,
   TooltipContent,

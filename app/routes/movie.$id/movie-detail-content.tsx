@@ -1,6 +1,6 @@
-import { imageBase, imageConfig } from "@/lib/movieDb";
+import { imageBase, imageConfig } from "@/lib/movie-database";
 import { MovieDetails } from "types/tmdb/movie-details";
-import GenreLabel from "./genre-label";
+import GenreLabel from "@/components/genre-label";
 import MovieDetailDescriptionList from "./movie-detail-description-list";
 import MovieDetailTabs from "./movie-detail-tabs";
 

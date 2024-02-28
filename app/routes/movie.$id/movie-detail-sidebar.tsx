@@ -1,9 +1,9 @@
 import { MovieDetails } from "types/tmdb/movie-details";
-import MovieImage from "./movie-image";
-import { Button } from "./ui/button";
+import MovieImage from "@/components/movie-image";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Basket, Heart, TelevisionSimple } from "@phosphor-icons/react";
-import StreamingProviderLabel from "./streaming-provider-label";
+import StreamingProviderLabel from "@/components/streaming-provider-label";
 
 export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
   const streamingProvider =

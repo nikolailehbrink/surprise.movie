@@ -1,6 +1,6 @@
 import { getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { imageBase, imageConfig } from "@/lib/movieDb";
+import { imageBase, imageConfig } from "@/lib/movie-database";
 
 export default function CastAvatar({
   imagePath,

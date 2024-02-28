@@ -1,6 +1,6 @@
 import GradientHeading from "@/components/gradient-heading";
 import { Button } from "@/components/ui/button";
-import { getRandomMovie } from "@/lib/movieDb";
+import { getRandomMovie } from "@/lib/movie-database";
 import { json, useFetcher } from "@remix-run/react";
 
 export default function Index() {
