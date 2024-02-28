@@ -36,6 +36,6 @@ export const mergeMeta = <
 };
 
 export function hasValidSearchParams(searchParams: URLSearchParams) {
-  const params = ["streaming", "start", "end", "rating", "genre"];
+  const params = ["with_watch_providers", "start", "end", "rating", "genre"];
   return params.some((param) => searchParams.has(param));
 }

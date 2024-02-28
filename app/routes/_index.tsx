@@ -1,6 +1,8 @@
 import GradientHeading from "@/components/gradient-heading";
+import StreamingFilter from "@/components/streaming-filter";
 import { Button } from "@/components/ui/button";
 import { getRandomMovie } from "@/lib/movie-database";
+import { ActionFunctionArgs } from "@remix-run/node";
 import { json, useFetcher } from "@remix-run/react";
 
 export default function Index() {
@@ -12,9 +14,6 @@ export default function Index() {
         Discover your next favorite movie
       </GradientHeading>
       <div>
-        <h1 className="text-wrap text-4xl font-bold text-sky-500">
-          Welcome to Remix
-        </h1>
         <Form method="post">
           <Button disabled={state === "submitting"}>Surprise me!</Button>
         </Form>
@@ -23,11 +22,15 @@ export default function Index() {
             {JSON.stringify(data.movie, null, 2)}
           </pre>
         )}
+        <StreamingFilter />
       </div>
     </div>
   );
 }
-export const action = async () => {
-  const movie = await getRandomMovie();
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const { searchParams: filterValues } = new URL(request.url);
+  console.log(filterValues);
+
+  const movie = await getRandomMovie(filterValues);
   return json({ movie });
 };

@@ -38,8 +38,14 @@ export const imageConfig = {
 
 export const imageBase = imageConfig.secure_base_url;
 
-export const getRandomPage = async () => {
-  const response = await fetchTMDB(`discover/movie`);
+export const getRandomPage = async (filterValues?: URLSearchParams) => {
+  const searchParams = Object.fromEntries(filterValues?.entries() || []);
+  const response = await fetchTMDB(`discover/movie`, {
+    searchParams: {
+      watch_region: "US",
+      ...searchParams,
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch data from TMDB");
@@ -52,6 +58,8 @@ export const getRandomPage = async () => {
   if (totalResults === 0) {
     throw new Error("No movies found");
   }
+
+  console.log(totalPages, totalResults);
 
   const randomPage = Math.floor(
     Math.random() * (totalPages > 500 ? 500 : totalPages - 1 + 1),
@@ -70,9 +78,18 @@ export const getRandomPage = async () => {
   return { randomPage, randomResult };
 };
 
-export const getMovie = async (page: number, result: number) => {
+export const getMovie = async (
+  page: number,
+  result: number,
+  filterValues?: URLSearchParams,
+) => {
+  const searchParams = Object.fromEntries(filterValues?.entries() || []);
   const response = await fetchTMDB(`discover/movie`, {
-    searchParams: { page: page.toString() },
+    searchParams: {
+      page: page.toString(),
+      watch_region: "US",
+      ...searchParams,
+    },
   });
 
   if (!response.ok) {
@@ -86,9 +103,10 @@ export const getMovie = async (page: number, result: number) => {
   return movie;
 };
 
-export const getRandomMovie = async () => {
-  const { randomPage, randomResult } = await getRandomPage();
-  const randomMovie = await getMovie(randomPage, randomResult);
+export const getRandomMovie = async (search?: URLSearchParams) => {
+  console.log(Object.fromEntries(search?.entries() || []));
+  const { randomPage, randomResult } = await getRandomPage(search);
+  const randomMovie = await getMovie(randomPage, randomResult, search);
   return randomMovie;
 };
 
