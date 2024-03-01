@@ -1,5 +1,6 @@
 import { DiscoverMovie } from "types/tmdb/discover-movie";
 import { MovieDetails } from "types/tmdb/movie-details";
+import { StreamingProviders } from "types/tmdb/watch-providers-movie";
 
 export const fetchTMDB = (
   path: string,
@@ -109,6 +110,30 @@ export const getRandomMovie = async (search?: URLSearchParams) => {
   const randomMovie = await getMovie(randomPage, randomResult, search);
   return randomMovie;
 };
+
+export async function getStreamingProviders() {
+  try {
+    const response = await fetchTMDB(`watch/providers/movie`, {
+      searchParams: {
+        watch_region: "US",
+      },
+    });
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Response(null, {
+          status: 404,
+          statusText: "Not Found",
+        });
+      }
+
+      throw new Error("Failed to fetch streaming providers from TMDB");
+    }
+    const data = (await response.json()) as StreamingProviders;
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch streaming providers from TMDB");
+  }
+}
 
 export async function getMovieDetails(id: string) {
   try {
