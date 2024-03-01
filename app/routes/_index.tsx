@@ -2,12 +2,15 @@ import GradientHeading from "@/components/gradient-heading";
 import StreamingFilter from "@/components/streaming-filter";
 import { Button } from "@/components/ui/button";
 import { getRandomMovie, getStreamingProviders } from "@/lib/movie-database";
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, useFetcher, useLoaderData } from "@remix-run/react";
 
-export const loader = async () => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const searchParams = new URL(request.url).searchParams;
+  console.log(searchParams);
+
   const { results } = await getStreamingProviders();
-  return json({ results });
+  return json({ results, searchParams });
 };
 
 export default function Index() {
@@ -35,7 +38,7 @@ export default function Index() {
 }
 export const action = async ({ request }: ActionFunctionArgs) => {
   const { searchParams: filterValues } = new URL(request.url);
-  // console.log(filterValues);
+  // console.log({ filterValues });
 
   const movie = await getRandomMovie(filterValues);
   return json({ movie });

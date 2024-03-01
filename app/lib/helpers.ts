@@ -35,7 +35,14 @@ export const mergeMeta = <
   };
 };
 
+export const validSearchParams = [
+  "with_watch_providers",
+  "with_genres",
+  "start",
+  "end",
+  "rating",
+];
+
 export function hasValidSearchParams(searchParams: URLSearchParams) {
-  const params = ["with_watch_providers", "start", "end", "rating", "genre"];
-  return params.some((param) => searchParams.has(param));
+  return validSearchParams.some((param) => searchParams.has(param));
 }

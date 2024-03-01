@@ -1,5 +1,6 @@
-import StreamingProviderLabel from "./streaming-provider-label";
 import { useSearchParams } from "@remix-run/react";
+import StreamingProviderLabel from "./streaming-provider-label";
+import { cn } from "@/lib/utils";
 
 export default function StreamingFilterButton({
   id,
@@ -10,39 +11,33 @@ export default function StreamingFilterButton({
   name: string;
   logoPath: string;
 }) {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+
+  let key = "with_watch_providers";
+
+  let value = searchParams.get(key) ?? "";
+  const providers = value.split("|");
+  const hasProviderInParams = providers.includes(id.toString());
+  const hasSingleProvider = providers.length === 1;
+
+  console.log(id);
+
+  if (hasSingleProvider && hasProviderInParams) {
+    // Removes "with_watch_providers" from the search params
+    key = "";
+  } else if (hasProviderInParams) {
+    value = providers.filter((provider) => provider != id.toString()).join("|");
+  } else if (!value) {
+    value = id.toString();
+  } else {
+    value = `${value}|${id.toString()}`;
+  }
 
   return (
     <button
-      onClick={() => {
-        setSearchParams(
-          (prev) => {
-            const key = "with_watch_providers";
-            const providerParams = prev.get(key) ?? "";
-            const providers = providerParams.split("|");
-            const hasProviderInParams = providers.includes(id.toString());
-            const hasSingleProvider = providers.length === 1;
-            console.log("hallo", providers.length);
-
-            if (hasSingleProvider && hasProviderInParams) {
-              prev.delete("with_watch_providers");
-            } else if (hasProviderInParams) {
-              prev.set(
-                key,
-                providers
-                  .filter((provider) => provider != id.toString())
-                  .join("|"),
-              );
-            } else if (!providerParams) {
-              prev.set(key, id.toString());
-            } else {
-              prev.set(key, `${providerParams}|${id.toString()}`);
-            }
-            return prev;
-          },
-          { preventScrollReset: true },
-        );
-      }}
+      name={key}
+      value={value}
+      className={cn(hasProviderInParams && "bg-blue-400")}
     >
       <StreamingProviderLabel name={name} logoPath={logoPath} />
       {name}

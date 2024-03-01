@@ -105,7 +105,7 @@ export const getMovie = async (
 };
 
 export const getRandomMovie = async (search?: URLSearchParams) => {
-  console.log(Object.fromEntries(search?.entries() || []));
+  // console.log(Object.fromEntries(search?.entries() || []));
   const { randomPage, randomResult } = await getRandomPage(search);
   const randomMovie = await getMovie(randomPage, randomResult, search);
   return randomMovie;
@@ -118,6 +118,7 @@ export async function getStreamingProviders() {
         watch_region: "US",
       },
     });
+
     if (!response.ok) {
       if (response.status === 404) {
         throw new Response(null, {
