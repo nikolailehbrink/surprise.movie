@@ -2,7 +2,7 @@ import { MovieDetails } from "types/tmdb/movie-details";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreditsSection from "@/components/credits-section";
 import CastAvatar from "@/components/cast-avatar";
-import StreamingProviderLabel from "@/components/streaming-provider-label";
+import StreamingProviderTooltip from "@/components/streaming-provider-tooltip";
 
 export default function MovieDetailTabs({ movie }: { movie: MovieDetails }) {
   const streamingProvider =
@@ -90,7 +90,7 @@ export default function MovieDetailTabs({ movie }: { movie: MovieDetails }) {
           <div className="flex flex-wrap gap-2">
             {streamingProvider.map(
               ({ provider_id, provider_name, logo_path }) => (
-                <StreamingProviderLabel
+                <StreamingProviderTooltip
                   key={provider_id}
                   name={provider_name}
                   logoPath={logo_path}

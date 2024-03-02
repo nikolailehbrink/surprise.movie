@@ -1,5 +1,5 @@
 import GradientHeading from "@/components/gradient-heading";
-import StreamingFilter from "@/components/streaming-filter";
+import StreamingProviderFilter from "@/components/streaming-provider-filter";
 import { Button } from "@/components/ui/button";
 import { getRandomMovie, getStreamingProviders } from "@/lib/movie-database";
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
@@ -31,7 +31,7 @@ export default function Index() {
             {JSON.stringify(data.movie, null, 2)}
           </pre>
         )}
-        <StreamingFilter allProviders={results} />
+        <StreamingProviderFilter allProviders={results} />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import MovieImage from "@/components/movie-image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Basket, Heart, TelevisionSimple } from "@phosphor-icons/react";
-import StreamingProviderLabel from "@/components/streaming-provider-label";
+import StreamingProviderTooltip from "@/components/streaming-provider-tooltip";
 
 export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
   const streamingProvider =
@@ -41,7 +41,7 @@ export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
             <div className="flex flex-wrap gap-2">
               {streamingProvider.map(
                 ({ provider_id, provider_name, logo_path }) => (
-                  <StreamingProviderLabel
+                  <StreamingProviderTooltip
                     key={provider_id}
                     name={provider_name}
                     logoPath={logo_path}
@@ -64,7 +64,7 @@ export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
             </div>
             <div className="flex flex-wrap gap-2">
               {buyProvider.map(({ provider_id, provider_name, logo_path }) => (
-                <StreamingProviderLabel
+                <StreamingProviderTooltip
                   key={provider_id}
                   name={provider_name}
                   logoPath={logo_path}

@@ -1,8 +1,8 @@
 import { useSearchParams } from "@remix-run/react";
-import StreamingProviderLabel from "./streaming-provider-label";
+import StreamingProviderTooltip from "./streaming-provider-tooltip";
 import { cn } from "@/lib/utils";
 
-export default function StreamingFilterButton({
+export default function StreamingProviderButton({
   id,
   name,
   logoPath,
@@ -13,18 +13,17 @@ export default function StreamingFilterButton({
 }) {
   const [searchParams] = useSearchParams();
 
-  let key = "with_watch_providers";
-
-  let value = searchParams.get(key) ?? "";
+  let param = "with_watch_providers";
+  let value = searchParams.get(param) ?? "";
   const providers = value.split("|");
   const hasProviderInParams = providers.includes(id.toString());
   const hasSingleProvider = providers.length === 1;
 
-  console.log(id);
+  const noProviders = !value;
 
   if (hasSingleProvider && hasProviderInParams) {
     // Removes "with_watch_providers" from the search params
-    key = "";
+    param = "";
   } else if (hasProviderInParams) {
     value = providers.filter((provider) => provider != id.toString()).join("|");
   } else if (!value) {
@@ -35,12 +34,17 @@ export default function StreamingFilterButton({
 
   return (
     <button
-      name={key}
+      name={param}
       value={value}
-      className={cn(hasProviderInParams && "bg-blue-400")}
+      className={cn(
+        noProviders || hasProviderInParams ? "grayscale-0" : "grayscale",
+      )}
     >
-      <StreamingProviderLabel name={name} logoPath={logoPath} />
-      {name}
+      <StreamingProviderTooltip
+        name={name}
+        logoPath={logoPath}
+        isActive={hasProviderInParams}
+      />
     </button>
   );
 }
