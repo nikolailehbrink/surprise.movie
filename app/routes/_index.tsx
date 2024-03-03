@@ -9,23 +9,27 @@ import {
   getRandomMovie,
   getStreamingProviders,
 } from "@/lib/movie-database";
-import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, useFetcher, useLoaderData } from "@remix-run/react";
+import { ActionFunctionArgs } from "@remix-run/node";
+import {
+  json,
+  useFetcher,
+  useLoaderData,
+  useSearchParams,
+} from "@remix-run/react";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const searchParams = new URL(request.url).searchParams;
-
+export const loader = async () => {
   const [{ results: streamingProviders }, genres] = await Promise.all([
     getStreamingProviders(),
     getMovieGenres(),
   ]);
 
-  return json({ streamingProviders, genres, searchParams });
+  return json({ streamingProviders, genres });
 };
 
 export default function Index() {
   const { streamingProviders, genres } = useLoaderData<typeof loader>();
   const { Form, state, data } = useFetcher<typeof action>();
+  const [searchParams] = useSearchParams();
 
   return (
     <div className="container relative flex flex-grow flex-col justify-center gap-4 py-12 sm:py-16">
