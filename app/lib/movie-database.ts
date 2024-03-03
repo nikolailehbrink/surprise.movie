@@ -1,4 +1,5 @@
 import { DiscoverMovie } from "types/tmdb/discover-movie";
+import { Genres } from "types/tmdb/genre-movie-list";
 import { MovieDetails } from "types/tmdb/movie-details";
 import { StreamingProviders } from "types/tmdb/watch-providers-movie";
 
@@ -156,6 +157,24 @@ export async function getMovieDetails(id: string) {
     }
     const data = (await response.json()) as MovieDetails;
     return data;
+  } catch (error) {
+    throw new Error("Failed to fetch data from TMDB");
+  }
+}
+
+export async function getMovieGenres() {
+  try {
+    const response = await fetchTMDB(`genre/movie/list`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch genres from TMDB");
+    }
+
+    const { genres } = (await response.json()) as Genres;
+
+    genres.sort((a, b) => a.name.localeCompare(b.name));
+
+    return genres;
   } catch (error) {
     throw new Error("Failed to fetch data from TMDB");
   }

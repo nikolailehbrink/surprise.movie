@@ -4,11 +4,14 @@ import { StreamingProvider } from "types/tmdb/movie-details";
 import { validSearchParams } from "@/lib/helpers";
 import { StreamingProviderComoboBox } from "./streaming-provider-combobox";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export default function StreamingProviderFilter({
   streamingProviders,
+  className,
 }: {
   streamingProviders: StreamingProvider[];
+  className?: string;
 }) {
   const initialStreamingProviders = streamingProviders.slice(0, 8);
   const [visibleStreamingProviders, setVisibleProviders] = useState(
@@ -29,7 +32,7 @@ export default function StreamingProviderFilter({
     .filter((param) => searchParams.has(param));
 
   return (
-    <Form className="inline-grid grid-cols-3 gap-2">
+    <Form className={cn("inline-grid grid-cols-3 gap-2", className)}>
       {visibleStreamingProviders.map((provider) => {
         return (
           <StreamingProviderButton

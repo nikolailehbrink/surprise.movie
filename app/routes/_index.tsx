@@ -1,20 +1,29 @@
+import GenreFilter from "@/components/genre-filter";
 import GradientHeading from "@/components/gradient-heading";
 import StreamingProviderFilter from "@/components/streaming-provider-filter";
 import { Button } from "@/components/ui/button";
-import { getRandomMovie, getStreamingProviders } from "@/lib/movie-database";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  getMovieGenres,
+  getRandomMovie,
+  getStreamingProviders,
+} from "@/lib/movie-database";
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, useFetcher, useLoaderData } from "@remix-run/react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;
-  console.log(searchParams);
 
-  const { results: streamingProviders } = await getStreamingProviders();
-  return json({ streamingProviders, searchParams });
+  const [{ results: streamingProviders }, genres] = await Promise.all([
+    getStreamingProviders(),
+    getMovieGenres(),
+  ]);
+
+  return json({ streamingProviders, genres, searchParams });
 };
 
 export default function Index() {
-  const { streamingProviders } = useLoaderData<typeof loader>();
+  const { streamingProviders, genres } = useLoaderData<typeof loader>();
   const { Form, state, data } = useFetcher<typeof action>();
 
   return (
@@ -31,7 +40,15 @@ export default function Index() {
             {JSON.stringify(data.movie, null, 2)}
           </pre>
         )}
-        <StreamingProviderFilter streamingProviders={streamingProviders} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+          <StreamingProviderFilter
+            streamingProviders={streamingProviders}
+            className="place-self-start"
+          />
+          <ScrollArea className="max-h-[25lvh] rounded-lg border-2 border-muted p-4">
+            <GenreFilter genres={genres} />
+          </ScrollArea>
+        </div>
       </div>
     </div>
   );
