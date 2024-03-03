@@ -23,12 +23,7 @@ export default function MovieDetailContent({ movie }: { movie: MovieDetails }) {
       {movie.genres.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {movie.genres.map(({ id, name }) => (
-            <GenreLabel
-              key={id}
-              id={id}
-              name={name}
-              className="bg-neutral-900 text-muted-foreground"
-            />
+            <GenreLabel key={id} id={id} name={name} />
           ))}
         </div>
       )}
