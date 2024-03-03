@@ -43,7 +43,7 @@ export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
                 ({ provider_id, provider_name, logo_path }) => (
                   <StreamingProviderTooltip
                     key={provider_id}
-                    name={provider_name}
+                    provider={provider_name}
                     logoPath={logo_path}
                   />
                 ),
@@ -66,7 +66,7 @@ export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
               {buyProvider.map(({ provider_id, provider_name, logo_path }) => (
                 <StreamingProviderTooltip
                   key={provider_id}
-                  name={provider_name}
+                  provider={provider_name}
                   logoPath={logo_path}
                 />
               ))}

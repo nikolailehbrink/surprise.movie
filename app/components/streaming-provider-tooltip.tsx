@@ -11,13 +11,13 @@ import { memo } from "react";
 type Props = {
   className?: string;
   logoPath: string;
-  name: string;
+  provider: string;
   isActive?: boolean;
 };
 const StreamingProviderTooltip = memo(function StreamingProviderTooltip({
   className,
   logoPath,
-  name,
+  provider,
   isActive,
 }: Props) {
   return (
@@ -34,12 +34,12 @@ const StreamingProviderTooltip = memo(function StreamingProviderTooltip({
             <img
               className="flex rounded"
               src={`${imageBase}/original/${logoPath}`}
-              alt={`Logo ${name}`}
+              alt={`Logo ${provider}`}
             />
           </div>
         </TooltipTrigger>
         <TooltipContent>
-          <p>{name}</p>
+          <p>{provider}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

@@ -32,7 +32,7 @@ export default function StreamingProviderFilter({
           <StreamingProviderButton
             key={provider.provider_id}
             id={provider.provider_id}
-            name={provider.provider_name}
+            provider={provider.provider_name}
             logoPath={provider.logo_path}
           />
         );
