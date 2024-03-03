@@ -1,3 +1,4 @@
+import FilterReset from "@/components/filter-reset";
 import GenreFilter from "@/components/genre-filter";
 import GradientHeading from "@/components/gradient-heading";
 import StreamingProviderFilter from "@/components/streaming-provider-filter";
@@ -48,6 +49,7 @@ export default function Index() {
           <ScrollArea className="max-h-[25lvh] rounded-lg border-2 border-muted p-4">
             <GenreFilter genres={genres} />
           </ScrollArea>
+          <FilterReset />
         </div>
       </div>
     </div>
