@@ -63,7 +63,7 @@ export const getRandomPage = async (filterValues?: URLSearchParams) => {
   console.log(totalPages, totalResults);
 
   const randomPage = Math.floor(
-    Math.random() * (totalPages > 500 ? 500 : totalPages - 1 + 1),
+    (Math.random() * totalPages > 500 ? 500 : totalPages) + 1,
   );
 
   // If the random page is the last page, it can have less than 20 results
