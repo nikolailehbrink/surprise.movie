@@ -42,7 +42,7 @@ export function StreamingProviderComoboBox({
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant={open ? "default" : "outline"}
+            variant="outline"
             className="flex size-14 items-center justify-center rounded-lg border-2"
           >
             <PlusCircle size={24} weight="duotone" />
