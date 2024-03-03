@@ -133,12 +133,12 @@ export type WatchProviders = {
 
 export type CountryDetails = {
   link: string;
-  buy: Provider[];
-  rent: Provider[];
-  flatrate?: Provider[];
+  buy: StreamingProvider[];
+  rent: StreamingProvider[];
+  flatrate?: StreamingProvider[];
 };
 
-export type Provider = {
+export type StreamingProvider = {
   logo_path: string;
   provider_id: number;
   provider_name: string;

@@ -1,8 +1,8 @@
 export type StreamingProviders = {
-  results: Provider[];
+  results: StreamingProvider[];
 };
 
-export type Provider = {
+export type StreamingProvider = {
   display_priorities: { [key: string]: number };
   display_priority: number;
   logo_path: string;

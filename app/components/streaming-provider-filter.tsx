@@ -1,27 +1,35 @@
 import { Form, useSearchParams } from "@remix-run/react";
 import StreamingProviderButton from "./streaming-provider-button";
-import { Provider } from "types/tmdb/movie-details";
+import { StreamingProvider } from "types/tmdb/movie-details";
 import { validSearchParams } from "@/lib/helpers";
 import { PlusCircle } from "@phosphor-icons/react";
 
 export default function StreamingProviderFilter({
-  allProviders,
+  streamingProviders,
 }: {
-  allProviders: Provider[];
+  streamingProviders: StreamingProvider[];
 }) {
-  const providers = allProviders.slice(0, 8);
-  const [searchParams] = useSearchParams();
+  const initialStreamingProviders = streamingProviders.slice(0, 8);
+  const [visibleStreamingProviders, setVisibleProviders] = useState(
+    initialStreamingProviders,
+  );
 
-  // const hallo = allProviders.splice(10, allProviders.length - 1);
+  const hiddenStreamingProviders = streamingProviders.filter(
+    (provider) =>
+      !visibleStreamingProviders.find(
+        ({ provider_id }) => provider_id === provider.provider_id,
+      ),
+  );
+
+  const [searchParams] = useSearchParams();
 
   const validParams = validSearchParams
     .filter((param) => param !== "with_watch_providers")
     .filter((param) => searchParams.has(param));
-  // console.log("Filter");
 
   return (
     <Form className="inline-grid grid-cols-3 gap-2">
-      {providers.map((provider) => {
+      {visibleStreamingProviders.map((provider) => {
         return (
           <StreamingProviderButton
             key={provider.provider_id}

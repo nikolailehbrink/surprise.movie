@@ -9,12 +9,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;
   console.log(searchParams);
 
-  const { results } = await getStreamingProviders();
-  return json({ results, searchParams });
+  const { results: streamingProviders } = await getStreamingProviders();
+  return json({ streamingProviders, searchParams });
 };
 
 export default function Index() {
-  const { results } = useLoaderData<typeof loader>();
+  const { streamingProviders } = useLoaderData<typeof loader>();
   const { Form, state, data } = useFetcher<typeof action>();
 
   return (
@@ -31,7 +31,7 @@ export default function Index() {
             {JSON.stringify(data.movie, null, 2)}
           </pre>
         )}
-        <StreamingProviderFilter allProviders={results} />
+        <StreamingProviderFilter streamingProviders={streamingProviders} />
       </div>
     </div>
   );
