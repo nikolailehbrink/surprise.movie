@@ -1,7 +1,7 @@
 import { Genre } from "types/tmdb/genre-movie-list";
-import GenreLabel from "./genre-label";
 import { Form } from "@remix-run/react";
 import MaintainSearchParams from "./maintain-search-params";
+import GenreFilterButton from "./genre-filter-button";
 
 type Props = {
   genres: Genre[];
@@ -9,10 +9,8 @@ type Props = {
 export default function GenreFilter({ genres }: Props) {
   return (
     <Form className="flex flex-wrap gap-2">
-      {genres.map(({ id, name }) => (
-        <button key={id}>
-          <GenreLabel id={id} name={name} />
-        </button>
+      {genres.map((genre) => (
+        <GenreFilterButton key={genre.id} genre={genre} />
       ))}
       <MaintainSearchParams searchParam="with_genres" />
     </Form>
