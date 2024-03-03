@@ -41,7 +41,7 @@ export const validSearchParams = [
   "start",
   "end",
   "rating",
-];
+] as const;
 
 export function hasValidSearchParams(searchParams: URLSearchParams) {
   return validSearchParams.some((param) => searchParams.has(param));
