@@ -1,3 +1,4 @@
+import FilterPopover from "@/components/filter-popover";
 import FilterReset from "@/components/filter-reset";
 import GenreFilter from "@/components/genre-filter";
 import GradientHeading from "@/components/gradient-heading";
@@ -11,6 +12,8 @@ import {
 } from "@/lib/movie-database";
 import {
   CircleNotch,
+  FilmStrip,
+  Monitor,
   Popcorn,
 } from "@phosphor-icons/react";
 import { ActionFunctionArgs } from "@remix-run/node";
@@ -48,14 +51,27 @@ export default function Index() {
             {JSON.stringify(data.movie, null, 2)}
           </pre>
         )}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4">
-          <StreamingProviderFilter
-            streamingProviders={streamingProviders}
-            className="place-self-start"
-          />
-          <ScrollArea className="max-h-[25lvh] rounded-lg border-2 border-muted p-4">
-            <GenreFilter genres={genres} />
-          </ScrollArea>
+        <div className="flex flex-wrap justify-center gap-2 sm:mt-12">
+          <FilterPopover
+            isSelected={searchParams.has("with_watch_providers")}
+            className="w-auto"
+            icon={<Monitor size={24} weight="duotone" />}
+            text="Streaming"
+          >
+            <StreamingProviderFilter
+              streamingProviders={streamingProviders}
+              className="place-self-start"
+            />
+          </FilterPopover>
+          <FilterPopover
+            isSelected={searchParams.has("with_genres")}
+            icon={<FilmStrip size={24} weight="duotone" />}
+            text="Genres"
+          >
+            <ScrollArea className="h-[25lvh] ">
+              <GenreFilter genres={genres} />
+            </ScrollArea>
+          </FilterPopover>
           <FilterReset />
         </div>
         <Form method="post">
