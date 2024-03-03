@@ -9,6 +9,10 @@ import {
   getRandomMovie,
   getStreamingProviders,
 } from "@/lib/movie-database";
+import {
+  CircleNotch,
+  Popcorn,
+} from "@phosphor-icons/react";
 import { ActionFunctionArgs } from "@remix-run/node";
 import {
   json,
@@ -31,15 +35,14 @@ export default function Index() {
   const { Form, state, data } = useFetcher<typeof action>();
   const [searchParams] = useSearchParams();
 
+  const isLoading = state === "submitting";
+
   return (
     <div className="container relative flex flex-grow flex-col justify-center gap-4 py-12 sm:py-16">
       <GradientHeading className="mb-12">
         Discover your next favorite movie
       </GradientHeading>
       <div>
-        <Form method="post">
-          <Button disabled={state === "submitting"}>Surprise me!</Button>
-        </Form>
         {data && (
           <pre className="overflow-auto">
             {JSON.stringify(data.movie, null, 2)}
@@ -55,6 +58,20 @@ export default function Index() {
           </ScrollArea>
           <FilterReset />
         </div>
+        <Form method="post">
+          <Button disabled={isLoading}>
+            {isLoading ? (
+              <CircleNotch
+                className="animate-spin"
+                weight="duotone"
+                size={24}
+              />
+            ) : (
+              <Popcorn size={24} weight="duotone" />
+            )}
+            Surprise me!
+          </Button>
+        </Form>
       </div>
     </div>
   );
