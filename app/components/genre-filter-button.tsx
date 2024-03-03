@@ -14,7 +14,10 @@ export default function GenreFilterButton({ genre }: Props) {
       <GenreLabel
         id={genre.id}
         name={genre.name}
-        className={cn((hasNoValue || isActive) && "bg-neutral-700 text-white")}
+        className={cn(
+          (hasNoValue || isActive) && "text-white",
+          isActive && "bg-neutral-700",
+        )}
       />
     </button>
   );
