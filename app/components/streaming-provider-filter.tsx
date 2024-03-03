@@ -2,7 +2,8 @@ import { Form, useSearchParams } from "@remix-run/react";
 import StreamingProviderButton from "./streaming-provider-button";
 import { StreamingProvider } from "types/tmdb/movie-details";
 import { validSearchParams } from "@/lib/helpers";
-import { PlusCircle } from "@phosphor-icons/react";
+import { StreamingProviderComoboBox } from "./streaming-provider-combobox";
+import { useState } from "react";
 
 export default function StreamingProviderFilter({
   streamingProviders,
@@ -39,18 +40,12 @@ export default function StreamingProviderFilter({
           />
         );
       })}
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          console.log("Moin");
-        }}
-        className="flex size-14 items-center justify-center rounded-lg border-2"
-      >
-        <PlusCircle size={24} weight="duotone" />
-      </button>
-
-      {validParams.map((key) => {
-        const value = searchParams.get(key);
+      <StreamingProviderComoboBox
+        hiddenStreamingProviders={hiddenStreamingProviders}
+        setVisibleProviders={setVisibleProviders}
+      />
+      {validParams.map((param) => {
+        const value = searchParams.get(param);
         return (
           value && <input key={key} type="hidden" name={key} value={value} />
         );

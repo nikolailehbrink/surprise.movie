@@ -1,5 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import config from "tailwind.config";
+import resolveConfig from "tailwindcss/resolveConfig";
+
+export const tailwindConfig = resolveConfig(config);
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
