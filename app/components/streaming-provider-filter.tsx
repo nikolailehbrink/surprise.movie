@@ -47,7 +47,9 @@ export default function StreamingProviderFilter({
       {validParams.map((param) => {
         const value = searchParams.get(param);
         return (
-          value && <input key={key} type="hidden" name={key} value={value} />
+          value && (
+            <input key={param} type="hidden" name={param} value={value} />
+          )
         );
       })}
     </Form>
