@@ -1,13 +1,16 @@
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
-type Props = {
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+
+type Props = PopoverPrimitive.PopoverProps & {
   isSelected?: boolean;
   icon: React.ReactNode;
   text: string;
   children: React.ReactNode;
   className?: string;
 };
+
 export default function FilterPopover({
   isSelected,
   icon,
