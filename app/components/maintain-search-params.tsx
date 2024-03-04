@@ -2,20 +2,20 @@ import { ValidSearchParam, validSearchParams } from "@/lib/helpers";
 import { useSearchParams } from "@remix-run/react";
 
 type Props = {
-  params: ValidSearchParam | ValidSearchParam[];
+  exclude: ValidSearchParam | ValidSearchParam[];
 };
 
-export default function MaintainSearchParams({ params }: Props) {
+export default function MaintainSearchParams({ exclude }: Props) {
   const [searchParams] = useSearchParams();
   let validParams: ValidSearchParam[] = [];
 
-  if (Array.isArray(params)) {
+  if (Array.isArray(exclude)) {
     validParams = validSearchParams.filter(
-      (param) => !params.includes(param) && searchParams.has(param),
+      (param) => !exclude.includes(param) && searchParams.has(param),
     );
   } else {
     validParams = validSearchParams.filter(
-      (param) => param !== params && searchParams.has(param),
+      (param) => param !== exclude && searchParams.has(param),
     );
   }
 

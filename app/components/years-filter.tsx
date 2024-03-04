@@ -82,7 +82,7 @@ export default function YearsFilter({
         <CheckCircle size={24} weight="duotone" />
         <span className="sr-only">Validate</span>
       </Button>
-      <MaintainSearchParams params={["minimumYear", "maximumYear"]} />
+      <MaintainSearchParams exclude={["minimumYear", "maximumYear"]} />
     </Form>
   );
 }
