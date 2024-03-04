@@ -1,16 +1,23 @@
-import { validSearchParams } from "@/lib/helpers";
+import { ValidSearchParam, validSearchParams } from "@/lib/helpers";
 import { useSearchParams } from "@remix-run/react";
 
 type Props = {
-  searchParam: (typeof validSearchParams)[number];
+  params: ValidSearchParam | ValidSearchParam[];
 };
 
-export default function MaintainSearchParams({ searchParam }: Props) {
+export default function MaintainSearchParams({ params }: Props) {
   const [searchParams] = useSearchParams();
+  let validParams: ValidSearchParam[] = [];
 
-  const validParams = validSearchParams
-    .filter((param) => param !== searchParam)
-    .filter((param) => searchParams.has(param));
+  if (Array.isArray(params)) {
+    validParams = validSearchParams.filter(
+      (param) => !params.includes(param) && searchParams.has(param),
+    );
+  } else {
+    validParams = validSearchParams.filter(
+      (param) => param !== params && searchParams.has(param),
+    );
+  }
 
   return validParams.map((param) => {
     const value = searchParams.get(param);

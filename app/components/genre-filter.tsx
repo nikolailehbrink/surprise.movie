@@ -12,7 +12,7 @@ export default function GenreFilter({ genres }: Props) {
       {genres.map((genre) => (
         <GenreFilterButton key={genre.id} genre={genre} />
       ))}
-      <MaintainSearchParams searchParam="with_genres" />
+      <MaintainSearchParams params="with_genres" />
     </Form>
   );
 }
