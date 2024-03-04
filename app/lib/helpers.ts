@@ -38,8 +38,8 @@ export const mergeMeta = <
 export const validSearchParams = [
   "with_watch_providers",
   "with_genres",
-  "start",
-  "end",
+  "primary_release_date.gte",
+  "primary_release_date.lte",
   "rating",
 ] as const;
 

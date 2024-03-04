@@ -5,12 +5,14 @@ import GradientHeading from "@/components/gradient-heading";
 import StreamingProviderFilter from "@/components/streaming-provider-filter";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import YearsFilter from "@/components/years-filter";
 import {
   getMovieGenres,
   getRandomMovie,
   getStreamingProviders,
 } from "@/lib/movie-database";
 import {
+  Calendar,
   CircleNotch,
   FilmStrip,
   Monitor,
@@ -18,11 +20,13 @@ import {
 } from "@phosphor-icons/react";
 import { ActionFunctionArgs } from "@remix-run/node";
 import {
+  Link,
   json,
   useFetcher,
   useLoaderData,
   useSearchParams,
 } from "@remix-run/react";
+import { useState } from "react";
 
 export const loader = async () => {
   const [{ results: streamingProviders }, genres] = await Promise.all([
@@ -37,6 +41,7 @@ export default function Index() {
   const { streamingProviders, genres } = useLoaderData<typeof loader>();
   const { Form, state, data } = useFetcher<typeof action>();
   const [searchParams] = useSearchParams();
+  const [yearFilterOpen, setYearFilterOpen] = useState(false);
 
   const isLoading = state === "submitting";
 
@@ -77,8 +82,25 @@ export default function Index() {
               <GenreFilter genres={genres} />
             </ScrollArea>
           </FilterPopover>
+          <FilterPopover
+            isSelected={
+              searchParams.has("primary_release_date.gte") ||
+              searchParams.has("primary_release_date.lte")
+            }
+            icon={<Calendar size={24} weight="duotone" />}
+            text="Year"
+            open={yearFilterOpen}
+            onOpenChange={setYearFilterOpen}
+          >
+            <YearsFilter
+              startYear={searchParams.get("primary_release_date.gte")}
+              endYear={searchParams.get("primary_release_date.lte")}
+              setYearFilterOpen={setYearFilterOpen}
+            />
+          </FilterPopover>
           <FilterReset />
         </div>
+
         <Form method="post">
           <Button disabled={isLoading}>
             {isLoading ? (

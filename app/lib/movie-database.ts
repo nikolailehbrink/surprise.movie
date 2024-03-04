@@ -105,8 +105,30 @@ export const getMovie = async (
   return movie;
 };
 
+function parseDate(year: number, month: number, day: number) {
+  return new Intl.DateTimeFormat("fr-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(year, month - 1, day));
+}
+
+function transformSearchParams(search: URLSearchParams) {
+  if (search?.has("primary_release_date.gte")) {
+    const year = search.get("primary_release_date.gte");
+    search.set("primary_release_date.gte", parseDate(Number(year), 1, 1));
+  }
+
+  if (search?.has("primary_release_date.lte")) {
+    const year = search.get("primary_release_date.lte");
+    search.set("primary_release_date.lte", parseDate(Number(year), 12, 31));
+  }
+  return search;
+}
+
 export const getRandomMovie = async (search?: URLSearchParams) => {
-  // console.log(Object.fromEntries(search?.entries() || []));
+  search !== undefined && (search = transformSearchParams(search));
+
   const { randomPage, randomResult } = await getRandomPage(search);
   const randomMovie = await getMovie(randomPage, randomResult, search);
   return randomMovie;
