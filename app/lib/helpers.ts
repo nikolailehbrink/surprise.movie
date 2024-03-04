@@ -43,6 +43,8 @@ export const validSearchParams = [
   "rating",
 ] as const;
 
+export type ValidSearchParam = (typeof validSearchParams)[number];
+
 export function hasValidSearchParams(searchParams: URLSearchParams) {
   return validSearchParams.some((param) => searchParams.has(param));
 }

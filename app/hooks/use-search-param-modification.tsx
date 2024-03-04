@@ -1,13 +1,13 @@
-import { validSearchParams } from "@/lib/helpers";
+import { ValidSearchParam } from "@/lib/helpers";
 import { useSearchParams } from "@remix-run/react";
 
 export default function useSearchParamModification(
   input: string | number,
-  searchParam: (typeof validSearchParams)[number],
+  searchParam: ValidSearchParam,
 ) {
   const [searchParams] = useSearchParams();
 
-  let param: (typeof validSearchParams)[number] | "" = searchParam;
+  let param: ValidSearchParam | "" = searchParam;
   let value = searchParams.get(param) ?? "";
   const providers = value.split("|");
   const hasProviderInParams = providers.includes(input.toString());
