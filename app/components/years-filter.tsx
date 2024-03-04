@@ -54,7 +54,7 @@ export default function YearsFilter({
       <Input
         className="focus-visible:border-white focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
         type="number"
-        name={start !== firstMovieYear ? "primary_release_date.gte" : ""}
+        name={start !== firstMovieYear ? "minimumYear" : ""}
         value={start}
         onChange={(e) => handleInputChange(e, setStart, firstMovieYear)}
         min={firstMovieYear}
@@ -65,7 +65,7 @@ export default function YearsFilter({
       <Input
         className="focus-visible:border-white focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
         type="number"
-        name={end !== currentYear ? "primary_release_date.lte" : ""}
+        name={end !== currentYear ? "maximumYear" : ""}
         value={end}
         onChange={(e) => handleInputChange(e, setEnd, currentYear)}
         max={currentYear}
@@ -82,9 +82,7 @@ export default function YearsFilter({
         <CheckCircle size={24} weight="duotone" />
         <span className="sr-only">Validate</span>
       </Button>
-      <MaintainSearchParams
-        params={["primary_release_date.gte", "primary_release_date.lte"]}
-      />
+      <MaintainSearchParams params={["minimumYear", "maximumYear"]} />
     </Form>
   );
 }

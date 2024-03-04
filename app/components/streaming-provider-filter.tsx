@@ -41,7 +41,7 @@ export default function StreamingProviderFilter({
         hiddenStreamingProviders={hiddenStreamingProviders}
         setVisibleProviders={setVisibleProviders}
       />
-      <MaintainSearchParams params="with_watch_providers" />
+      <MaintainSearchParams params="streaming" />
     </Form>
   );
 }

@@ -13,7 +13,7 @@ export default function StreamingProviderButton({
 }) {
   const { name, value, hasNoValue, isActive } = useSearchParamModification(
     id,
-    "with_watch_providers",
+    "streaming",
   );
 
   return (

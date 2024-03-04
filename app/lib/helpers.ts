@@ -36,10 +36,10 @@ export const mergeMeta = <
 };
 
 export const validSearchParams = [
-  "with_watch_providers",
-  "with_genres",
-  "primary_release_date.gte",
-  "primary_release_date.lte",
+  "streaming",
+  "genres",
+  "minimumYear",
+  "maximumYear",
   "rating",
 ] as const;
 

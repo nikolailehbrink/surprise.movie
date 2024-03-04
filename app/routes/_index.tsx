@@ -63,7 +63,7 @@ export default function Index() {
         )}
         <div className="flex flex-wrap justify-center gap-2 sm:mt-12">
           <FilterPopover
-            isSelected={searchParams.has("with_watch_providers")}
+            isSelected={searchParams.has("streaming")}
             className="w-auto"
             icon={<Monitor size={24} weight="duotone" />}
             text="Streaming"
@@ -74,7 +74,7 @@ export default function Index() {
             />
           </FilterPopover>
           <FilterPopover
-            isSelected={searchParams.has("with_genres")}
+            isSelected={searchParams.has("genres")}
             icon={<FilmStrip size={24} weight="duotone" />}
             text="Genres"
           >
@@ -84,8 +84,7 @@ export default function Index() {
           </FilterPopover>
           <FilterPopover
             isSelected={
-              searchParams.has("primary_release_date.gte") ||
-              searchParams.has("primary_release_date.lte")
+              searchParams.has("minimumYear") || searchParams.has("maximumYear")
             }
             icon={<Calendar size={24} weight="duotone" />}
             text="Year"
@@ -93,8 +92,8 @@ export default function Index() {
             onOpenChange={setYearFilterOpen}
           >
             <YearsFilter
-              startYear={searchParams.get("primary_release_date.gte")}
-              endYear={searchParams.get("primary_release_date.lte")}
+              startYear={searchParams.get("minimumYear")}
+              endYear={searchParams.get("maximumYear")}
               setYearFilterOpen={setYearFilterOpen}
             />
           </FilterPopover>

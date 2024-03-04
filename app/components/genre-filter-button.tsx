@@ -7,7 +7,7 @@ type Props = { genre: Genre };
 export default function GenreFilterButton({ genre }: Props) {
   const { name, value, hasNoValue, isActive } = useSearchParamModification(
     genre.id,
-    "with_genres",
+    "genres",
   );
   return (
     <button name={name} value={value} key={genre.id}>

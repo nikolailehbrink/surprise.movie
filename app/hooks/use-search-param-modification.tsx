@@ -16,7 +16,7 @@ export default function useSearchParamModification(
   const hasNoValue = !value;
 
   if (hasSingleProvider && hasProviderInParams) {
-    // Removes "with_watch_providers" from the search params
+    // Removes "streaming" from the search params
     param = "";
   } else if (hasProviderInParams) {
     value = providers

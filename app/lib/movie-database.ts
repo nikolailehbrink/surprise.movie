@@ -2,6 +2,7 @@ import { DiscoverMovie } from "types/tmdb/discover-movie";
 import { Genres } from "types/tmdb/genre-movie-list";
 import { MovieDetails } from "types/tmdb/movie-details";
 import { StreamingProviders } from "types/tmdb/watch-providers-movie";
+import { ValidSearchParam } from "./helpers";
 
 export const fetchTMDB = (
   path: string,
@@ -113,16 +114,43 @@ function parseDate(year: number, month: number, day: number) {
   }).format(new Date(year, month - 1, day));
 }
 
+function renameSearchParam(
+  search: URLSearchParams,
+  oldName: ValidSearchParam,
+  newName: string,
+) {
+  if (search.has(oldName)) {
+    const value = search.get(oldName);
+    if (value) {
+      search.set(newName, value);
+    }
+    search.delete(oldName);
+  }
+  return search;
+}
+
 function transformSearchParams(search: URLSearchParams) {
-  if (search?.has("primary_release_date.gte")) {
-    const year = search.get("primary_release_date.gte");
-    search.set("primary_release_date.gte", parseDate(Number(year), 1, 1));
+  if (search.has("minimumYear")) {
+    const year = search.get("minimumYear");
+    search.set(
+      "primary_release_date.gte",
+      parseDate(Number(year) ?? 1895, 1, 1),
+    );
+    search.delete("minimumYear");
   }
 
-  if (search?.has("primary_release_date.lte")) {
-    const year = search.get("primary_release_date.lte");
-    search.set("primary_release_date.lte", parseDate(Number(year), 12, 31));
+  if (search.has("maximumYear")) {
+    const year = search.get("maximumYear");
+    search.set(
+      "primary_release_date.lte",
+      parseDate(Number(year) ?? new Date().getFullYear(), 12, 31),
+    );
+    search.delete("maximumYear");
   }
+
+  search = renameSearchParam(search, "streaming", "with_watch_providers");
+  search = renameSearchParam(search, "genres", "with_genres");
+
   return search;
 }
 
