@@ -16,7 +16,7 @@ export default function GenreFilterButton({ genre }: Props) {
         name={genre.name}
         className={cn(
           (hasNoValue || isActive) && "text-white",
-          isActive && "bg-neutral-700",
+          isActive ? "bg-neutral-700" : "hover:bg-neutral-800",
         )}
       />
     </button>

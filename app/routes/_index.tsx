@@ -47,9 +47,14 @@ export default function Index() {
       </GradientHeading>
       <div>
         {data && (
-          <pre className="overflow-auto">
-            {JSON.stringify(data.movie, null, 2)}
-          </pre>
+          <>
+            <pre className="overflow-auto">
+              {JSON.stringify(data.movie, null, 2)}
+            </pre>
+            <Button asChild>
+              <Link to={`/movie/${data.movie.id}`}>Go</Link>
+            </Button>
+          </>
         )}
         <div className="flex flex-wrap justify-center gap-2 sm:mt-12">
           <FilterPopover

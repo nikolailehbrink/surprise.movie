@@ -26,7 +26,7 @@ const StreamingProviderTooltip = memo(function StreamingProviderTooltip({
         <TooltipTrigger asChild>
           <div
             className={cn(
-              "size-14 rounded-lg border-2  p-2",
+              "size-14 rounded-lg border-2 p-2",
               isActive && "border-muted-foreground bg-neutral-700",
               className,
             )}

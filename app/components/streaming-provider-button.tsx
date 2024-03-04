@@ -20,9 +20,12 @@ export default function StreamingProviderButton({
     <button
       name={name}
       value={value}
-      className={cn(hasNoValue || isActive ? "grayscale-0" : "grayscale")}
+      className={cn(
+        hasNoValue || isActive ? "grayscale-0" : "grayscale hover:grayscale-0",
+      )}
     >
       <StreamingProviderTooltip
+        className={cn(!isActive && "hover:bg-neutral-900")}
         provider={provider}
         logoPath={logoPath}
         isActive={isActive}
