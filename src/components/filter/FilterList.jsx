@@ -1,4 +1,4 @@
-import { getCountryCode } from "@/helpers/languageHelper";
+import { getUserRegion } from "@/helpers/languageHelper";
 import { cn } from "@/lib/utils";
 import {
 	Backspace,
@@ -286,7 +286,7 @@ function useUpdateQuery(
 		const updatedQuery = { ...movieQuery };
 
 		if (selectedProvider.length > 0) {
-			updatedQuery.watch_region = getCountryCode();
+			updatedQuery.watch_region = getUserRegion();
 			updatedQuery.with_watch_providers = selectedProvider.join("|");
 		} else {
 			delete updatedQuery.watch_region;

@@ -1,4 +1,4 @@
-import { getCountryCode } from "@/helpers/languageHelper";
+import { getUserRegion } from "@/helpers/languageHelper";
 import {
 	handleAddToWatchlist,
 	movieInWatchlist,
@@ -27,7 +27,7 @@ export default function MovieDetail({ params: { id } }) {
 	}, []);
 
 	const streamingProvider =
-		movie["watch/providers"]?.results[getCountryCode()]?.flatrate ?? [];
+		movie["watch/providers"]?.results[getUserRegion()]?.flatrate ?? [];
 
 	const inWatchlist = movieInWatchlist(watchlist, movie);
 

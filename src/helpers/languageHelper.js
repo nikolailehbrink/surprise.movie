@@ -1,4 +1,5 @@
-export const getCountryCode = () => {
+export const getUserRegion = () => {
 	const browserLanguage = navigator.language;
-	return browserLanguage.slice(-2).toUpperCase();
+	const region = new Intl.Locale(browserLanguage).region;
+	return region ?? "US";
 };

@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { fetchMovieDb } from "./movieDb";
-import { getCountryCode } from "./languageHelper";
+import { getUserRegion } from "./languageHelper";
 
 export async function getRandomMovie(setIsLoading, setMovie, movieQuery) {
 	setIsLoading(true);
@@ -39,7 +39,6 @@ export async function getRandomMovie(setIsLoading, setMovie, movieQuery) {
 
 		setMovie(searchedMovie);
 	} catch (error) {
-		console.log(error.data);
 		toast.error(error.data.status_message);
 	}
 	setIsLoading(false);
@@ -64,7 +63,7 @@ export async function getStreamingProviders(setProviders) {
 	try {
 		const { results } = await fetchMovieDb(`watch/providers/movie`, {
 			query: {
-				watch_region: getCountryCode(),
+				watch_region: getUserRegion(),
 			},
 		});
 		const movieProviders = results;

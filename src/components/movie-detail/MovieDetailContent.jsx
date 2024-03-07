@@ -1,4 +1,4 @@
-import { getCountryCode } from "@/helpers/languageHelper";
+import { getUserRegion } from "@/helpers/languageHelper";
 import { imageBase } from "@/helpers/movieDb";
 import GenreLabel from "../GenreLabel";
 import StreamingProviderLabel from "../StreamingProviderLabel";
@@ -9,7 +9,7 @@ import MovieRating from "./MovieRating";
 
 export default function MovieDetailContent({ movie }) {
 	const streamingProvider =
-		movie["watch/providers"]?.results[getCountryCode()]?.flatrate ?? [];
+		movie["watch/providers"]?.results[getUserRegion()]?.flatrate ?? [];
 
 	const trailer = movie?.videos?.results?.find(
 		(video) => video.type === "Trailer" && video.site === "YouTube"
@@ -28,7 +28,7 @@ export default function MovieDetailContent({ movie }) {
 	);
 
 	const certification = movie?.release_dates?.results
-		?.find((result) => result.iso_3166_1 === getCountryCode())
+		?.find((result) => result.iso_3166_1 === getUserRegion())
 		?.release_dates.find((release) => release.certification)?.certification;
 
 	return (
