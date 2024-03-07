@@ -13,22 +13,21 @@ export default function Navbar() {
 			<div className=" bg-gradient-to-b from-black via-black/50 to-transparent inset-0 top-0 fixed via-60% h-32 z-20"></div>
 			<nav className="container z-50 flex justify-between items-center py-4 sticky top-0">
 				<Link href="/">
-					<a>
-						<Logo />
-					</a>
+					<Logo />
 				</Link>
 				<menu className="font-bold flex gap-2 sm:gap-4 items-center">
 					<Share />
-					<Link href="/watchlist">
-						<Button
-							className="sm:px-3"
-							size="icon"
-							variant={match ? "default" : "outline"}
-						>
+					<Button
+						className="sm:px-3"
+						size="icon"
+						asChild
+						variant={match ? "default" : "outline"}
+					>
+						<Link href="/watchlist">
 							<Heart size={32} weight="duotone" />{" "}
 							<span className="max-sm:sr-only">Watchlist</span>
-						</Button>
-					</Link>
+						</Link>
+					</Button>
 				</menu>
 			</nav>
 		</>
