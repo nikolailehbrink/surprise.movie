@@ -1,10 +1,19 @@
-![Website-Mockup](screenshot.png)
-
 # surprise.movie
 
-Single-page application (SPA) leveraging React, Vite, Wouter, and React Helmet. This project integrates modern design principles using Tailwind CSS and shadcn/ui, and connects to the TMDB and JustWatch APIs for comprehensive movie data.
+Sophisticated movie generator SPA that features different filters and a watchlist exclusively recommending highly-rated films. It integrates modern design principles and connects to the TMDB and JustWatch APIs for comprehensive movie data.
+
+> [!NOTE]
+> This project is subject to a rewrite with [remix](https://remix.run/) and small design changes, making it more performant, easier to maintain, and more visually appealing. The new version will be available soon.
+
+![Website-Mockup](screenshot.png)
 
 ## 📽️Features
+
+- **Movie Recommendations**: Get a random movie recommendation based on your preferences, including streaming provider, genre and release year.
+- **Watchlist**: Add movies to your watchlist and keep track of your favorite films. No account required!
+- **Detail Pages**: View detailed information about each movie, including the cast, the trailer and streaming options.
+
+## 🛠️ Tech Stack
 
 - **Single Page Application (SPA)**: Built with [React](https://react.dev/), [Vite](https://vitejs.dev/), [Wouter](https://github.com/molefrog/wouter), and [React Helmet](https://github.com/staylor/react-helmet-async) for a seamless user experience.
 - **Modern Design**: Styled using [Tailwind CSS](https://tailwindcss.com/) and components from [shadcn/ui](https://ui.shadcn.com/), ensuring a visually appealing and responsive interface.
