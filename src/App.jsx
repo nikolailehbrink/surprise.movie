@@ -11,6 +11,7 @@ import Home from "./components/pages/Home";
 import Watchlist from "./components/pages/Watchlist";
 import { WatchlistContext } from "./context/WatchlistContext";
 import { QueryContext } from "./context/QueryContext";
+import toast from "react-hot-toast";
 
 function getInitialWatchlist() {
 	try {
@@ -35,7 +36,7 @@ function App() {
 		try {
 			localStorage.setItem("watchlist", JSON.stringify(watchlist));
 		} catch (error) {
-			console.log(error);
+			toast.error("Failed to save watchlist.");
 		}
 	}, [watchlist]);
 

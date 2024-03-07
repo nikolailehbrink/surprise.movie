@@ -24,7 +24,6 @@ export async function copyToClipboard(text, message = "Copied to clipboard.") {
 		await navigator.clipboard.writeText(text);
 		toast.success(message);
 	} catch (error) {
-		console.log(error);
 		toast.error("Failed to copy to clipboard.");
 	}
 }

@@ -75,16 +75,11 @@ export default function FilterList({ className }) {
 							(provider) => provider.provider_id === provider_id
 						)
 				);
-			console.log(showProviders);
 			setShownProviders([...slicedProviders, ...showProviders]);
 			return;
 		}
 		setShownProviders(slicedProviders);
 	}, [providers]);
-
-	useEffect(() => {
-		console.log(movieQuery);
-	}, [movieQuery]);
 
 	useEffect(() => {
 		let params = new URLSearchParams(location.search);

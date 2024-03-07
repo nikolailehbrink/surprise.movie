@@ -11,8 +11,6 @@ export default function StreamingProviderFilter({
 	shownProviders,
 	setShownProviders,
 }) {
-	console.log(providers);
-
 	function handleProviderCheckbox(e) {
 		const providerId = parseInt(e.target.value);
 		if (!e.target.checked) {

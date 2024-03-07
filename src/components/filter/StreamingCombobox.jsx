@@ -57,7 +57,6 @@ export function StreamingCombobox({
 										key={provider.provider_id}
 										value={parseInt(provider.provider_id)}
 										onSelect={(currentValue) => {
-											console.log({ currentValue });
 											setValue(currentValue === value ? "" : currentValue);
 											setCustomProviders([...customProviders, provider]);
 											setShownProviders([...shownProviders, provider]);
