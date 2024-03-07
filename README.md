@@ -7,13 +7,13 @@ Sophisticated movie generator SPA that features different filters and a watchlis
 
 ![Website-Mockup](screenshot.png)
 
-## 📽️Features
+## ✨ Features
 
 - **Movie Recommendations**: Get a random movie recommendation based on your preferences, including streaming provider, genre and release year.
 - **Watchlist**: Add movies to your watchlist and keep track of your favorite films. No account required!
 - **Detail Pages**: View detailed information about each movie, including the cast, the trailer and streaming options.
 
-## 🛠️ Tech Stack
+## 🛠️ Technologies
 
 - **Single Page Application (SPA)**: Built with [React](https://react.dev/), [Vite](https://vitejs.dev/), [Wouter](https://github.com/molefrog/wouter), and [React Helmet](https://github.com/staylor/react-helmet-async) for a seamless user experience.
 - **Modern Design**: Styled using [Tailwind CSS](https://tailwindcss.com/) and components from [shadcn/ui](https://ui.shadcn.com/), ensuring a visually appealing and responsive interface.
@@ -36,7 +36,7 @@ I welcome contributions from developers of all skill levels. If you're intereste
 
 Your feedback and bug reports are valuable. If you encounter any issues while using the application, please report them on the [Issues page](https://github.com/nikolailehbrink/surprise.movie/issues) of the GitHub repository. Provide a detailed description of the issue, steps to reproduce it, and screenshots if possible.
 
-## 🧑‍💻 Running Locally
+## 💻 Running Locally
 
 Before running the site locally, you will need to obtain an API key from TMDB (The Movie Database). This key is essential for fetching movie data from the TMDB API.
 
