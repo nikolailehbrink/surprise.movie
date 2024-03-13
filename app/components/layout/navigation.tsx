@@ -24,7 +24,7 @@ export default function Navigation() {
             }
           >
             <Heart size={24} weight="duotone" />
-            <span className="max-sm:sr-only">Watchlist</span>
+            Watchlist
           </NavLink>
         </menu>
       </nav>
