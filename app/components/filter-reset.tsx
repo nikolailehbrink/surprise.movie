@@ -6,7 +6,7 @@ export default function FilterReset() {
   const [searchParams] = useSearchParams();
 
   return (
-    <Form>
+    <Form preventScrollReset>
       <Button disabled={searchParams.size === 0} name="" variant="outline">
         <Backspace size={24} weight="duotone" />
         Reset

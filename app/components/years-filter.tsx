@@ -48,6 +48,7 @@ export default function YearsFilter({
 
   return (
     <Form
+      preventScrollReset
       className="flex items-center gap-2 text-white"
       onSubmit={() => setYearFilterOpen(false)}
     >

@@ -26,7 +26,10 @@ export default function StreamingProviderFilter({
   );
 
   return (
-    <Form className={cn("inline-grid grid-cols-3 gap-2", className)}>
+    <Form
+      preventScrollReset
+      className={cn("inline-grid grid-cols-3 gap-2", className)}
+    >
       {visibleStreamingProviders.map((provider) => {
         return (
           <StreamingProviderButton
