@@ -4,11 +4,26 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Basket, Heart, TelevisionSimple } from "@phosphor-icons/react";
 import StreamingProviderTooltip from "@/components/streaming-provider-tooltip";
+import { useAtomValue } from "jotai";
+import { watchlistAtom } from "@/lib/atoms";
+import { isMovieInWatchlist, useWatchlistClick } from "@/lib/helpers";
+import { WatchlistMovie } from "types/tmdb/watchlist";
 
 export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
+  const watchlist = useAtomValue(watchlistAtom);
   const streamingProvider =
     movie["watch/providers"]?.results["US"]?.flatrate ?? [];
   const buyProvider = movie["watch/providers"]?.results["US"]?.buy ?? [];
+
+  const movieForWatchlist: WatchlistMovie = {
+    id: movie.id,
+    title: movie.title,
+    poster_path: movie.poster_path,
+    vote_average: movie.vote_average,
+  };
+  const inWatchlist = isMovieInWatchlist(movieForWatchlist, watchlist);
+  const handleWatchlistClick = useWatchlistClick(movieForWatchlist);
+
   return (
     <div className="sticky flex shrink-0 flex-col gap-4 max-lg:bottom-4 max-lg:z-30 lg:top-[72px] lg:w-1/4 lg:self-start">
       <div className="absolute -inset-y-4 inset-x-0 bg-gradient-to-b from-transparent via-neutral-950 to-neutral-950 lg:hidden"></div>
@@ -17,19 +32,15 @@ export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
         poster={movie.poster_path}
       />
       <Button
-        // variant={inWatchlist ? "default" : "outline"}
-        variant="outline"
+        variant={inWatchlist ? "default" : "outline"}
         className={cn(
           "z-40 max-md:self-stretch md:max-lg:self-center",
-          // !inWatchlist && "bg-neutral-900"
+          !inWatchlist && "bg-neutral-900",
         )}
-        // onClick={() =>
-        // 	handleAddToWatchlist(watchlist, setWatchlist, movie)
-        // }
+        onClick={handleWatchlistClick}
       >
         <Heart size={24} weight="duotone" />
-        Add to Watchlist
-        {/* {inWatchlist ? "In Watchlist" : "Add to Watchlist"} */}
+        {inWatchlist ? "In Watchlist" : "Add to Watchlist"}
       </Button>
       <div className="space-y-2 max-lg:hidden">
         {streamingProvider.length > 0 ? (
