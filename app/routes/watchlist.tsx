@@ -31,8 +31,6 @@ export default function Watchlist() {
 
   const neededCards = calculateNeededCards(watchlist.length, columns);
 
-  console.log(neededCards);
-
   return (
     <div className="container relative flex flex-grow flex-col justify-center gap-12 py-16 sm:items-center sm:gap-12">
       {watchlist.length > 0 ? (
@@ -71,8 +69,6 @@ export default function Watchlist() {
 const breakpoints = tailwindConfig.theme.screens;
 
 const getNumberOfColumns = (width: number) => {
-  console.log({ width });
-
   if (width < parseInt(breakpoints.sm)) return 1;
   if (width < parseInt(breakpoints.md)) return 2;
   if (width < parseInt(breakpoints.lg)) return 3;
