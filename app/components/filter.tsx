@@ -6,17 +6,45 @@ import GenreFilter from "./genre-filter";
 import YearsFilter from "./years-filter";
 import FilterReset from "./filter-reset";
 import { useSearchParams } from "@remix-run/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StreamingProvider } from "types/tmdb/watch-providers-movie";
 import { Genre } from "types/tmdb/genre-movie-list";
+import { useAtom } from "jotai";
+import { filterAtom } from "@/lib/atoms";
 
 type Props = {
   streamingProviders: StreamingProvider[];
   genres: Genre[];
 };
 export default function Filter({ streamingProviders, genres }: Props) {
-  const [searchParams] = useSearchParams();
+  const [filter, setFilter] = useAtom(filterAtom);
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const [yearFilterOpen, setYearFilterOpen] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.size === 0) {
+      const params = new URLSearchParams();
+
+      for (const [key, value] of Object.entries(filter)) {
+        if (value) {
+          params.set(key, value.toString());
+        }
+      }
+      setSearchParams(params);
+    }
+  }, [filter, searchParams.size, setSearchParams]);
+
+  useEffect(() => {
+    if (searchParams.size !== 0) {
+      const params = Object.fromEntries(searchParams.entries());
+      setFilter(() => {
+        return {
+          ...params,
+        };
+      });
+    }
+  }, [searchParams, setFilter]);
 
   return (
     <div className="flex flex-wrap justify-center gap-2 sm:mt-12">
