@@ -1,11 +1,11 @@
 export type DiscoverMovie = {
   page: number;
-  results: Result[];
+  results: Movie[];
   total_pages: number;
   total_results: number;
 };
 
-export type Result = {
+export type Movie = {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,7 +15,7 @@ export type Result = {
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: Date;
+  release_date: string;
   title: string;
   video: boolean;
   vote_average: number;
