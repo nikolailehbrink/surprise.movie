@@ -20,7 +20,9 @@ export default function MovieCardOverlay({ movie }: { movie: WatchlistMovie }) {
           <MovieRating className="mb-1 text-sm" rating={movie.vote_average} />
           <div className="flex gap-2">
             <Button asChild variant="outline" className="h-full text-sm">
-              <Link to={`/movie/${movie.id}`}>Details</Link>
+              <Link to={`/movie/${movie.id}`} prefetch="intent">
+                Details
+              </Link>
             </Button>
             <Button
               onClick={handleWatchlistClick}
