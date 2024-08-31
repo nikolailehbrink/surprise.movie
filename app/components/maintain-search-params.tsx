@@ -5,6 +5,7 @@ type Props = {
   exclude: ValidSearchParam | ValidSearchParam[];
 };
 
+// https://www.jacobparis.com/content/existing-params
 export default function MaintainSearchParams({ exclude }: Props) {
   const [searchParams] = useSearchParams();
   let validParams: ValidSearchParam[] = [];
