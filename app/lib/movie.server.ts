@@ -39,7 +39,7 @@ export function fetchTMDB(
 
 export async function getMovie(
   page: number,
-  result: number,
+  index: number,
   filterValues?: URLSearchParams,
 ) {
   const searchParams = Object.fromEntries(filterValues?.entries() || []);
@@ -48,6 +48,8 @@ export async function getMovie(
     new URLSearchParams({
       page: page.toString(),
       watch_region: "US",
+      "vote_average.gte": "7",
+
       ...searchParams,
     }),
   );
@@ -58,7 +60,7 @@ export async function getMovie(
 
   const { results } = (await response.json()) as DiscoverMovie;
 
-  const movie = results[result];
+  const movie = results[index];
 
   return movie;
 }
@@ -91,7 +93,11 @@ export async function getRandomMoviePage(filterValues?: URLSearchParams) {
   const searchParams = Object.fromEntries(filterValues?.entries() || []);
   const response = await fetchTMDB(
     `discover/movie`,
-    new URLSearchParams({ watch_region: "US", ...searchParams }),
+    new URLSearchParams({
+      watch_region: "US",
+      "vote_average.gte": "7",
+      ...searchParams,
+    }),
   );
 
   if (!response.ok) {
