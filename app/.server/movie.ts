@@ -2,8 +2,8 @@ import { DiscoverMovie } from "types/tmdb/discover-movie";
 import { Genres } from "types/tmdb/genre-movie-list";
 import { MovieDetails } from "types/tmdb/movie-details";
 import { StreamingProviders } from "types/tmdb/watch-providers-movie";
-import { NotFound } from "./error";
-import { transformSearchParams } from "./helpers";
+import { NotFound } from "@/lib/error";
+import { transformSearchParams } from "@/lib/helpers";
 
 export function fetchTMDB(
   pathname: string,

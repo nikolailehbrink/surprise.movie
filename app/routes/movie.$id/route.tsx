@@ -1,4 +1,4 @@
-import { getMovieDetails } from "@/lib/movie.server";
+import { getMovieDetails } from "@/.server/movie";
 import { LoaderFunctionArgs, MetaFunction, json } from "@vercel/remix";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
