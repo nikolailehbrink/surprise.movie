@@ -3,9 +3,10 @@ import MovieRating from "./movie-rating";
 import { Button } from "./ui/button";
 import { Link } from "@remix-run/react";
 import { useAtomValue } from "jotai";
-import { isMovieInWatchlist, useWatchlistClick } from "@/lib/helpers";
+import { isMovieInWatchlist } from "@/lib/helpers";
 import { watchlistAtom } from "@/lib/atoms";
 import { Heart } from "@phosphor-icons/react";
+import { useWatchlistClick } from "@/hooks/use-watchlist-click";
 
 export default function MovieCardOverlay({ movie }: { movie: WatchlistMovie }) {
   const watchlist = useAtomValue(watchlistAtom);

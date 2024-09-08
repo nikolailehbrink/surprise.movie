@@ -6,8 +6,9 @@ import { Basket, Heart, TelevisionSimple } from "@phosphor-icons/react";
 import StreamingProviderTooltip from "@/components/streaming-provider-tooltip";
 import { useAtomValue } from "jotai";
 import { watchlistAtom } from "@/lib/atoms";
-import { isMovieInWatchlist, useWatchlistClick } from "@/lib/helpers";
+import { isMovieInWatchlist } from "@/lib/helpers";
 import { WatchlistMovie } from "types/tmdb/watchlist";
+import { useWatchlistClick } from "@/hooks/use-watchlist-click";
 
 export default function MovieDetailSidebar({ movie }: { movie: MovieDetails }) {
   const watchlist = useAtomValue(watchlistAtom);

@@ -1,7 +1,5 @@
 import { LoaderFunction, MetaFunction } from "@vercel/remix";
-import { useAtom } from "jotai";
 import { WatchlistMovie } from "types/tmdb/watchlist";
-import { watchlistAtom } from "./atoms";
 
 // https://remix.run/docs/en/main/route/meta#meta-merging-helper
 export const mergeMeta = <
@@ -59,12 +57,50 @@ export function isMovieInWatchlist(
   return watchlist.some((item) => movie.id == item.id);
 }
 
-export const useWatchlistClick = (movie: WatchlistMovie) => {
-  const [watchlist, setWatchlist] = useAtom(watchlistAtom);
-  if (!isMovieInWatchlist(movie, watchlist)) {
-    return () => setWatchlist([...watchlist, movie]);
-  } else {
-    const updatedWatchlist = watchlist.filter((item) => item.id !== movie.id);
-    return () => setWatchlist(updatedWatchlist);
+export function parseDate(year: number, month: number, day: number) {
+  return new Intl.DateTimeFormat("fr-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(year, month - 1, day));
+}
+
+export function renameSearchParam(
+  search: URLSearchParams,
+  oldName: ValidSearchParam,
+  newName: string,
+) {
+  if (search.has(oldName)) {
+    const value = search.get(oldName);
+    if (value) {
+      search.set(newName, value);
+    }
+    search.delete(oldName);
   }
-};
+  return search;
+}
+
+export function transformSearchParams(search: URLSearchParams) {
+  if (search.has("minimumYear")) {
+    const year = search.get("minimumYear");
+    search.set(
+      "primary_release_date.gte",
+      parseDate(Number(year) ?? 1895, 1, 1),
+    );
+    search.delete("minimumYear");
+  }
+
+  if (search.has("maximumYear")) {
+    const year = search.get("maximumYear");
+    search.set(
+      "primary_release_date.lte",
+      parseDate(Number(year) ?? new Date().getFullYear(), 12, 31),
+    );
+    search.delete("maximumYear");
+  }
+
+  search = renameSearchParam(search, "streaming", "with_watch_providers");
+  search = renameSearchParam(search, "genres", "with_genres");
+
+  return search;
+}
