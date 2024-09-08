@@ -8,7 +8,7 @@ type Props = {
 };
 export default function GenreFilter({ genres }: Props) {
   return (
-    <Form preventScrollReset className="flex flex-wrap gap-2">
+    <Form preventScrollReset className="mr-2 flex flex-wrap gap-2">
       {genres.map((genre) => (
         <GenreFilterButton key={genre.id} genre={genre} />
       ))}

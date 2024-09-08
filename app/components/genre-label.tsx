@@ -16,7 +16,7 @@ export default function GenreLabel({
     <div
       key={id}
       className={cn(
-        "flex items-center gap-1.5 rounded-full bg-neutral-900 p-1 px-2 text-sm text-muted-foreground",
+        "flex items-center gap-x-1 rounded-full bg-neutral-900 p-1 px-2.5 text-sm text-muted-foreground",
         className,
       )}
     >
