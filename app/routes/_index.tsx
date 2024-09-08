@@ -22,7 +22,6 @@ export const loader = async () => {
     getMovieGenres(),
   ]);
 
-  return json({ streamingProviders, genres });
 };
 
 export default function Index() {

@@ -1,10 +1,12 @@
 import { LinksFunction } from "@vercel/remix";
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
 import "@fontsource-variable/inter";
 
@@ -60,10 +62,12 @@ export default function App() {
 }
 
 export function ErrorBoundary() {
-  // const error = useRouteError();
+  const error = useRouteError();
+
+  const notFound = isRouteErrorResponse(error) && error.status === 404;
   return (
     <h1 className="self-center justify-self-center">
-      There is an unexpected error happening, I am on it!
+      {notFound ? error.data : "An unexpected error happened"}
     </h1>
   );
 }

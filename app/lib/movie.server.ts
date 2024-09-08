@@ -3,10 +3,12 @@ import { Genres } from "types/tmdb/genre-movie-list";
 import { MovieDetails } from "types/tmdb/movie-details";
 import { StreamingProviders } from "types/tmdb/watch-providers-movie";
 import { ValidSearchParam } from "./helpers";
+import { NotFound } from "./error";
 
 export const fetchTMDB = (
-  path: string,
-  { searchParams }: { searchParams?: { [key: string]: string } } = {},
+  pathname: string,
+  searchParams?: URLSearchParams,
+  init?: RequestInit,
 ) => {
   const base = "https://api.themoviedb.org/3";
 
@@ -15,42 +17,37 @@ export const fetchTMDB = (
     include_image_language: "en",
   };
 
+  const searchParamsObject = searchParams
+    ? Object.fromEntries(searchParams.entries())
+    : {};
+
   const url = new URL(
-    `${base}/${path}?${new URLSearchParams({ ...defaultSearchParams, ...searchParams })}`,
+    `${base}/${pathname}?${new URLSearchParams({ ...defaultSearchParams, ...searchParamsObject })}`,
   );
 
   console.log(url.toString());
 
   return fetch(url, {
+    ...init,
     headers: {
       Authorization: `Bearer ${process.env.VITE_TMDB_API_KEY}`,
+      ...init?.headers,
       accept: "application/json",
     },
   });
 };
 
-export const imageConfig = {
-  base_url: "http://image.tmdb.org/t/p/",
-  secure_base_url: "https://image.tmdb.org/t/p/",
-  backdrop_sizes: ["w300", "w780", "w1280", "original"],
-  logo_sizes: ["w45", "w92", "w154", "w185", "w300", "w500", "original"],
-  poster_sizes: ["w92", "w154", "w185", "w342", "w500", "w780", "original"],
-  profile_sizes: ["w45", "w185", "h632", "original"],
-  still_sizes: ["w92", "w185", "w300", "original"],
-} as const;
-
-export const imageBase = imageConfig.secure_base_url;
-
-export const getRandomPage = async (filterValues?: URLSearchParams) => {
+export const getRandomMoviePage = async (filterValues?: URLSearchParams) => {
   const searchParams = Object.fromEntries(filterValues?.entries() || []);
-  const response = await fetchTMDB(`discover/movie`, {
-    searchParams: {
-      watch_region: "US",
-      ...searchParams,
-    },
-  });
+  const response = await fetchTMDB(
+    `discover/movie`,
+    new URLSearchParams({ watch_region: "US", ...searchParams }),
+  );
 
   if (!response.ok) {
+    if (response.status === 404) {
+      throw NotFound(`No movies found!`);
+    }
     throw new Error("Failed to fetch data from TMDB");
   }
 
@@ -87,13 +84,14 @@ export const getMovie = async (
   filterValues?: URLSearchParams,
 ) => {
   const searchParams = Object.fromEntries(filterValues?.entries() || []);
-  const response = await fetchTMDB(`discover/movie`, {
-    searchParams: {
+  const response = await fetchTMDB(
+    `discover/movie`,
+    new URLSearchParams({
       page: page.toString(),
       watch_region: "US",
       ...searchParams,
-    },
-  });
+    }),
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch data from TMDB");
@@ -156,76 +154,56 @@ function transformSearchParams(search: URLSearchParams) {
 
 export const getRandomMovie = async (search?: URLSearchParams) => {
   search !== undefined && (search = transformSearchParams(search));
-
-  const { randomPage, randomResult } = await getRandomPage(search);
+  const { randomPage, randomResult } = await getRandomMoviePage(search);
   const randomMovie = await getMovie(randomPage, randomResult, search);
   return randomMovie;
 };
 
 export async function getStreamingProviders() {
-  try {
-    const response = await fetchTMDB(`watch/providers/movie`, {
-      searchParams: {
-        watch_region: "US",
-      },
-    });
+  const response = await fetchTMDB(
+    `watch/providers/movie`,
+    new URLSearchParams({
+      watch_region: "US",
+    }),
+  );
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Response(null, {
-          status: 404,
-          statusText: "Not Found",
-        });
-      }
-
-      throw new Error("Failed to fetch streaming providers from TMDB");
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw NotFound(`No streaming providers found!`);
     }
-    const data = (await response.json()) as StreamingProviders;
-    return data;
-  } catch (error) {
     throw new Error("Failed to fetch streaming providers from TMDB");
   }
+  const data = (await response.json()) as StreamingProviders;
+  return data;
 }
 
 export async function getMovieDetails(id: string) {
-  try {
-    const response = await fetchTMDB(`movie/${id}`, {
-      searchParams: {
-        append_to_response:
-          "videos,images,credits,watch/providers,release_dates",
-      },
-    });
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Response(null, {
-          status: 404,
-          statusText: "Not Found",
-        });
-      }
-
-      throw new Error("Failed to fetch data from TMDB");
+  const response = await fetchTMDB(
+    `movie/${id}`,
+    new URLSearchParams({
+      append_to_response: "videos,images,credits,watch/providers,release_dates",
+    }),
+  );
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw NotFound(`Movie with ID ${id} not found!`);
     }
-    const data = (await response.json()) as MovieDetails;
-    return data;
-  } catch (error) {
-    throw new Error("Failed to fetch data from TMDB");
+    throw new Error("Failed to fetch movie details from TMDB");
   }
+  const data = (await response.json()) as MovieDetails;
+  return data;
 }
 
 export async function getMovieGenres() {
-  try {
-    const response = await fetchTMDB(`genre/movie/list`);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch genres from TMDB");
+  const response = await fetchTMDB(`genre/movie/list`);
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw NotFound(`No genres found!`);
     }
-
-    const { genres } = (await response.json()) as Genres;
-
-    genres.sort((a, b) => a.name.localeCompare(b.name));
-
-    return genres;
-  } catch (error) {
-    throw new Error("Failed to fetch data from TMDB");
+    throw new Error("Failed to fetch genres from TMDB");
   }
+
+  const { genres } = (await response.json()) as Genres;
+
+  return genres.sort((a, b) => a.name.localeCompare(b.name));
 }
