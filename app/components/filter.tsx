@@ -65,7 +65,7 @@ export default function Filter({ streamingProviders, genres }: Props) {
         icon={<FilmStrip size={24} weight="duotone" />}
         text="Genres"
       >
-        <ScrollArea className="h-[25lvh] ">
+        <ScrollArea className="h-[25lvh]">
           <GenreFilter genres={genres} />
         </ScrollArea>
       </FilterPopover>

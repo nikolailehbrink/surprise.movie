@@ -70,7 +70,7 @@ export default function Share() {
         </div>
         {pathname === "/" && validSearchParams && (
           <DialogFooter className={"sm:justify-start"}>
-            <div className=" flex items-center space-x-2">
+            <div className="flex items-center space-x-2">
               <Checkbox
                 id="filter"
                 checked={withFilter}

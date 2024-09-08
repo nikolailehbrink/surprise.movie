@@ -6,7 +6,7 @@ export default function Footer() {
       <Popover>
         <PopoverTrigger>
           <svg
-            className="h-5 "
+            className="h-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 190.24 81.52"
           >

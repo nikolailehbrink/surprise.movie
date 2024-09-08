@@ -16,7 +16,7 @@ export default function MovieCardOverlay({ movie }: { movie: WatchlistMovie }) {
     <div className="z-10">
       <div className="absolute inset-0 top-1/2 bg-gradient-to-t from-black via-black/90 via-50% to-transparent transition-transform duration-500 sm:translate-y-full sm:group-hover:translate-y-0"></div>
       <div className="absolute bottom-0 flex w-full flex-col gap-3 p-4 transition-transform duration-500 sm:translate-y-full sm:group-hover:translate-y-0">
-        <h2 className="font-bold leading-tight ">{movie.title}</h2>
+        <h2 className="font-bold leading-tight">{movie.title}</h2>
         <div className="flex flex-wrap items-center justify-between gap-2">
           <MovieRating className="mb-1 text-sm" rating={movie.vote_average} />
           <div className="flex gap-2">

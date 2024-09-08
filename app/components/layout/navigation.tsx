@@ -8,7 +8,7 @@ export default function Navigation() {
   return (
     <>
       <div className="absolute -top-8 z-30 h-32 w-full bg-white/10 blur-3xl"></div>
-      <div className=" fixed inset-0 top-0 z-20 h-32 bg-gradient-to-b from-black via-black/50 via-60% to-transparent"></div>
+      <div className="fixed inset-0 top-0 z-20 h-32 bg-gradient-to-b from-black via-black/50 via-60% to-transparent"></div>
       <nav className="container sticky top-0 z-50 flex items-center justify-between py-4">
         <Link to="/">
           <Logo />

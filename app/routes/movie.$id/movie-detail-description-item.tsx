@@ -15,7 +15,7 @@ export default function MovieDetailDescriptionItem({
           width="4"
           height="4"
           fill="currentColor"
-          className="mx-3 sm:mx-4 "
+          className="mx-3 sm:mx-4"
           aria-hidden="true"
         >
           <circle cx="2" cy="2" r="2" />
