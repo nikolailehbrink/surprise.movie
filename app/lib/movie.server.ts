@@ -30,8 +30,8 @@ export const fetchTMDB = (
   return fetch(url, {
     ...init,
     headers: {
-      Authorization: `Bearer ${process.env.VITE_TMDB_API_KEY}`,
       ...init?.headers,
+      Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
       accept: "application/json",
     },
   });

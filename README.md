@@ -44,7 +44,7 @@ Once you have your TMDB API key, you need to set it up in your local environment
 1. Create a file named `.env.local` in the root directory of your project.
 2. Add the following line to the file:
    ```bash
-   VITE_TMDB_API_KEY=your_tmdb_api_key
+   TMDB_API_KEY=your_tmdb_api_key
    ```
 3. Replace `your_tmdb_api_key` with the actual API key you obtained from TMDB.
 
