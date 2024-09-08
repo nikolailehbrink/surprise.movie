@@ -16,6 +16,7 @@ type Props = {
   streamingProviders: StreamingProvider[];
   genres: Genre[];
 };
+
 export default function Filter({ streamingProviders, genres }: Props) {
   const [filter, setFilter] = useAtom(filterAtom);
 
@@ -23,17 +24,17 @@ export default function Filter({ streamingProviders, genres }: Props) {
   const [yearFilterOpen, setYearFilterOpen] = useState(false);
 
   useEffect(() => {
-    setSearchParams((prev) => {
-      if (prev.size === 0) {
+    if (searchParams.size === 0) {
+      setSearchParams((prev) => {
         for (const [key, value] of Object.entries(filter)) {
           if (value) {
             prev.set(key, value.toString());
           }
         }
-      }
-      return prev;
-    });
-  }, [filter, setSearchParams]);
+        return prev;
+      });
+    }
+  }, [filter, setSearchParams, searchParams.size]);
 
   useEffect(() => {
     if (searchParams.size !== 0) {
