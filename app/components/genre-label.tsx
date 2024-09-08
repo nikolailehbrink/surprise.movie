@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Question } from "@phosphor-icons/react";
-import genreIcons from "@/lib/genre-icons";
+import { GenreIcons } from "@/lib/genre-icons";
 
 export default function GenreLabel({
   className,
@@ -11,15 +11,16 @@ export default function GenreLabel({
   id: number;
   name: string;
 }) {
+  const Icon = GenreIcons.get(id) || Question;
   return (
     <div
       key={id}
       className={cn(
-        "flex items-center gap-1 rounded-full bg-neutral-900 p-1 px-3 text-sm text-muted-foreground",
+        "flex items-center gap-1.5 rounded-full bg-neutral-900 p-1 px-2 text-sm text-muted-foreground",
         className,
       )}
     >
-      {genreIcons[id] || <Question weight="duotone" size={24} />} {name}
+      <Icon weight="duotone" size={24} /> {name}
     </div>
   );
 }
