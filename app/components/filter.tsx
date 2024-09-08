@@ -23,17 +23,17 @@ export default function Filter({ streamingProviders, genres }: Props) {
   const [yearFilterOpen, setYearFilterOpen] = useState(false);
 
   useEffect(() => {
-    if (searchParams.size === 0) {
-      const params = new URLSearchParams();
-
-      for (const [key, value] of Object.entries(filter)) {
-        if (value) {
-          params.set(key, value.toString());
+    setSearchParams((prev) => {
+      if (prev.size === 0) {
+        for (const [key, value] of Object.entries(filter)) {
+          if (value) {
+            prev.set(key, value.toString());
+          }
         }
       }
-      setSearchParams(params);
-    }
-  }, [filter, searchParams.size, setSearchParams]);
+      return prev;
+    });
+  }, [filter, setSearchParams]);
 
   useEffect(() => {
     if (searchParams.size !== 0) {
