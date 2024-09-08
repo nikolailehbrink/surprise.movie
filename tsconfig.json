@@ -1,11 +1,18 @@
 {
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": [
       "vite-plugin-svgr/client",
       "@vercel/remix",
-      "node",
+      "@remix-run/node",
       "vite/client"
     ],
     "isolatedModules": true,

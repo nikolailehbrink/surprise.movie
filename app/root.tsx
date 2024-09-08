@@ -8,9 +8,9 @@ import {
   ScrollRestoration,
   useRouteError,
 } from "@remix-run/react";
+import "./tailwind.css";
 import "@fontsource-variable/inter";
 
-import styles from "@/globals.css?url";
 import { SpeedInsights } from "@vercel/speed-insights/remix";
 import { Analytics } from "@vercel/analytics/react";
 import type { MetaFunction } from "@vercel/remix";
@@ -18,7 +18,6 @@ import Navigation from "./components/layout/navigation";
 import Footer from "./components/layout/footer";
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles },
   { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
 ];
 

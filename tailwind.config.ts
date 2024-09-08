@@ -5,7 +5,7 @@ import tailwindScrollbar from "tailwind-scrollbar";
 
 const config = {
   darkMode: ["class"],
-  content: ["./app/**/*.{ts,tsx}"],
+  content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
   prefix: "",
   theme: {
     container: {
