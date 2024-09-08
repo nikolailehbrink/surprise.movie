@@ -11,7 +11,10 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const id = params.id;
   const movie = await getMovieDetails(id);
 
-  return json({ movie });
+  return json(
+    { movie },
+    { headers: { "Cache-Control": "public, max-age=3600" } },
+  );
 };
 
 export default function SingleMovie() {

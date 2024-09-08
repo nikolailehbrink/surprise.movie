@@ -22,6 +22,10 @@ export const loader = async () => {
     getMovieGenres(),
   ]);
 
+  return json(
+    { streamingProviders, genres },
+    { headers: { "Cache-Control": "public, max-age=86400" } },
+  );
 };
 
 export default function Index() {
