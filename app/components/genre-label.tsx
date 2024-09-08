@@ -11,7 +11,7 @@ export default function GenreLabel({
   id: number;
   name: string;
 }) {
-  const Icon = GenreIcons.get(id) || Question;
+  const Icon = GenreIcons.get(id) ?? Question;
   return (
     <div
       key={id}
