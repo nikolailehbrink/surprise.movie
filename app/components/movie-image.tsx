@@ -1,4 +1,4 @@
-import { imageBase, imageConfig } from "@/lib/movie-database";
+import { imageBase, imageConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { MovieDetails } from "types/tmdb/movie-details";
 

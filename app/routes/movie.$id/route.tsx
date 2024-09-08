@@ -4,6 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import MovieDetailContent from "@/routes/movie.$id/movie-detail-content";
 import MovieDetailSidebar from "@/routes/movie.$id/movie-detail-sidebar";
+import { imageBase, imageConfig } from "@/lib/config";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.id, "No movie ID provided");
