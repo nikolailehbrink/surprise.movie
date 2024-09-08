@@ -12,7 +12,12 @@ import {
 } from "@/lib/movie.server";
 import { CircleNotch, Popcorn } from "@phosphor-icons/react";
 import { ActionFunctionArgs } from "@remix-run/node";
-import { json, useFetcher, useLoaderData } from "@remix-run/react";
+import {
+  json,
+  ShouldRevalidateFunctionArgs,
+  useFetcher,
+  useLoaderData,
+} from "@remix-run/react";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 
@@ -26,6 +31,25 @@ export const loader = async () => {
     { streamingProviders, genres },
     { headers: { "Cache-Control": "public, max-age=86400" } },
   );
+};
+
+export function shouldRevalidate({
+  formMethod,
+  defaultShouldRevalidate,
+}: ShouldRevalidateFunctionArgs) {
+  // Don't revalidate after changes in search params, which always trigger a GET request
+  // https://github.com/remix-run/react-router/discussions/9851
+  if (formMethod === "GET") {
+    return false;
+  }
+
+  return defaultShouldRevalidate;
+}
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const { searchParams: filterValues } = new URL(request.url);
+  const movie = await getRandomMovie(filterValues);
+  return json({ movie });
 };
 
 export default function Index() {
@@ -87,10 +111,3 @@ export default function Index() {
     </div>
   );
 }
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const { searchParams: filterValues } = new URL(request.url);
-  // console.log({ filterValues });
-
-  const movie = await getRandomMovie(filterValues);
-  return json({ movie });
-};
