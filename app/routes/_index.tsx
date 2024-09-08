@@ -9,7 +9,7 @@ import {
   getMovieGenres,
   getRandomMovie,
   getStreamingProviders,
-} from "@/lib/movie-database";
+} from "@/lib/movie.server";
 import { CircleNotch, Popcorn } from "@phosphor-icons/react";
 import { ActionFunctionArgs } from "@remix-run/node";
 import { json, useFetcher, useLoaderData } from "@remix-run/react";
