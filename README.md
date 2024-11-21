@@ -3,7 +3,7 @@
 Sophisticated movie generator SPA that features different filters and a watchlist exclusively recommending highly-rated films. It integrates modern design principles and connects to the TMDB and JustWatch APIs for comprehensive movie data.
 
 > [!NOTE]
-> This project is subject to a rewrite with [remix](https://remix.run/) and small design changes, making it more performant, easier to maintain, and more visually appealing. The new version will be available soon.
+> This project is subject to a rewrite with [Remix](https://remix.run/) and small design changes, making it more performant, easier to maintain, and more visually appealing. The new version will be available soon and can be tracked in the [dedicated branch](https://github.com/nikolailehbrink/surprise.movie/tree/remix).
 
 ![Website-Mockup](screenshot.png)
 
